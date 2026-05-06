@@ -1,0 +1,9 @@
+# SoulstormAI - Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://soulstormai.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 10

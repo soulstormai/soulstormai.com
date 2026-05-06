@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-3424397100313583">
+    
+    <!-- SEO Meta Tags -->
+    <title>Blog - SoulstormAI | Insights on Tech, Spirituality & Side Hustles</title>
+    <meta name="description" content="Explore articles on AI tools, tarot insights, side hustle strategies, pet travel tips, and digital wellness. Real talk from the SoulstormAI team.">
+    <meta name="keywords" content="SoulstormAI blog, AI tools, tarot guide, side hustle tips, pet travel, digital wellness, tech insights">
+    <meta name="author" content="SoulstormAI">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://soulstormai.com/blog">
+    <meta property="og:title" content="Blog - SoulstormAI">
+    <meta property="og:description" content="Insights on tech, spirituality, and making money work for you.">
+    <meta property="og:image" content="https://soulstormai.com/og-image.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RF30DV7CY0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-RF30DV7CY0');
+    </script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3424397100313583"
+         crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --fg: #e8e8e8;
+            --muted: #666666;
+            --accent: #4A148C;
+            --gold: #B8860B;
+        }
+
+        [data-theme="light"] {
+            --bg: #f5f5f5;
+            --fg: #0a0a0a;
+            --muted: #888888;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            transition: background 0.8s ease, color 0.8s ease;
+        }
+
+        /* Header */
+        header {
+            padding: 40px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            text-decoration: none;
+            color: var(--fg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--fg);
+        }
+
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--fg);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--fg);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--fg);
+            color: var(--bg);
+        }
+
+        /* Hero */
+        .blog-hero {
+            padding: 120px 80px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .blog-hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .blog-hero p {
+            font-size: 1.2rem;
+            color: var(--muted);
+            max-width: 600px;
+        }
+
+        /* Categories */
+        .categories {
+            padding: 0 80px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .category-tag {
+            padding: 10px 24px;
+            border: 1px solid var(--muted);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: var(--muted);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .category-tag:hover,
+        .category-tag.active {
+            border-color: var(--fg);
+            color: var(--fg);
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            padding: 0 80px 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        /* Article Card */
+        .article-card {
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            color: var(--fg);
+            display: block;
+        }
+
+        .article-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .article-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .article-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+
+        .article-excerpt {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        /* Featured Article */
+        .featured-article {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            padding: 60px;
+            background: linear-gradient(135deg, rgba(74, 20, 140, 0.1), rgba(184, 134, 11, 0.05));
+            border: 1px solid rgba(184, 134, 11, 0.3);
+        }
+
+        .featured-article:hover {
+            border-color: var(--gold);
+        }
+
+        .featured-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .featured-article .article-title {
+            font-size: 2.5rem;
+        }
+
+        .featured-image {
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            min-height: 300px;
+        }
+
+        /* Ad Slot */
+        .ad-slot {
+            grid-column: 1 / -1;
+            min-height: 90px;
+            background: rgba(255,255,255,0.02);
+            border: 1px dashed rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--fg);
+        }
+
+        .footer-copyright {
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            header {
+                padding: 20px;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .blog-hero {
+                padding: 60px 20px 40px;
+            }
+
+            .categories {
+                padding: 0 20px 40px;
+            }
+
+            .blog-grid {
+                padding: 0 20px 60px;
+                grid-template-columns: 1fr;
+            }
+
+            .featured-article {
+                grid-template-columns: 1fr;
+                padding: 30px;
+            }
+
+            .featured-article .article-title {
+                font-size: 1.8rem;
+            }
+
+            footer {
+                padding: 40px 20px;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">SoulstormAI</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="blog.html" style="color: var(--fg);">Blog</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <button class="theme-toggle" id="themeToggle">☀</button>
+    </header>
+
+    <section class="blog-hero">
+        <h1>Insights</h1>
+        <p>Real talk on tech, spirituality, side hustles, and building apps that actually work.</p>
+    </section>
+
+    <div class="categories">
+        <a href="#" class="category-tag active">All</a>
+        <a href="#" class="category-tag">Tech & AI</a>
+        <a href="#" class="category-tag">Spirituality</a>
+        <a href="#" class="category-tag">Side Hustles</a>
+        <a href="#" class="category-tag">Pet Travel</a>
+        <a href="#" class="category-tag">Productivity</a>
+    </div>
+
+    <div class="blog-grid">
+        <!-- Featured Article -->
+        <a href="blog/why-most-apps-fail.html" class="article-card featured-article">
+            <div class="featured-content">
+                <div class="featured-label">Featured</div>
+                <div class="article-category">Tech & AI</div>
+                <h2 class="article-title">Why Most Apps Fail (And What We Do Different)</h2>
+                <p class="article-excerpt">90% of apps get abandoned within a month. We looked at why - turns out, most developers build what they think is cool, not what actually solves problems. Here's our approach to building apps that people actually use.</p>
+                <div class="article-meta">
+                    <span>January 9, 2026</span>
+                    <span>8 min read</span>
+                </div>
+            </div>
+            <div class="featured-image">🚀</div>
+        </a>
+
+        <!-- Article 1 -->
+        <a href="blog/tarot-beginners-guide.html" class="article-card">
+            <div class="article-category">Spirituality</div>
+            <h3 class="article-title">Tarot for Skeptics: A No-Nonsense Beginner's Guide</h3>
+            <p class="article-excerpt">You don't have to believe in magic to use tarot. Think of it as a tool for structured self-reflection. Here's how to start without the woo-woo.</p>
+            <div class="article-meta">
+                <span>January 8, 2026</span>
+                <span>6 min read</span>
+            </div>
+        </a>
+
+        <!-- Article 2 -->
+        <a href="blog/side-hustle-math.html" class="article-card">
+            <div class="article-category">Side Hustles</div>
+            <h3 class="article-title">The Side Hustle Math Nobody Talks About</h3>
+            <p class="article-excerpt">$25/hour sounds great until you factor in gas, taxes, and wear on your car. Here's how to calculate what you're really making - and if it's worth it.</p>
+            <div class="article-meta">
+                <span>January 7, 2026</span>
+                <span>5 min read</span>
+            </div>
+        </a>
+
+        <!-- Article 3 -->
+        <a href="blog/pet-friendly-hotels.html" class="article-card">
+            <div class="article-category">Pet Travel</div>
+            <h3 class="article-title">Pet-Friendly Hotels: What "Pet-Friendly" Actually Means</h3>
+            <p class="article-excerpt">Some hotels charge $50/night pet fees. Others welcome your dog with treats. We break down what to look for and how to avoid surprise charges.</p>
+            <div class="article-meta">
+                <span>January 6, 2026</span>
+                <span>4 min read</span>
+            </div>
+        </a>
+
+        <!-- Ad Slot -->
+        <div class="ad-slot">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3424397100313583"
+                 data-ad-slot="auto"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+
+        <!-- Article 4 -->
+        <a href="blog/moon-phases-productivity.html" class="article-card">
+            <div class="article-category">Productivity</div>
+            <h3 class="article-title">Moon Phases & Productivity: Pseudoscience or Life Hack?</h3>
+            <p class="article-excerpt">Some people swear by planning work around moon cycles. We looked at the research and tried it ourselves. Here's what happened.</p>
+            <div class="article-meta">
+                <span>January 5, 2026</span>
+                <span>7 min read</span>
+            </div>
+        </a>
+
+        <!-- Article 5 -->
+        <a href="blog/ai-tools-actually-useful.html" class="article-card">
+            <div class="article-category">Tech & AI</div>
+            <h3 class="article-title">AI Tools That Are Actually Useful (Not Just Hype)</h3>
+            <p class="article-excerpt">Not every AI tool is worth your time. We tested 50+ and found the ones that genuinely save time vs. the ones that just sound cool.</p>
+            <div class="article-meta">
+                <span>January 4, 2026</span>
+                <span>10 min read</span>
+            </div>
+        </a>
+
+        <!-- Article 6 -->
+        <a href="blog/bill-splitting-etiquette.html" class="article-card">
+            <div class="article-category">Productivity</div>
+            <h3 class="article-title">The Unspoken Rules of Bill Splitting</h3>
+            <p class="article-excerpt">Who pays for what? When do you split evenly vs. itemize? We surveyed 500 people to find the social norms around shared expenses.</p>
+            <div class="article-meta">
+                <span>January 3, 2026</span>
+                <span>5 min read</span>
+            </div>
+        </a>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="blog.html">Blog</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy.html">Privacy</a>
+        </div>
+        <div class="footer-copyright">
+            © 2025 SoulstormAI — Apps that work.
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const newTheme = current === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'light' ? '☾' : '☀';
+        });
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'light' ? '☾' : '☀';
+
+        // AdSense
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</body>
+</html>
