@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(powershell -Command \"Test-Path ''f:\\\\petwander-ai\\\\index.css''\")",
-      "Bash(powershell:*)"
-    ]
-  }
-}

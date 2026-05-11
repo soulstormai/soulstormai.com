@@ -5,3 +5,7 @@ __pycache__/
 .env.local
 .env*.local
 .vercel/
+tools/petwander.soulstormai.com/
+tools/sidehustlecalc.soulstormai.com/
+tools/tipsplitapp.vercel.app/
+tools/house-flip-calculator-v1/
