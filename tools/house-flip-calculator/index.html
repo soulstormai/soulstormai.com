@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-3424397100313583">
+
+    <title>House Flip Calculator — All 50 States | SoulstormAI</title>
+    <meta name="description" content="Free house flipping calculator for all 50 states. Run the full numbers: purchase, rehab, holding, financing, and selling costs. Includes 70% Rule checker, deal score, and save/load deals.">
+    <meta name="keywords" content="house flip calculator, house flipping calculator, real estate investment calculator, 70% rule calculator, flip profit calculator, rehab cost estimator">
+    <meta name="author" content="SoulstormAI">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://soulstormai.com/tools/house-flip-calculator/">
+    <meta property="og:title" content="House Flip Calculator — All 50 States">
+    <meta property="og:description" content="Run the full numbers on any flip before you commit. Free, no sign-up.">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RF30DV7CY0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-RF30DV7CY0');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3424397100313583"
+         crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #fafaf8;
+            --card: #ffffff;
+            --border: #e5e2dc;
+            --text: #1c1a17;
+            --muted: #78716c;
+            --amber: #b45309;
+            --amber-light: #fef3c7;
+            --amber-border: #fde68a;
+            --green: #065f46;
+            --green-light: #d1fae5;
+            --red: #991b1b;
+            --red-light: #fee2e2;
+            --blue-light: #eff6ff;
+            --blue-border: #bfdbfe;
+            --blue-text: #1e40af;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .site-header {
+            background: linear-gradient(135deg, #1c1917 0%, #292524 50%, #1c1917 100%);
+            color: #fafaf8;
+            padding: 60px 24px 50px;
+            border-bottom: 3px solid #92400e;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #d97706;
+            margin-bottom: 20px;
+            text-decoration: none;
+        }
+
+        .header-badge:hover { color: #fbbf24; }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .header-sub {
+            font-size: 1.1rem;
+            color: #a8a29e;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .header-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .pill {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            color: #a8a29e;
+            border: 1px solid #44403c;
+            padding: 4px 12px;
+        }
+
+        /* Ad Slot */
+        .ad-slot { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+        /* Main Layout */
+        .main { max-width: 1200px; margin: 0 auto; padding: 32px 24px 80px; }
+
+        /* Templates */
+        .templates-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(90deg, #1d4ed8, #2563eb);
+            padding: 14px 24px;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: white;
+            font-weight: 700;
+        }
+
+        .card-header.amber { background: linear-gradient(90deg, #92400e, #b45309); }
+        .card-header.stone { background: linear-gradient(90deg, #292524, #44403c); }
+
+        .card-body { padding: 24px; }
+
+        .template-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+
+        .template-btn {
+            padding: 20px 16px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 2px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .template-btn:hover { border-color: var(--amber); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+
+        .template-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
+        .template-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+        .template-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 8px; }
+        .template-range { font-size: 0.75rem; font-weight: 600; color: var(--amber); }
+
+        /* Markets */
+        .markets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+
+        .market-btn {
+            padding: 14px 12px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 2px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .market-btn:hover, .market-btn.active {
+            border-color: var(--amber);
+            background: var(--amber-light);
+        }
+
+        .market-rank { font-size: 1.3rem; font-weight: 700; color: var(--amber); margin-bottom: 4px; }
+        .market-name { font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; }
+        .market-profit { font-size: 0.75rem; color: var(--muted); }
+        .market-roi { font-size: 0.75rem; font-weight: 600; color: var(--green); }
+
+        /* State Selector */
+        .state-card { background: var(--card); border: 1px solid var(--border); border-radius: 2px; margin-bottom: 24px; overflow: hidden; }
+
+        .state-select {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 2px;
+            background: white;
+            color: var(--text);
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .state-select:focus { border-color: var(--amber); }
+
+        .state-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            margin-top: 20px;
+        }
+
+        .stat-box { background: var(--bg); padding: 16px; }
+        .stat-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 4px; }
+        .stat-value { font-size: 1.1rem; font-weight: 700; }
+        .stat-value.green { color: var(--green); }
+
+        /* Calculator Grid */
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+        @media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+
+        /* Input Panel */
+        .input-panel { background: var(--card); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+
+        /* Tabs */
+        .tabs { display: flex; overflow-x: auto; border-bottom: 1px solid var(--border); background: var(--bg); }
+
+        .tab-btn {
+            padding: 14px 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            color: var(--muted);
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tab-btn:hover { color: var(--text); }
+        .tab-btn.active { color: var(--amber); border-bottom-color: var(--amber); }
+
+        .tab-panel { padding: 28px; display: none; }
+        .tab-panel.active { display: block; }
+
+        /* Inputs */
+        .field { margin-bottom: 22px; }
+
+        label {
+            display: block;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .input-wrap { position: relative; }
+        .input-prefix {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            font-size: 1rem;
+            pointer-events: none;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 13px 14px;
+            border: 2px solid var(--border);
+            border-radius: 2px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: white;
+            outline: none;
+            transition: border-color 0.2s;
+            -moz-appearance: textfield;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+        input[type="number"]:focus { border-color: var(--amber); }
+        .has-prefix input[type="number"] { padding-left: 32px; }
+
+        select.field-select {
+            width: 100%;
+            padding: 13px 14px;
+            border: 2px solid var(--border);
+            border-radius: 2px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: white;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        select.field-select:focus { border-color: var(--amber); }
+
+        .quality-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+
+        .quality-btn {
+            padding: 12px 8px;
+            border: 2px solid var(--border);
+            border-radius: 2px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .quality-btn:hover { border-color: var(--amber); }
+        .quality-btn.active { border-color: var(--amber); background: var(--amber-light); }
+        .quality-btn-name { font-size: 0.8rem; font-weight: 700; display: block; margin-bottom: 2px; }
+        .quality-btn-range { font-size: 0.65rem; color: var(--muted); }
+
+        /* Alert boxes */
+        .alert {
+            margin-top: 10px;
+            padding: 10px 14px;
+            border-left: 3px solid;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+
+        .alert-green { border-color: #059669; background: var(--green-light); color: #065f46; }
+        .alert-red { border-color: #dc2626; background: var(--red-light); color: #991b1b; }
+        .alert-blue { border-color: #3b82f6; background: var(--blue-light); color: var(--blue-text); }
+        .alert strong { display: block; margin-bottom: 2px; }
+
+        /* Results Panel */
+        .results-panel { display: flex; flex-direction: column; gap: 16px; }
+
+        /* Deal Score */
+        .score-card { background: var(--card); border: 1px solid var(--border); border-radius: 2px; padding: 28px; }
+
+        .score-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+        .score-display { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 16px; }
+        .score-number { font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 700; line-height: 1; }
+        .score-100 { font-size: 1.5rem; color: var(--muted); align-self: flex-end; margin-bottom: 8px; }
+
+        .score-bar-track { height: 6px; background: var(--border); border-radius: 0; margin-bottom: 12px; overflow: hidden; }
+        .score-bar-fill { height: 100%; border-radius: 0; transition: width 0.5s ease; }
+
+        .score-rating { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; }
+
+        /* Profit display */
+        .profit-card { background: var(--card); border: 1px solid var(--border); border-radius: 2px; padding: 28px; }
+
+        .profit-main { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-bottom: 20px; }
+        .profit-stat { background: var(--card); padding: 20px; }
+        .profit-stat-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+        .profit-stat-value { font-size: 1.5rem; font-weight: 700; }
+        .profit-stat-value.pos { color: var(--green); }
+        .profit-stat-value.neg { color: var(--red); }
+        .profit-stat-sub { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+
+        /* Cost Breakdown */
+        .breakdown-card { background: var(--card); border: 1px solid var(--border); border-radius: 2px; padding: 28px; }
+
+        .breakdown-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .breakdown-row:last-child { border-bottom: none; }
+        .breakdown-label { color: var(--muted); }
+        .breakdown-value { font-weight: 600; }
+        .breakdown-bar { height: 4px; background: var(--border); margin-top: 4px; width: 100%; }
+        .breakdown-bar-fill { height: 100%; background: #b45309; }
+
+        /* 70% Rule */
+        .rule-card { background: var(--card); border: 1px solid var(--border); border-radius: 2px; padding: 24px; }
+
+        /* Save Deals */
+        .save-card { background: var(--card); border: 1px solid var(--border); border-radius: 2px; margin-top: 24px; overflow: hidden; }
+
+        .save-form { padding: 24px; display: flex; gap: 12px; border-bottom: 1px solid var(--border); }
+
+        .save-input {
+            flex: 1;
+            padding: 11px 14px;
+            border: 2px solid var(--border);
+            border-radius: 2px;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+        }
+
+        .save-input:focus { border-color: var(--amber); }
+
+        .save-btn {
+            padding: 11px 20px;
+            background: var(--text);
+            color: white;
+            border: none;
+            border-radius: 2px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .save-btn:hover { background: var(--amber); }
+
+        .deals-list { padding: 16px 24px; }
+        .deal-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+        .deal-item:last-child { border-bottom: none; }
+        .deal-info { flex: 1; }
+        .deal-name { font-weight: 600; }
+        .deal-meta { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+        .deal-actions { display: flex; gap: 8px; }
+
+        .deal-btn {
+            padding: 5px 10px;
+            border: 1px solid var(--border);
+            background: white;
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .deal-btn:hover { border-color: var(--amber); color: var(--amber); }
+        .deal-btn.del:hover { border-color: #dc2626; color: #dc2626; }
+
+        /* Timeline */
+        .timeline-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--amber-light);
+            border: 1px solid var(--amber-border);
+            color: var(--amber);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: #1c1917;
+            color: #a8a29e;
+            padding: 40px 24px;
+            text-align: center;
+            font-size: 0.8rem;
+            line-height: 1.8;
+        }
+
+        .site-footer a { color: #d97706; text-decoration: none; }
+        .site-footer a:hover { color: #fbbf24; }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: #fefce8;
+            border: 1px solid #fde68a;
+            padding: 16px 24px;
+            margin-bottom: 24px;
+            font-size: 0.8rem;
+            color: #92400e;
+            line-height: 1.6;
+        }
+
+        /* Mobile */
+        @media (max-width: 640px) {
+            h1 { font-size: 2.2rem; }
+            .profit-main { grid-template-columns: 1fr; }
+            .markets-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+            .template-grid { grid-template-columns: 1fr; }
+            .save-form { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+        <a href="/tools/" class="header-badge">← SoulstormAI / Tools</a>
+        <h1>House Flip<br>Calculator</h1>
+        <p class="header-sub">Professional Analysis · All 50 States · Real Market Data</p>
+        <div class="header-pills">
+            <span class="pill">70% Rule Built-In</span>
+            <span class="pill">Deal Score</span>
+            <span class="pill">Save Deals Locally</span>
+            <span class="pill">Data: May 2026</span>
+        </div>
+    </div>
+</header>
+
+<!-- Ad Top -->
+<div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3424397100313583" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<main class="main">
+
+    <div class="disclaimer">
+        <strong>Disclaimer:</strong> This calculator provides estimates for educational purposes only. Market data is approximate. Always consult licensed real estate professionals before making investment decisions.
+    </div>
+
+    <!-- Quick Templates -->
+    <div class="templates-card">
+        <div class="card-header">⚡ Quick Start Templates</div>
+        <div class="card-body">
+            <div class="template-grid">
+                <button class="template-btn" onclick="applyTemplate('cosmetic')">
+                    <span class="template-icon">🎨</span>
+                    <div class="template-name">Cosmetic Flip</div>
+                    <div class="template-desc">Paint, floors, fixtures</div>
+                    <div class="template-range">$15–40/sqft · 2–4 months</div>
+                </button>
+                <button class="template-btn" onclick="applyTemplate('standard')">
+                    <span class="template-icon">🔨</span>
+                    <div class="template-name">Full Rehab</div>
+                    <div class="template-desc">Kitchen, baths, systems</div>
+                    <div class="template-range">$40–90/sqft · 4–8 months</div>
+                </button>
+                <button class="template-btn" onclick="applyTemplate('luxury')">
+                    <span class="template-icon">💎</span>
+                    <div class="template-name">Luxury Flip</div>
+                    <div class="template-desc">Custom everything, gut job</div>
+                    <div class="template-range">$100–150+/sqft · 6–12 months</div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top 10 Markets -->
+    <div class="templates-card">
+        <div class="card-header amber">Top 10 Markets by Average Profit</div>
+        <div class="card-body">
+            <div class="markets-grid" id="marketsGrid"></div>
+        </div>
+    </div>
+
+    <!-- State Selector -->
+    <div class="state-card">
+        <div class="card-header stone">Select Your Market</div>
+        <div class="card-body">
+            <select class="state-select" id="stateSelect" onchange="applyStatePreset(this.value)"></select>
+            <div class="state-stats">
+                <div class="stat-box">
+                    <div class="stat-label">Property Tax</div>
+                    <div class="stat-value" id="statTax">—</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Insurance/mo</div>
+                    <div class="stat-value" id="statIns">—</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Median Home</div>
+                    <div class="stat-value" id="statMedian">—</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Avg Profit</div>
+                    <div class="stat-value green" id="statProfit">—</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calculator -->
+    <div class="calc-grid">
+
+        <!-- Inputs -->
+        <div class="input-panel">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab('purchase')">Purchase</button>
+                <button class="tab-btn" onclick="showTab('rehab')">Rehab</button>
+                <button class="tab-btn" onclick="showTab('holding')">Holding</button>
+                <button class="tab-btn" onclick="showTab('selling')">Selling</button>
+                <button class="tab-btn" onclick="showTab('financing')">Financing</button>
+            </div>
+
+            <!-- Purchase Tab -->
+            <div class="tab-panel active" id="tab-purchase">
+                <div class="field">
+                    <label>Square Footage</label>
+                    <input type="number" id="squareFeet" value="1200" oninput="updateCalc()">
+                    <div class="alert alert-blue" style="margin-top:10px">
+                        <strong>Pro Tip: Size Matters</strong>
+                        Larger homes (2000+ sqft) often have lower cost per sqft but higher total rehab. Smaller homes under 1000 sqft flip faster with less capital.
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Purchase Price</label>
+                    <div class="input-wrap has-prefix">
+                        <span class="input-prefix">$</span>
+                        <input type="number" id="purchasePrice" value="180000" oninput="updateCalc()">
+                    </div>
+                    <div id="ruleAlert" style="margin-top:10px"></div>
+                </div>
+                <div class="field">
+                    <label>Closing Costs (Purchase)</label>
+                    <div class="input-wrap has-prefix">
+                        <span class="input-prefix">$</span>
+                        <input type="number" id="closingCostsPurchase" value="3420" oninput="updateCalc()">
+                    </div>
+                    <div class="alert alert-blue" style="margin-top:10px">
+                        <strong>Pro Tip: Hidden Soft Costs</strong>
+                        Budget 10% of purchase price for all closing costs: title, escrow, transfer taxes, recording fees, inspection, appraisal.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rehab Tab -->
+            <div class="tab-panel" id="tab-rehab">
+                <div class="field">
+                    <label>Renovation Quality</label>
+                    <div class="quality-btns">
+                        <button class="quality-btn active" id="qBudget" onclick="setQuality('budget')">
+                            <span class="quality-btn-name">Budget</span>
+                            <span class="quality-btn-range">$15–40/sqft</span>
+                        </button>
+                        <button class="quality-btn" id="qStandard" onclick="setQuality('standard')">
+                            <span class="quality-btn-name">Standard</span>
+                            <span class="quality-btn-range">$40–90/sqft</span>
+                        </button>
+                        <button class="quality-btn" id="qPremium" onclick="setQuality('premium')">
+                            <span class="quality-btn-name">Premium</span>
+                            <span class="quality-btn-range">$100–150+/sqft</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Rehab Costs</label>
+                    <div class="input-wrap has-prefix">
+                        <span class="input-prefix">$</span>
+                        <input type="number" id="rehabCosts" value="35000" oninput="updateCalc()">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Contingency (%)</label>
+                    <input type="number" id="contingency" value="15" oninput="updateCalc()">
+                    <div class="alert alert-blue" style="margin-top:10px">
+                        <strong>Pro Tip: Always Pad Your Budget</strong>
+                        Industry standard is 10–20% contingency. First-time flippers often underestimate by 30–50%. When in doubt, go higher.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Holding Tab -->
+            <div class="tab-panel" id="tab-holding">
+                <div class="field">
+                    <label>Holding Months</label>
+                    <input type="number" id="holdingMonths" value="6" oninput="updateCalc()">
+                </div>
+                <div class="field">
+                    <label>Property Tax (Monthly)</label>
+                    <div class="input-wrap has-prefix">
+                        <span class="input-prefix">$</span>
+                        <input type="number" id="propertyTax" value="228" oninput="updateCalc()">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Insurance (Monthly)</label>
+                    <div class="input-wrap has-prefix">
+                        <span class="input-prefix">$</span>
+                        <input type="number" id="insurance" value="145" oninput="updateCalc()">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Utilities (Monthly)</label>
+                    <div class="input-wrap has-prefix">
+                        <span class="input-prefix">$</span>
+                        <input type="number" id="utilities" value="100" oninput="updateCalc()">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>HOA (Monthly)</label>
+                    <div class="input-wrap has-prefix">
+                        <span class="input-prefix">$</span>
+                        <input type="number" id="hoa" value="0" oninput="updateCalc()">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Lawn / Maintenance (Monthly)</label>
+                    <div class="input-wrap has-prefix">
+                        <span class="input-prefix">$</span>
+                        <input type="number" id="lawnMaintenance" value="100" oninput="updateCalc()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selling Tab -->
+            <div class="tab-panel" id="tab-selling">
+                <div class="field">
+                    <label>After Repair Value (ARV)</label>
+                    <div class="input-wrap has-prefix">
+                        <span class="input-prefix">$</span>
+                        <input type="number" id="arv" value="280000" oninput="updateCalc()">
+                    </div>
+                    <div class="alert alert-blue" style="margin-top:10px">
+                        <strong>Pro Tip: Validate Your ARV</strong>
+                        Pull 3–5 comparable sales (comps) within 1 mile, sold in last 6 months, similar sqft and condition. Be conservative — the market may have shifted since listing.
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Realtor Commission (%)</label>
+                    <input type="number" id="realtorCommission" value="6" oninput="updateCalc()">
+                </div>
+                <div class="field">
+                    <label>Closing Costs — Selling (%)</label>
+                    <input type="number" id="closingCostsSelling" value="2" oninput="updateCalc()">
+                </div>
+            </div>
+
+            <!-- Financing Tab -->
+            <div class="tab-panel" id="tab-financing">
+                <div class="field">
+                    <label>Loan Amount</label>
+                    <div class="input-wrap has-prefix">
+                        <span class="input-prefix">$</span>
+                        <input type="number" id="loanAmount" value="0" oninput="updateCalc()">
+                    </div>
+                    <div class="alert alert-blue" style="margin-top:10px">
+                        <strong>Pro Tip: Hard Money vs. Cash</strong>
+                        Leave Loan Amount at 0 for all-cash analysis. Hard money lenders typically charge 10–14% interest plus 2–3 points. Factor this in carefully — financing can turn a good deal bad.
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Interest Rate (%)</label>
+                    <input type="number" id="interestRate" value="11" oninput="updateCalc()">
+                </div>
+                <div class="field">
+                    <label>Loan Points (%)</label>
+                    <input type="number" id="loanPoints" value="2" oninput="updateCalc()">
+                </div>
+                <div class="field">
+                    <label>Lender Fees</label>
+                    <div class="input-wrap has-prefix">
+                        <span class="input-prefix">$</span>
+                        <input type="number" id="lenderFees" value="1500" oninput="updateCalc()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="results-panel">
+
+            <!-- Deal Score -->
+            <div class="score-card">
+                <div class="score-label">Deal Score</div>
+                <div class="score-display">
+                    <div class="score-number" id="scoreNumber">0</div>
+                    <div class="score-100">/100</div>
+                </div>
+                <div class="score-bar-track">
+                    <div class="score-bar-fill" id="scoreBar" style="width:0%;background:#dc2626"></div>
+                </div>
+                <div class="score-rating" id="scoreRating">—</div>
+                <div class="timeline-badge" id="timeline">—</div>
+            </div>
+
+            <!-- Profit -->
+            <div class="profit-card">
+                <div class="profit-main">
+                    <div class="profit-stat">
+                        <div class="profit-stat-label">Gross Profit</div>
+                        <div class="profit-stat-value" id="grossProfit">$0</div>
+                    </div>
+                    <div class="profit-stat">
+                        <div class="profit-stat-label">ROI</div>
+                        <div class="profit-stat-value" id="roi">0%</div>
+                    </div>
+                    <div class="profit-stat">
+                        <div class="profit-stat-label">Total Investment</div>
+                        <div class="profit-stat-value" id="totalInvestment">$0</div>
+                        <div class="profit-stat-sub">before selling costs</div>
+                    </div>
+                    <div class="profit-stat">
+                        <div class="profit-stat-label">Cash Needed</div>
+                        <div class="profit-stat-value" id="cashNeeded">$0</div>
+                        <div class="profit-stat-sub">out of pocket</div>
+                    </div>
+                </div>
+                <div id="cashOnCash" style="font-size:0.8rem; color:var(--muted); padding-top:4px;"></div>
+            </div>
+
+            <!-- Cost Breakdown -->
+            <div class="breakdown-card">
+                <div class="score-label" style="margin-bottom:16px">Cost Breakdown</div>
+                <div id="breakdownRows"></div>
+            </div>
+
+            <!-- 70% Rule -->
+            <div class="rule-card" id="ruleCard"></div>
+
+        </div>
+    </div>
+
+    <!-- Save Deals -->
+    <div class="save-card">
+        <div class="card-header stone">Save & Compare Deals</div>
+        <div class="save-form">
+            <input type="text" class="save-input" id="dealName" placeholder="Deal name (e.g. 123 Oak St)">
+            <button class="save-btn" onclick="saveDeal()">Save Deal</button>
+        </div>
+        <div class="deals-list" id="dealsList">
+            <div style="font-size:0.8rem; color:var(--muted); padding:8px 0;">No saved deals yet.</div>
+        </div>
+    </div>
+
+    <!-- Ad Mid -->
+    <div style="margin-top:32px">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3424397100313583" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+</main>
+
+<footer class="site-footer">
+    <p>Built by <a href="/">SoulstormAI</a> · <a href="/tools/">All Tools</a> · <a href="/privacy.html">Privacy</a></p>
+    <p style="margin-top:8px; font-size:0.72rem; opacity:0.6;">For educational purposes only. Not financial or legal advice. Always consult a licensed professional before investing.</p>
+</footer>
+
+<script>
+const STATE_DATA = {
+    AL:{name:"Alabama",tax:0.0038,insurance:120,closingBuy:0.019,closingSell:0.019,medianHome:180000,avgRehab:28000,avgProfit:35000},
+    AK:{name:"Alaska",tax:0.0104,insurance:135,closingBuy:0.021,closingSell:0.021,medianHome:320000,avgRehab:42000,avgProfit:48000},
+    AZ:{name:"Arizona",tax:0.0055,insurance:145,closingBuy:0.020,closingSell:0.020,medianHome:425000,avgRehab:38000,avgProfit:52000},
+    AR:{name:"Arkansas",tax:0.0059,insurance:125,closingBuy:0.018,closingSell:0.018,medianHome:160000,avgRehab:25000,avgProfit:28000},
+    CA:{name:"California",tax:0.0073,insurance:165,closingBuy:0.023,closingSell:0.023,medianHome:720000,avgRehab:55000,avgProfit:85000},
+    CO:{name:"Colorado",tax:0.0049,insurance:155,closingBuy:0.021,closingSell:0.021,medianHome:560000,avgRehab:45000,avgProfit:68000},
+    CT:{name:"Connecticut",tax:0.0179,insurance:180,closingBuy:0.025,closingSell:0.025,medianHome:340000,avgRehab:42000,avgProfit:45000},
+    DE:{name:"Delaware",tax:0.0056,insurance:140,closingBuy:0.020,closingSell:0.020,medianHome:310000,avgRehab:35000,avgProfit:42000},
+    FL:{name:"Florida",tax:0.0086,insurance:220,closingBuy:0.021,closingSell:0.021,medianHome:385000,avgRehab:40000,avgProfit:55000},
+    GA:{name:"Georgia",tax:0.0083,insurance:150,closingBuy:0.019,closingSell:0.019,medianHome:295000,avgRehab:32000,avgProfit:42000},
+    HI:{name:"Hawaii",tax:0.0027,insurance:185,closingBuy:0.024,closingSell:0.024,medianHome:820000,avgRehab:65000,avgProfit:92000},
+    ID:{name:"Idaho",tax:0.0060,insurance:135,closingBuy:0.020,closingSell:0.020,medianHome:445000,avgRehab:38000,avgProfit:52000},
+    IL:{name:"Illinois",tax:0.0207,insurance:160,closingBuy:0.022,closingSell:0.022,medianHome:250000,avgRehab:32000,avgProfit:38000},
+    IN:{name:"Indiana",tax:0.0078,insurance:130,closingBuy:0.018,closingSell:0.018,medianHome:195000,avgRehab:28000,avgProfit:32000},
+    IA:{name:"Iowa",tax:0.0144,insurance:135,closingBuy:0.019,closingSell:0.019,medianHome:175000,avgRehab:26000,avgProfit:30000},
+    KS:{name:"Kansas",tax:0.0132,insurance:145,closingBuy:0.019,closingSell:0.019,medianHome:185000,avgRehab:27000,avgProfit:32000},
+    KY:{name:"Kentucky",tax:0.0081,insurance:135,closingBuy:0.018,closingSell:0.018,medianHome:175000,avgRehab:26000,avgProfit:30000},
+    LA:{name:"Louisiana",tax:0.0052,insurance:190,closingBuy:0.019,closingSell:0.019,medianHome:205000,avgRehab:28000,avgProfit:32000},
+    ME:{name:"Maine",tax:0.0110,insurance:145,closingBuy:0.021,closingSell:0.021,medianHome:290000,avgRehab:35000,avgProfit:38000},
+    MD:{name:"Maryland",tax:0.0096,insurance:155,closingBuy:0.022,closingSell:0.022,medianHome:380000,avgRehab:40000,avgProfit:52000},
+    MA:{name:"Massachusetts",tax:0.0109,insurance:175,closingBuy:0.024,closingSell:0.024,medianHome:540000,avgRehab:48000,avgProfit:65000},
+    MI:{name:"Michigan",tax:0.0142,insurance:140,closingBuy:0.020,closingSell:0.020,medianHome:215000,avgRehab:28000,avgProfit:32000},
+    MN:{name:"Minnesota",tax:0.0103,insurance:150,closingBuy:0.021,closingSell:0.021,medianHome:305000,avgRehab:35000,avgProfit:42000},
+    MS:{name:"Mississippi",tax:0.0061,insurance:140,closingBuy:0.018,closingSell:0.018,medianHome:145000,avgRehab:24000,avgProfit:26000},
+    MO:{name:"Missouri",tax:0.0093,insurance:145,closingBuy:0.019,closingSell:0.019,medianHome:205000,avgRehab:28000,avgProfit:32000},
+    MT:{name:"Montana",tax:0.0082,insurance:140,closingBuy:0.020,closingSell:0.020,medianHome:385000,avgRehab:38000,avgProfit:45000},
+    NE:{name:"Nebraska",tax:0.0156,insurance:145,closingBuy:0.019,closingSell:0.019,medianHome:210000,avgRehab:28000,avgProfit:32000},
+    NV:{name:"Nevada",tax:0.0053,insurance:150,closingBuy:0.021,closingSell:0.021,medianHome:420000,avgRehab:40000,avgProfit:52000},
+    NH:{name:"New Hampshire",tax:0.0197,insurance:165,closingBuy:0.023,closingSell:0.023,medianHome:395000,avgRehab:42000,avgProfit:48000},
+    NJ:{name:"New Jersey",tax:0.0223,insurance:185,closingBuy:0.025,closingSell:0.025,medianHome:480000,avgRehab:48000,avgProfit:58000},
+    NM:{name:"New Mexico",tax:0.0076,insurance:135,closingBuy:0.019,closingSell:0.019,medianHome:245000,avgRehab:30000,avgProfit:35000},
+    NY:{name:"New York",tax:0.0153,insurance:195,closingBuy:0.024,closingSell:0.024,medianHome:420000,avgRehab:45000,avgProfit:55000},
+    NC:{name:"North Carolina",tax:0.0077,insurance:145,closingBuy:0.020,closingSell:0.020,medianHome:285000,avgRehab:32000,avgProfit:40000},
+    ND:{name:"North Dakota",tax:0.0099,insurance:140,closingBuy:0.019,closingSell:0.019,medianHome:245000,avgRehab:30000,avgProfit:35000},
+    OH:{name:"Ohio",tax:0.0145,insurance:135,closingBuy:0.019,closingSell:0.019,medianHome:185000,avgRehab:27000,avgProfit:30000},
+    OK:{name:"Oklahoma",tax:0.0087,insurance:165,closingBuy:0.018,closingSell:0.018,medianHome:175000,avgRehab:26000,avgProfit:30000},
+    OR:{name:"Oregon",tax:0.0087,insurance:150,closingBuy:0.021,closingSell:0.021,medianHome:485000,avgRehab:42000,avgProfit:58000},
+    PA:{name:"Pennsylvania",tax:0.0135,insurance:155,closingBuy:0.021,closingSell:0.021,medianHome:230000,avgRehab:30000,avgProfit:35000},
+    RI:{name:"Rhode Island",tax:0.0141,insurance:170,closingBuy:0.023,closingSell:0.023,medianHome:380000,avgRehab:40000,avgProfit:48000},
+    SC:{name:"South Carolina",tax:0.0055,insurance:155,closingBuy:0.019,closingSell:0.019,medianHome:250000,avgRehab:30000,avgProfit:35000},
+    SD:{name:"South Dakota",tax:0.0119,insurance:140,closingBuy:0.019,closingSell:0.019,medianHome:230000,avgRehab:28000,avgProfit:32000},
+    TN:{name:"Tennessee",tax:0.0064,insurance:145,closingBuy:0.019,closingSell:0.019,medianHome:255000,avgRehab:30000,avgProfit:38000},
+    TX:{name:"Texas",tax:0.0160,insurance:175,closingBuy:0.020,closingSell:0.020,medianHome:300000,avgRehab:35000,avgProfit:45000},
+    UT:{name:"Utah",tax:0.0057,insurance:145,closingBuy:0.020,closingSell:0.020,medianHome:485000,avgRehab:42000,avgProfit:58000},
+    VT:{name:"Vermont",tax:0.0190,insurance:160,closingBuy:0.022,closingSell:0.022,medianHome:315000,avgRehab:38000,avgProfit:42000},
+    VA:{name:"Virginia",tax:0.0080,insurance:150,closingBuy:0.021,closingSell:0.021,medianHome:350000,avgRehab:38000,avgProfit:48000},
+    WA:{name:"Washington",tax:0.0092,insurance:155,closingBuy:0.022,closingSell:0.022,medianHome:565000,avgRehab:48000,avgProfit:68000},
+    WV:{name:"West Virginia",tax:0.0058,insurance:125,closingBuy:0.018,closingSell:0.018,medianHome:135000,avgRehab:22000,avgProfit:24000},
+    WI:{name:"Wisconsin",tax:0.0165,insurance:150,closingBuy:0.020,closingSell:0.020,medianHome:245000,avgRehab:30000,avgProfit:35000},
+    WY:{name:"Wyoming",tax:0.0058,insurance:140,closingBuy:0.020,closingSell:0.020,medianHome:295000,avgRehab:35000,avgProfit:40000}
+};
+
+let rehabQuality = 'budget';
+let savedDeals = JSON.parse(localStorage.getItem('hfc_deals') || '[]');
+
+function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+function fmtPct(n) { return (Math.round(n * 10) / 10).toFixed(1) + '%'; }
+
+function getInputs() {
+    return {
+        purchasePrice: +document.getElementById('purchasePrice').value || 0,
+        closingCostsPurchase: +document.getElementById('closingCostsPurchase').value || 0,
+        squareFeet: +document.getElementById('squareFeet').value || 0,
+        rehabCosts: +document.getElementById('rehabCosts').value || 0,
+        contingency: +document.getElementById('contingency').value || 0,
+        propertyTax: +document.getElementById('propertyTax').value || 0,
+        insurance: +document.getElementById('insurance').value || 0,
+        utilities: +document.getElementById('utilities').value || 0,
+        hoa: +document.getElementById('hoa').value || 0,
+        lawnMaintenance: +document.getElementById('lawnMaintenance').value || 0,
+        holdingMonths: +document.getElementById('holdingMonths').value || 0,
+        arv: +document.getElementById('arv').value || 0,
+        realtorCommission: +document.getElementById('realtorCommission').value || 0,
+        closingCostsSelling: +document.getElementById('closingCostsSelling').value || 0,
+        loanAmount: +document.getElementById('loanAmount').value || 0,
+        interestRate: +document.getElementById('interestRate').value || 0,
+        loanPoints: +document.getElementById('loanPoints').value || 0,
+        lenderFees: +document.getElementById('lenderFees').value || 0,
+    };
+}
+
+function calculate(i) {
+    const totalRehabCosts = i.rehabCosts * (1 + i.contingency / 100);
+    const monthlyHoldingCosts = i.propertyTax + i.insurance + i.utilities + i.hoa + i.lawnMaintenance;
+    const totalHoldingCosts = monthlyHoldingCosts * i.holdingMonths;
+    const monthlyInterest = (i.loanAmount * (i.interestRate / 100)) / 12;
+    const totalInterest = monthlyInterest * i.holdingMonths;
+    const points = i.loanAmount * (i.loanPoints / 100);
+    const totalFinancingCosts = totalInterest + points + i.lenderFees;
+    const realtorFees = i.arv * (i.realtorCommission / 100);
+    const sellingClosing = i.arv * (i.closingCostsSelling / 100);
+    const totalSellingCosts = realtorFees + sellingClosing;
+    const totalInvestment = i.purchasePrice + i.closingCostsPurchase + totalRehabCosts + totalHoldingCosts + totalFinancingCosts;
+    const grossProfit = i.arv - totalInvestment - totalSellingCosts;
+    const roi = totalInvestment > 0 ? (grossProfit / totalInvestment) * 100 : 0;
+    const cashNeeded = i.purchasePrice + i.closingCostsPurchase + totalRehabCosts - i.loanAmount;
+    const cashOnCashReturn = cashNeeded > 0 ? (grossProfit / cashNeeded) * 100 : 0;
+    const maxPurchasePrice70Rule = (i.arv * 0.70) - totalRehabCosts;
+    const passes70Rule = i.purchasePrice <= maxPurchasePrice70Rule;
+    const costPerSqft = i.squareFeet > 0 ? i.rehabCosts / i.squareFeet : 0;
+    let estimatedTimeline = '4–6 months';
+    if (costPerSqft < 30) estimatedTimeline = '2–4 months (Cosmetic)';
+    else if (costPerSqft > 90) estimatedTimeline = '6–12 months (Major Rehab)';
+
+    let dealScore = 0;
+    if (roi >= 25) dealScore += 40;
+    else if (roi >= 15) dealScore += 30;
+    else if (roi >= 10) dealScore += 20;
+    else if (roi >= 5) dealScore += 10;
+    if (grossProfit >= 50000) dealScore += 30;
+    else if (grossProfit >= 30000) dealScore += 25;
+    else if (grossProfit >= 20000) dealScore += 20;
+    else if (grossProfit >= 10000) dealScore += 10;
+    if (i.holdingMonths <= 4) dealScore += 20;
+    else if (i.holdingMonths <= 6) dealScore += 15;
+    else if (i.holdingMonths <= 9) dealScore += 10;
+    else dealScore += 5;
+    if (i.arv / i.purchasePrice >= 1.4) dealScore += 10;
+    else if (i.arv / i.purchasePrice >= 1.3) dealScore += 5;
+
+    return {
+        totalRehabCosts, totalHoldingCosts, totalFinancingCosts, totalSellingCosts,
+        totalInvestment, grossProfit, roi, cashNeeded, cashOnCashReturn,
+        dealScore: Math.min(100, dealScore),
+        maxPurchasePrice70Rule, passes70Rule, costPerSqft, estimatedTimeline,
+        realtorFees, sellingClosing, purchaseCost: i.purchasePrice + i.closingCostsPurchase
+    };
+}
+
+function getDealRating(score) {
+    if (score >= 80) return { label: 'EXCELLENT DEAL', color: '#059669' };
+    if (score >= 60) return { label: 'GOOD DEAL', color: '#2563eb' };
+    if (score >= 40) return { label: 'MARGINAL', color: '#d97706' };
+    return { label: 'WALK AWAY', color: '#dc2626' };
+}
+
+function updateCalc() {
+    const i = getInputs();
+    const c = calculate(i);
+    const rating = getDealRating(c.dealScore);
+
+    // Score
+    document.getElementById('scoreNumber').textContent = c.dealScore;
+    const bar = document.getElementById('scoreBar');
+    bar.style.width = c.dealScore + '%';
+    bar.style.background = rating.color;
+    document.getElementById('scoreRating').textContent = rating.label;
+    document.getElementById('scoreRating').style.color = rating.color;
+    document.getElementById('timeline').textContent = '⏱ ' + c.estimatedTimeline;
+
+    // Profit
+    const gp = document.getElementById('grossProfit');
+    gp.textContent = fmt(c.grossProfit);
+    gp.className = 'profit-stat-value ' + (c.grossProfit >= 0 ? 'pos' : 'neg');
+
+    const roiEl = document.getElementById('roi');
+    roiEl.textContent = fmtPct(c.roi);
+    roiEl.className = 'profit-stat-value ' + (c.roi >= 0 ? 'pos' : 'neg');
+
+    document.getElementById('totalInvestment').textContent = fmt(c.totalInvestment);
+    document.getElementById('cashNeeded').textContent = fmt(c.cashNeeded);
+
+    if (i.loanAmount > 0) {
+        document.getElementById('cashOnCash').textContent = 'Cash-on-Cash Return: ' + fmtPct(c.cashOnCashReturn);
+    } else {
+        document.getElementById('cashOnCash').textContent = '';
+    }
+
+    // Breakdown
+    const costs = [
+        { label: 'Purchase + Closing', value: c.purchaseCost },
+        { label: 'Rehab (w/ contingency)', value: c.totalRehabCosts },
+        { label: 'Holding Costs', value: c.totalHoldingCosts },
+        { label: 'Financing Costs', value: c.totalFinancingCosts },
+        { label: 'Selling Costs', value: c.totalSellingCosts },
+    ];
+    const maxVal = Math.max(...costs.map(x => x.value), 1);
+    document.getElementById('breakdownRows').innerHTML = costs.map(row => `
+        <div class="breakdown-row">
+            <div>
+                <div class="breakdown-label">${row.label}</div>
+                <div class="breakdown-bar"><div class="breakdown-bar-fill" style="width:${(row.value/maxVal*100).toFixed(1)}%"></div></div>
+            </div>
+            <div class="breakdown-value">${fmt(row.value)}</div>
+        </div>
+    `).join('');
+
+    // 70% Rule
+    const ruleHtml = c.passes70Rule
+        ? `<div class="alert alert-green"><strong>✅ Passes 70% Rule</strong>Max allowed purchase: ${fmt(c.maxPurchasePrice70Rule)}</div>`
+        : `<div class="alert alert-red"><strong>⚠️ Fails 70% Rule</strong>Max allowed: ${fmt(c.maxPurchasePrice70Rule)} — You're ${fmt(i.purchasePrice - c.maxPurchasePrice70Rule)} over.</div>`;
+    document.getElementById('ruleCard').innerHTML = `<div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">70% Rule Check</div>` + ruleHtml;
+
+    // Also update the inline rule alert
+    document.getElementById('ruleAlert').innerHTML = c.passes70Rule
+        ? `<div class="alert alert-green"><strong>✅ Passes 70% Rule</strong>Max allowed: ${fmt(c.maxPurchasePrice70Rule)}</div>`
+        : `<div class="alert alert-red"><strong>⚠️ Red Flag</strong>70% Rule says max purchase: ${fmt(c.maxPurchasePrice70Rule)}. You're ${fmt(i.purchasePrice - c.maxPurchasePrice70Rule)} over.</div>`;
+}
+
+function showTab(id) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+
+function setQuality(q) {
+    rehabQuality = q;
+    document.querySelectorAll('.quality-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('q' + q.charAt(0).toUpperCase() + q.slice(1)).classList.add('active');
+    const sqft = +document.getElementById('squareFeet').value || 1200;
+    const rates = { budget: 25, standard: 55, premium: 125 };
+    document.getElementById('rehabCosts').value = sqft * rates[q];
+    updateCalc();
+}
+
+function applyTemplate(t) {
+    const sqft = +document.getElementById('squareFeet').value || 1200;
+    if (t === 'cosmetic') {
+        setQuality('budget');
+        document.getElementById('rehabCosts').value = sqft * 25;
+        document.getElementById('contingency').value = 12;
+        document.getElementById('holdingMonths').value = 3;
+    } else if (t === 'standard') {
+        setQuality('standard');
+        document.getElementById('rehabCosts').value = sqft * 55;
+        document.getElementById('contingency').value = 15;
+        document.getElementById('holdingMonths').value = 6;
+    } else if (t === 'luxury') {
+        setQuality('premium');
+        document.getElementById('rehabCosts').value = sqft * 125;
+        document.getElementById('contingency').value = 20;
+        document.getElementById('holdingMonths').value = 9;
+    }
+    updateCalc();
+}
+
+function applyStatePreset(code) {
+    const s = STATE_DATA[code];
+    if (!s) return;
+
+    document.getElementById('stateSelect').value = code;
+    document.getElementById('purchasePrice').value = s.medianHome;
+    document.getElementById('closingCostsPurchase').value = Math.round(s.medianHome * s.closingBuy);
+    document.getElementById('propertyTax').value = Math.round((s.medianHome * s.tax) / 12);
+    document.getElementById('insurance').value = s.insurance;
+    document.getElementById('rehabCosts').value = s.avgRehab;
+    document.getElementById('arv').value = s.medianHome + s.avgProfit + s.avgRehab;
+    document.getElementById('closingCostsSelling').value = (s.closingSell * 100).toFixed(1);
+    document.getElementById('utilities').value = 100;
+    document.getElementById('lawnMaintenance').value = 100;
+    document.getElementById('realtorCommission').value = 6;
+    document.getElementById('contingency').value = 15;
+
+    document.getElementById('statTax').textContent = (s.tax * 100).toFixed(2) + '%';
+    document.getElementById('statIns').textContent = '$' + s.insurance;
+    document.getElementById('statMedian').textContent = '$' + (s.medianHome / 1000).toFixed(0) + 'K';
+    document.getElementById('statProfit').textContent = '$' + (s.avgProfit / 1000).toFixed(0) + 'K';
+
+    document.querySelectorAll('.market-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.querySelector('[data-code="' + code + '"]');
+    if (activeBtn) activeBtn.classList.add('active');
+
+    updateCalc();
+}
+
+function saveDeal() {
+    const name = document.getElementById('dealName').value.trim();
+    if (!name) { alert('Enter a deal name first.'); return; }
+    const i = getInputs();
+    const c = calculate(i);
+    const stateCode = document.getElementById('stateSelect').value;
+    savedDeals.push({
+        id: Date.now(),
+        name,
+        state: STATE_DATA[stateCode] ? STATE_DATA[stateCode].name : stateCode,
+        profit: c.grossProfit,
+        roi: c.roi,
+        score: c.dealScore,
+        date: new Date().toLocaleDateString(),
+        inputs: i
+    });
+    localStorage.setItem('hfc_deals', JSON.stringify(savedDeals));
+    document.getElementById('dealName').value = '';
+    renderDeals();
+}
+
+function loadDeal(id) {
+    const deal = savedDeals.find(d => d.id === id);
+    if (!deal) return;
+    const inp = deal.inputs;
+    Object.keys(inp).forEach(k => {
+        const el = document.getElementById(k);
+        if (el) el.value = inp[k];
+    });
+    document.getElementById('dealName').value = deal.name;
+    updateCalc();
+}
+
+function deleteDeal(id) {
+    savedDeals = savedDeals.filter(d => d.id !== id);
+    localStorage.setItem('hfc_deals', JSON.stringify(savedDeals));
+    renderDeals();
+}
+
+function renderDeals() {
+    const list = document.getElementById('dealsList');
+    if (!savedDeals.length) {
+        list.innerHTML = '<div style="font-size:0.8rem; color:var(--muted); padding:8px 0;">No saved deals yet.</div>';
+        return;
+    }
+    list.innerHTML = savedDeals.map(d => `
+        <div class="deal-item">
+            <div class="deal-info">
+                <div class="deal-name">${d.name}</div>
+                <div class="deal-meta">${d.state} · Profit: <strong>${fmt(d.profit)}</strong> · ROI: ${fmtPct(d.roi)} · Score: ${d.score}/100 · ${d.date}</div>
+            </div>
+            <div class="deal-actions">
+                <button class="deal-btn" onclick="loadDeal(${d.id})">Load</button>
+                <button class="deal-btn del" onclick="deleteDeal(${d.id})">Delete</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function init() {
+    // Populate state select
+    const sel = document.getElementById('stateSelect');
+    Object.entries(STATE_DATA)
+        .sort((a, b) => a[1].name.localeCompare(b[1].name))
+        .forEach(([code, data]) => {
+            const opt = document.createElement('option');
+            opt.value = code;
+            opt.textContent = data.name + ' · $' + (data.medianHome/1000).toFixed(0) + 'K median · $' + (data.avgProfit/1000).toFixed(0) + 'K avg profit';
+            if (code === 'TX') opt.selected = true;
+            sel.appendChild(opt);
+        });
+
+    // Top 10 markets
+    const top10 = Object.entries(STATE_DATA)
+        .map(([code, d]) => ({ code, name: d.name, profit: d.avgProfit, roi: ((d.avgProfit / (d.medianHome + d.avgRehab)) * 100).toFixed(1) }))
+        .sort((a, b) => b.profit - a.profit)
+        .slice(0, 10);
+
+    document.getElementById('marketsGrid').innerHTML = top10.map((s, idx) => `
+        <button class="market-btn${s.code === 'TX' ? ' active' : ''}" data-code="${s.code}" onclick="applyStatePreset('${s.code}')">
+            <div class="market-rank">#${idx+1}</div>
+            <div class="market-name">${s.name}</div>
+            <div class="market-profit">$${(s.profit/1000).toFixed(0)}K avg</div>
+            <div class="market-roi">${s.roi}% ROI</div>
+        </button>
+    `).join('');
+
+    // Load saved deals
+    renderDeals();
+
+    // Set TX defaults and initial calc
+    applyStatePreset('TX');
+}
+
+init();
+</script>
+</body>
+</html>

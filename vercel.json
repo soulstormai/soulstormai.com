@@ -1,25 +1,25 @@
 {
-
   "version": 2,
-
   "builds": [
-
     { "src": "*.html", "use": "@vercel/static" }
-
   ],
-
   "routes": [
-
     { "src": "/", "dest": "/index.html" },
-
     { "src": "/about", "dest": "/about.html" },
-
     { "src": "/blog", "dest": "/blog.html" },
-
     { "src": "/contact", "dest": "/contact.html" },
-
     { "src": "/privacy", "dest": "/privacy-policy.html" }
-
+  ],
+  "redirects": [
+    {
+      "source": "/tools/house-flip-calculator-v1",
+      "destination": "/tools/house-flip-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/house-flip-calculator-v1/",
+      "destination": "/tools/house-flip-calculator/",
+      "permanent": true
+    }
   ]
-
 }

@@ -84,6 +84,10 @@
             --moon: #0D1B2A;
             --moon-emerald: #1B4332;
             --moon-accent: #52B788;
+            
+            /* House Flip Calculator - Stone & Amber */
+            --houseflip: #8B7040;
+            --houseflip-accent: #D4AF37;
         }
 
         [data-theme="light"] {
@@ -444,6 +448,25 @@
 
         .app-section.familiarbank::before {
             background: radial-gradient(circle at 50% 50%, var(--familiarbank), transparent 70%);
+        }
+
+        .app-section.houseflip::before {
+            background: radial-gradient(circle at 30% 50%, var(--houseflip), transparent 70%);
+        }
+
+        .houseflip .app-name {
+            background: linear-gradient(90deg, var(--houseflip-accent), #8B7040);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .houseflip .app-label {
+            color: var(--houseflip-accent);
+        }
+
+        .houseflip .app-visual {
+            border-color: var(--houseflip-accent);
         }
 
         .sidegig .app-name {
@@ -823,10 +846,11 @@
     <!-- Navigation Dots -->
     <nav>
         <a href="#hero" class="active"></a>
-        <a href="#petwander"></a>
+        <a href="#houseflip"></a>
         <a href="#tipsplit"></a>
         <a href="#sidegig"></a>
         <a href="#familiarbank"></a>
+        <a href="#petwander"></a>
     </nav>
 
     <!-- Hero -->
@@ -840,7 +864,8 @@
             We build apps that <strong>actually work</strong>.
         </p>
         <div class="hero-cta">
-            <a href="#petwander" class="btn" id="testAppsBtn">Test Apps</a>
+            <a href="/tools/" class="btn">All Tools</a>
+            <a href="#houseflip" class="btn" id="testAppsBtn">Test Apps</a>
             <a href="blog.html" class="btn">Blog</a>
             <a href="about.html" class="btn">About</a>
             <a href="contact.html" class="btn">Contact</a>
@@ -850,30 +875,31 @@
         <div class="scroll-hint">Scroll</div>
     </section>
 
-    <!-- PetWander -->
-    <section class="app-section petwander" id="petwander">
+    <!-- House Flip Calculator - NEW #01 -->
+    <section class="app-section houseflip" id="houseflip">
         <div class="app-grid">
             <div class="app-content">
                 <div class="app-number">01</div>
                 <div class="app-label">Live Now</div>
-                <h2 class="app-name">PetWander</h2>
+                <h2 class="app-name">House Flip Calculator</h2>
                 <p class="app-problem">
-                    "Planning trips with pets shouldn't take hours."
+                    "Know if a flip is worth it before you buy."
                 </p>
                 <p class="app-solution">
-                    Pet-friendly hotels, restaurants, parks, and emergency vets.
-                    Everything you need. One place. No endless Google searches.
+                    Professional real estate investment analysis with 50-state data, 
+                    70% rule checker, and complete profit breakdowns. All the math. 
+                    Zero guesswork.
                 </p>
                 <div class="app-features">
-                    <div class="feature-item">Route planning with pet stops</div>
-                    <div class="feature-item">Emergency vet finder</div>
-                    <div class="feature-item">Activity recommendations</div>
-                    <div class="feature-item">Real traveler reviews</div>
+                    <div class="feature-item">All 50 states with real market data</div>
+                    <div class="feature-item">70% rule pass/fail checker</div>
+                    <div class="feature-item">Deal scoring system (0-100)</div>
+                    <div class="feature-item">Save &amp; compare unlimited deals</div>
                 </div>
-                <a href="https://petwander.soulstormai.com" class="btn">Explore PetWander</a>
+                <a href="/tools/house-flip-calculator.html" class="btn">Run the Numbers</a>
             </div>
             <div class="app-visual">
-                <iframe src="https://petwander.soulstormai.com" loading="lazy"></iframe>
+                <iframe src="/tools/house-flip-calculator.html" loading="lazy"></iframe>
             </div>
         </div>
     </section>
@@ -962,6 +988,34 @@
         </div>
     </section>
 
+    <!-- PetWander #05 - Moved to Bottom -->
+    <section class="app-section petwander" id="petwander">
+        <div class="app-grid">
+            <div class="app-content">
+                <div class="app-number">05</div>
+                <div class="app-label">Live Now</div>
+                <h2 class="app-name">PetWander</h2>
+                <p class="app-problem">
+                    "Planning trips with pets shouldn't take hours."
+                </p>
+                <p class="app-solution">
+                    Pet-friendly hotels, restaurants, parks, and emergency vets.
+                    Everything you need. One place. No endless Google searches.
+                </p>
+                <div class="app-features">
+                    <div class="feature-item">Route planning with pet stops</div>
+                    <div class="feature-item">Emergency vet finder</div>
+                    <div class="feature-item">Activity recommendations</div>
+                    <div class="feature-item">Real traveler reviews</div>
+                </div>
+                <a href="https://petwander.soulstormai.com" class="btn">Explore PetWander</a>
+            </div>
+            <div class="app-visual">
+                <iframe src="https://petwander.soulstormai.com" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <!-- Affiliate Partners Section -->
@@ -1019,6 +1073,7 @@
         <div class="footer-section">
             <h3>Navigation</h3>
             <div class="footer-links">
+                <a href="/tools/">All Tools</a>
                 <a href="blog.html">Blog</a>
                 <a href="privacy.html">Privacy Policy</a>
                 <a href="about.html">About</a>
