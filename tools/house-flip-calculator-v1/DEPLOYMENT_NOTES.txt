@@ -1,0 +1,19 @@
+DEPLOYMENT INSTRUCTIONS
+=======================
+
+FILE: HouseFlippingCalculator.jsx
+USE: React/Next.js/Vite projects
+INSTALL: npm install react recharts
+
+FILE: house-flip-calculator.html (coming in v2)
+USE: Direct upload to any web server
+NOTES: Self-contained, no build step required
+
+RECOMMENDED: 
+Upload JSX to soulstormai.com/tools/ and build with your existing React setup
+OR
+Request standalone HTML version for direct upload
+
+Your analytics and AdSense IDs are already integrated:
+- Analytics: G-RF30DV7CY0
+- AdSense: ca-pub-3424397100313583

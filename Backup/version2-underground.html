@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoulstormAI - V2 Underground</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Core - Dark */
+            --bg: #000000;
+            --fg: #ffffff;
+            --grid: #111111;
+            
+            /* Sophisticated Palette */
+            --pet: #8B7355;        /* Desert Tan */
+            --pet-glow: rgba(139, 115, 85, 0.3);
+            
+            --tip: #00FF00;        /* Neon Green */
+            --tip-glow: rgba(0, 255, 0, 0.3);
+            
+            --oracle: #4A148C;     /* Eggplant */
+            --oracle-gold: #B8860B;
+            --oracle-glow: rgba(74, 20, 140, 0.3);
+            
+            --wedding: #C2185B;    /* Deep Magenta */
+            --wedding-glow: rgba(194, 24, 91, 0.3);
+            
+            --moon: #1B4332;       /* Deep Emerald */
+            --moon-glow: rgba(27, 67, 50, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            cursor: none;
+        }
+
+        /* Grid Background - Subtle */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 49px, var(--grid) 49px, var(--grid) 50px),
+                repeating-linear-gradient(90deg, transparent, transparent 49px, var(--grid) 49px, var(--grid) 50px);
+            pointer-events: none;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        /* Cursor - Glow Style */
+        .cursor {
+            width: 10px;
+            height: 10px;
+            background: var(--fg);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 20px var(--fg);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-trail {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--fg);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.5s cubic-bezier(0.75, 0, 0.25, 1);
+            opacity: 0.2;
+            mix-blend-mode: difference;
+        }
+
+        /* Header - Fixed */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(180deg, rgba(0,0,0,0.9), transparent);
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .theme-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--fg);
+            background: transparent;
+            color: var(--fg);
+            cursor: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .theme-btn:hover {
+            background: var(--fg);
+            color: var(--bg);
+        }
+
+        /* Hero - Full Bleed */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 0 50px;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 15vw, 18rem);
+            font-weight: 800;
+            line-height: 0.85;
+            margin-bottom: 40px;
+            letter-spacing: -0.04em;
+        }
+
+        .hero h1 .line1 {
+            display: block;
+            background: linear-gradient(90deg, var(--oracle), var(--oracle-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h1 .line2 {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.3em;
+            letter-spacing: 0.2em;
+            margin-top: 20px;
+            font-weight: 400;
+        }
+
+        .hero-sub {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto 60px;
+            opacity: 0.8;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .cta {
+            padding: 20px 50px;
+            background: transparent;
+            border: 1px solid var(--fg);
+            color: var(--fg);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: none;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--fg);
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .cta:hover::before {
+            left: 0;
+        }
+
+        .cta:hover {
+            color: var(--bg);
+        }
+
+        /* App Cards - Bento Style */
+        .apps {
+            padding: 100px 50px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .app-card {
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 60px;
+            margin-bottom: 100px;
+            position: relative;
+            transition: all 0.5s ease;
+            background: rgba(255,255,255,0.01);
+        }
+
+        .app-card:hover {
+            border-color: var(--card-color);
+            box-shadow: 0 0 60px var(--card-glow);
+            transform: translateY(-10px);
+        }
+
+        .app-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .app-number {
+            opacity: 0.3;
+        }
+
+        .app-status {
+            padding: 5px 15px;
+            border: 1px solid var(--card-color);
+            color: var(--card-color);
+        }
+
+        .app-title {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 800;
+            line-height: 0.9;
+            margin-bottom: 30px;
+            color: var(--card-color);
+            letter-spacing: -0.02em;
+        }
+
+        .app-tagline {
+            font-size: 1.8rem;
+            font-style: italic;
+            opacity: 0.6;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .app-desc {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 600px;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .app-preview {
+            width: 100%;
+            aspect-ratio: 16/10;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--card-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-preview iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .app-features {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .feature {
+            padding: 20px;
+            background: rgba(255,255,255,0.02);
+            border-left: 2px solid var(--card-color);
+            font-size: 0.9rem;
+        }
+
+        .feature strong {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--card-color);
+        }
+
+        /* Color Variations */
+        .app-card.pet {
+            --card-color: var(--pet);
+            --card-glow: var(--pet-glow);
+        }
+
+        .app-card.tip {
+            --card-color: var(--tip);
+            --card-glow: var(--tip-glow);
+        }
+
+        .app-card.oracle {
+            --card-color: var(--oracle-gold);
+            --card-glow: var(--oracle-glow);
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 50px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .footer-links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--fg);
+            text-decoration: none;
+            opacity: 0.5;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-copy {
+            font-size: 0.7rem;
+            opacity: 0.3;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+
+            .cursor, .cursor-trail {
+                display: none;
+            }
+
+            header, .hero, .apps, footer {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .app-card {
+                padding: 40px 20px;
+            }
+
+            .app-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+        }
+
+        /* Scan Line Effect */
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(transparent, var(--fg), transparent);
+            opacity: 0.05;
+            animation: scan 8s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-trail"></div>
+
+    <!-- Scanline -->
+    <div class="scanline"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">SoulstormAI</div>
+        <button class="theme-btn" id="theme">◐</button>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>
+                <span class="line1">SOULSTORM</span>
+                <span class="line2">AI</span>
+            </h1>
+            <p class="hero-sub">
+                Apps that don't waste your time.<br>
+                No fluff. No hype. Just tools that work.
+            </p>
+            <div class="cta-group">
+                <a href="#apps" class="cta">View Apps</a>
+                <a href="/cdn-cgi/l/email-protection#5e373038311e2d312b322d2a312c333f37703d3133" class="cta">Contact</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Apps -->
+    <section class="apps" id="apps">
+        
+        <!-- PetWander -->
+        <div class="app-card pet">
+            <div class="app-meta">
+                <span class="app-number">001</span>
+                <span class="app-status">Live</span>
+            </div>
+            <h2 class="app-title">PETWANDER</h2>
+            <p class="app-tagline">"Hours of research, reduced to seconds."</p>
+            <p class="app-desc">
+                Stop Googling "pet friendly hotels near me" 47 times. 
+                Hotels, restaurants, parks, vets. All in one search.
+            </p>
+            <div class="app-grid">
+                <div class="app-preview">
+                    <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; opacity: 0.3; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">
+                        PREVIEW
+                    </div>
+                </div>
+                <div class="app-features">
+                    <div class="feature">
+                        <strong>Route Planning</strong>
+                        Plan trips with pet-friendly stops
+                    </div>
+                    <div class="feature">
+                        <strong>Emergency Vets</strong>
+                        Find help anywhere, anytime
+                    </div>
+                    <div class="feature">
+                        <strong>Real Reviews</strong>
+                        From actual pet owners
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 40px;">
+                <a href="https://petwander.soulstormai.com" class="cta" style="border-color: var(--pet);">Explore PetWander</a>
+            </div>
+        </div>
+
+        <!-- TipSplit -->
+        <div class="app-card tip">
+            <div class="app-meta">
+                <span class="app-number">002</span>
+                <span class="app-status">Live</span>
+            </div>
+            <h2 class="app-title">TIPSPLIT</h2>
+            <p class="app-tagline">"Stop arguing. Start splitting."</p>
+            <p class="app-desc">
+                Split bills your way. Bill 3 ways, tip 2 ways. 
+                Advanced mode that actually makes sense.
+            </p>
+            <div class="app-grid">
+                <div class="app-preview">
+                    <iframe src="https://tipsplit.vercel.app" loading="lazy"></iframe>
+                </div>
+                <div class="app-features">
+                    <div class="feature">
+                        <strong>Advanced Split</strong>
+                        Separate bill & tip calculations
+                    </div>
+                    <div class="feature">
+                        <strong>Offline First</strong>
+                        Works without internet
+                    </div>
+                    <div class="feature">
+                        <strong>No BS</strong>
+                        No signup, no tracking
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 40px;">
+                <a href="https://tipsplit.vercel.app" class="cta" style="border-color: var(--tip);">Try TipSplit</a>
+            </div>
+        </div>
+
+        <!-- Oracle -->
+        <div class="app-card oracle">
+            <div class="app-meta">
+                <span class="app-number">003</span>
+                <span class="app-status">Q1 2025</span>
+            </div>
+            <h2 class="app-title">ORACLE</h2>
+            <p class="app-tagline">"Mystical guidance without mystical prices."</p>
+            <p class="app-desc">
+                Tarot, I-Ching, Runes. AI-powered readings. 
+                One subscription. No $50 single readings.
+            </p>
+            <div class="app-grid">
+                <div class="app-preview" style="background: linear-gradient(135deg, var(--oracle), var(--oracle-gold));">
+                    <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; font-weight: 700;">
+                        COMING SOON
+                    </div>
+                </div>
+                <div class="app-features">
+                    <div class="feature">
+                        <strong>Multiple Systems</strong>
+                        Tarot, I-Ching, Runes, Astrology
+                    </div>
+                    <div class="feature">
+                        <strong>Daily Readings</strong>
+                        Personalized guidance
+                    </div>
+                    <div class="feature">
+                        <strong>Reading History</strong>
+                        Track your spiritual journey
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 40px;">
+                <a href="#" class="cta" style="border-color: var(--oracle-gold);">Notify Me</a>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="privacy.html">Privacy</a>
+            <a href="about.html">About</a>
+            <a href="/cdn-cgi/l/email-protection#ea83848c85aa99859f86999e8598878b83c4898587">Contact</a>
+            <a href="https://instagram.com/soulstormai" target="_blank">Instagram</a>
+            <a href="https://tiktok.com/@soulstormai" target="_blank">TikTok</a>
+        </div>
+        <div class="footer-copy">
+            © 2025 SOULSTORMAI — APPS THAT WORK
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Cursor
+        const cursor = document.querySelector('.cursor');
+        const trail = document.querySelector('.cursor-trail');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+            }, 150);
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.ge

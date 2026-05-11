@@ -1,0 +1,9 @@
+{
+  "name": "PetWander AI",
+  "description": "The ultimate AI-powered travel companion for pet parents. Generate custom itineraries, check airline rules in real-time, and manage pet health records effortlessly.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}

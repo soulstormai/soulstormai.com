@@ -1,20 +1,9 @@
 {
-  "rewrites": [
-    { "source": "/about", "destination": "/about.html" },
-    { "source": "/blog", "destination": "/blog.html" },
-    { "source": "/contact", "destination": "/contact.html" },
-    { "source": "/privacy", "destination": "/privacy-policy.html" }
-  ],
-  "redirects": [
-    {
-      "source": "/tools/house-flip-calculator-v1",
-      "destination": "/tools/house-flip-calculator/",
-      "permanent": true
-    },
-    {
-      "source": "/tools/house-flip-calculator-v1/",
-      "destination": "/tools/house-flip-calculator/",
-      "permanent": true
-    }
+  "routes": [
+    { "src": "/about", "dest": "/about.html" },
+    { "src": "/blog", "dest": "/blog.html" },
+    { "src": "/contact", "dest": "/contact.html" },
+    { "src": "/privacy", "dest": "/privacy.html" },
+    { "src": "/tools/house-flip-calculator-v1(/.*)?", "dest": "/tools/house-flip-calculator/", "status": 301 }
   ]
 }
