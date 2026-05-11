@@ -1,14 +1,9 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "*.html", "use": "@vercel/static" }
-  ],
-  "routes": [
-    { "src": "/", "dest": "/index.html" },
-    { "src": "/about", "dest": "/about.html" },
-    { "src": "/blog", "dest": "/blog.html" },
-    { "src": "/contact", "dest": "/contact.html" },
-    { "src": "/privacy", "dest": "/privacy-policy.html" }
+  "rewrites": [
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/blog", "destination": "/blog.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/privacy", "destination": "/privacy-policy.html" }
   ],
   "redirects": [
     {
