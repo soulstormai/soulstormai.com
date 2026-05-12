@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-3424397100313583">
+    
+    <title>Real Estate Loan Calculator | Fix & Flip, Rental, Construction, Bridge | SoulstormAI</title>
+    <meta name="description" content="Fast real estate loan calculator. Instant ROI and cash flow analysis for Fix & Flip, DSCR Rental (1-6 units), New Construction, and Bridge loans.">
+    
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RF30DV7CY0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-RF30DV7CY0');
+    </script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3424397100313583" crossorigin="anonymous"></script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { 
+            --bg: #0a0a0a; --fg: #e8e8e8; --muted: #666; 
+            --border: rgba(255,255,255,0.08); --accent: #B8860B;
+            --success: #4ade80; --danger: #f87171;
+        }
+        body { 
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg); color: var(--fg); padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 30px; }
+        h1 { font-size: 2rem; font-weight: 700; margin-bottom: 5px; }
+        .subtitle { color: var(--muted); font-size: 0.9rem; }
+        
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; flex-wrap: wrap; }
+        .tab { 
+            padding: 12px 24px; background: rgba(255,255,255,0.03); 
+            border: 1px solid var(--border); border-radius: 4px; 
+            cursor: pointer; transition: all 0.2s;
+        }
+        .tab:hover { border-color: var(--accent); }
+        .tab.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 600; }
+        
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .panel { 
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border); 
+            border-radius: 8px; padding: 20px;
+        }
+        .panel h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.1rem; }
+        
+        .field { margin-bottom: 15px; }
+        .field label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 5px; }
+        .field input, .field select { 
+            width: 100%; padding: 10px; background: rgba(255,255,255,0.05); 
+            border: 1px solid var(--border); border-radius: 4px; 
+            color: var(--fg); font-size: 0.95rem;
+        }
+        .field input:focus, .field select:focus { outline: none; border-color: var(--accent); }
+        
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        
+        .result-big { 
+            text-align: center; padding: 20px; 
+            background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 15px;
+        }
+        .result-big .label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; }
+        .result-big .value { font-size: 2.5rem; font-weight: 700; color: var(--accent); margin-top: 5px; }
+        .result-big .value.good { color: var(--success); }
+        .result-big .value.bad { color: var(--danger); }
+        
+        .result-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px; }
+        .result-item { 
+            padding: 12px; background: rgba(255,255,255,0.03); 
+            border-radius: 4px; text-align: center;
+        }
+        .result-item .label { font-size: 0.75rem; color: var(--muted); }
+        .result-item .value { font-size: 1.2rem; font-weight: 600; margin-top: 3px; }
+        
+        .actions { display: flex; gap: 10px; margin-top: 15px; }
+        .btn { 
+            flex: 1; padding: 10px; background: transparent; 
+            border: 1px solid var(--border); color: var(--fg); 
+            border-radius: 4px; cursor: pointer; font-size: 0.9rem;
+        }
+        .btn:hover { background: rgba(255,255,255,0.05); }
+        
+        .hidden { display: none !important; }
+        
+        @media (max-width: 768px) {
+            .calc-grid { grid-template-columns: 1fr; }
+            .result-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Real Estate Loan Calculator</h1>
+            <p class="subtitle">Real-time deal analysis • Change any number to see instant results</p>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="switchType('flip')">Fix & Flip</div>
+            <div class="tab" onclick="switchType('dscr')">DSCR Rental</div>
+            <div class="tab" onclick="switchType('construction')">Construction</div>
+            <div class="tab" onclick="switchType('bridge')">Bridge Loan</div>
+        </div>
+        
+        <div class="calc-grid">
+            <!-- INPUTS -->
+            <div>
+                <!-- FIX & FLIP -->
+                <div id="flip-inputs" class="inputs-panel">
+                    <div class="panel">
+                        <h3>Deal Numbers</h3>
+                        <div class="field">
+                            <label>Purchase Price</label>
+                            <input type="number" id="f_purchase" value="200000" oninput="calc()">
+                        </div>
+                        <div class="field">
+                            <label>Rehab Budget</label>
+                            <input type="number" id="f_rehab" value="50000" oninput="calc()">
+                        </div>
+                        <div class="field">
+                            <label>After Repair Value (ARV)</label>
+                            <input type="number" id="f_arv" value="300000" oninput="calc()">
+                        </div>
+                        <div class="row">
+                            <div class="field">
+                                <label>Interest Rate %</label>
+                                <input type="number" id="f_rate" value="9.5" step="0.1" oninput="calc()">
+                            </div>
+                            <div class="field">
+                                <label>Points %</label>
+                                <input type="number" id="f_points" value="2" step="0.5" oninput="calc()">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="field">
+                                <label>Hold Time (months)</label>
+                                <input type="number" id="f_hold" value="8" oninput="calc()">
+                            </div>
+                            <div class="field">
+                                <label>Selling Costs %</label>
+                                <input type="number" id="f_sell" value="8" step="0.5" oninput="calc()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- DSCR RENTAL -->
+                <div id="dscr-inputs" class="inputs-panel hidden">
+                    <div class="panel">
+                        <h3>Property Details</h3>
+                        <div class="field">
+                            <label>Number of Units</label>
+                            <select id="d_units" onchange="updateUnits(); calc();">
+                                <option value="1">1 Unit</option>
+                                <option value="2">2 Units (Duplex)</option>
+                                <option value="3">3 Units (Triplex)</option>
+                                <option value="4">4 Units (Fourplex)</option>
+                                <option value="5">5 Units</option>
+                                <option value="6">6 Units</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Purchase Price</label>
+                            <input type="number" id="d_purchase" value="350000" oninput="calc()">
+                        </div>
+                        <div class="row">
+                            <div class="field">
+                                <label>Down Payment %</label>
+                                <input type="number" id="d_down" value="20" oninput="calc()">
+                            </div>
+                            <div class="field">
+                                <label>Interest Rate %</label>
+                                <input type="number" id="d_rate" value="7.5" step="0.1" oninput="calc()">
+                            </div>
+                        </div>
+                        <div id="rents"></div>
+                        <div class="row">
+                            <div class="field">
+                                <label>Property Tax %/year</label>
+                                <input type="number" id="d_tax" value="1.5" step="0.1" oninput="calc()">
+                            </div>
+                            <div class="field">
+                                <label>Insurance $/month</label>
+                                <input type="number" id="d_ins" value="150" oninput="calc()">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="field">
+                                <label>Maintenance %</label>
+                                <input type="number" id="d_maint" value="10" oninput="calc()">
+                            </div>
+                            <div class="field">
+                                <label>Vacancy %</label>
+                                <input type="number" id="d_vac" value="8" oninput="calc()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CONSTRUCTION -->
+                <div id="construction-inputs" class="inputs-panel hidden">
+                    <div class="panel">
+                        <h3>Project Details</h3>
+                        <div class="field">
+                            <label>Land Price</label>
+                            <input type="number" id="c_land" value="100000" oninput="calc()">
+                        </div>
+                        <div class="field">
+                            <label>Construction Budget</label>
+                            <input type="number" id="c_budget" value="250000" oninput="calc()">
+                        </div>
+                        <div class="field">
+                            <label>After-Built Value</label>
+                            <input type="number" id="c_arv" value="500000" oninput="calc()">
+                        </div>
+                        <div class="row">
+                            <div class="field">
+                                <label>Timeline (months)</label>
+                                <input type="number" id="c_time" value="12" oninput="calc()">
+                            </div>
+                            <div class="field">
+                                <label>Interest Rate %</label>
+                                <input type="number" id="c_rate" value="9.5" step="0.1" oninput="calc()">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Points %</label>
+                            <input type="number" id="c_points" value="2" step="0.5" oninput="calc()">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- BRIDGE -->
+                <div id="bridge-inputs" class="inputs-panel hidden">
+                    <div class="panel">
+                        <h3>Loan Details</h3>
+                        <div class="field">
+                            <label>Property Value</label>
+                            <input type="number" id="b_value" value="400000" oninput="calc()">
+                        </div>
+                        <div class="field">
+                            <label>Loan-to-Value %</label>
+                            <input type="number" id="b_ltv" value="75" oninput="calc()">
+                        </div>
+                        <div class="row">
+                            <div class="field">
+                                <label>Interest Rate %</label>
+                                <input type="number" id="b_rate" value="10.5" step="0.1" oninput="calc()">
+                            </div>
+                            <div class="field">
+                                <label>Points %</label>
+                                <input type="number" id="b_points" value="2" step="0.5" oninput="calc()">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Hold Time (months)</label>
+                            <input type="number" id="b_hold" value="9" oninput="calc()">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <button class="btn" onclick="save()">💾 Save</button>
+                    <button class="btn" onclick="load()">📁 Load</button>
+                    <button class="btn" onclick="reset()">🔄 Reset</button>
+                </div>
+            </div>
+            
+            <!-- RESULTS -->
+            <div>
+                <div class="panel">
+                    <h3>Results</h3>
+                    <div id="results"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const fmt = v => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(v);
+        let type = 'flip';
+        
+        function switchType(t) {
+            type = t;
+            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.inputs-panel').forEach(el => el.classList.add('hidden'));
+            document.getElementById(t + '-inputs').classList.remove('hidden');
+            if (t === 'dscr') updateUnits();
+            calc();
+        }
+        
+        function updateUnits() {
+            const units = parseInt(document.getElementById('d_units').value);
+            let html = '';
+            for (let i = 1; i <= units; i++) {
+                const val = document.getElementById('d_rent'+i)?.value || 2500;
+                html += `<div class="field"><label>Unit ${i} Monthly Rent</label><input type="number" id="d_rent${i}" value="${val}" oninput="calc()"></div>`;
+            }
+            document.getElementById('rents').innerHTML = html;
+        }
+        
+        function calc() {
+            if (type === 'flip') calcFlip();
+            else if (type === 'dscr') calcDSCR();
+            else if (type === 'construction') calcConst();
+            else if (type === 'bridge') calcBridge();
+        }
+        
+        function calcFlip() {
+            const p = parseFloat(document.getElementById('f_purchase').value) || 0;
+            const r = parseFloat(document.getElementById('f_rehab').value) || 0;
+            const arv = parseFloat(document.getElementById('f_arv').value) || 0;
+            const rate = parseFloat(document.getElementById('f_rate').value) || 0;
+            const pts = parseFloat(document.getElementById('f_points').value) || 0;
+            const hold = parseInt(document.getElementById('f_hold').value) || 0;
+            const sell = parseFloat(document.getElementById('f_sell').value) || 0;
+            
+            const loan = p * 0.9 + r;
+            const pointsFee = loan * (pts / 100);
+            const interest = (loan * (rate / 100) / 12) * hold;
+            const cost = p + r + pointsFee + interest;
+            const sellCost = arv * (sell / 100);
+            const profit = arv - cost - sellCost;
+            const cash = p * 0.1 + pointsFee + interest;
+            const roi = cash > 0 ? (profit / cash) * 100 : 0;
+            
+            document.getElementById('results').innerHTML = `
+                <div class="result-big">
+                    <div class="label">Net Profit</div>
+                    <div class="value ${profit > 0 ? 'good' : 'bad'}">${fmt(profit)}</div>
+                </div>
+                <div class="result-row">
+                    <div class="result-item"><div class="label">ROI</div><div class="value">${roi.toFixed(1)}%</div></div>
+                    <div class="result-item"><div class="label">Cash In</div><div class="value">${fmt(cash)}</div></div>
+                    <div class="result-item"><div class="label">Loan Amount</div><div class="value">${fmt(loan)}</div></div>
+                </div>
+                <div class="result-row">
+                    <div class="result-item"><div class="label">Loan Points</div><div class="value">${fmt(pointsFee)}</div></div>
+                    <div class="result-item"><div class="label">Total Interest</div><div class="value">${fmt(interest)}</div></div>
+                    <div class="result-item"><div class="label">Total Cost</div><div class="value">${fmt(cost)}</div></div>
+                </div>
+            `;
+        }
+        
+        function calcDSCR() {
+            const p = parseFloat(document.getElementById('d_purchase').value) || 0;
+            const down = parseFloat(document.getElementById('d_down').value) || 0;
+            const rate = parseFloat(document.getElementById('d_rate').value) || 0;
+            const tax = parseFloat(document.getElementById('d_tax').value) || 0;
+            const ins = parseFloat(document.getElementById('d_ins').value) || 0;
+            const maint = parseFloat(document.getElementById('d_maint').value) || 0;
+            const vac = parseFloat(document.getElementById('d_vac').value) || 0;
+            const units = parseInt(document.getElementById('d_units').value);
+            
+            let rent = 0;
+            for (let i = 1; i <= units; i++) {
+                rent += parseFloat(document.getElementById('d_rent'+i)?.value) || 0;
+            }
+            
+            const loan = p * (1 - down / 100);
+            const mr = (rate / 100) / 12;
+            const mort = loan * (mr * Math.pow(1 + mr, 360)) / (Math.pow(1 + mr, 360) - 1);
+            const vacLoss = rent * (vac / 100);
+            const eff = rent - vacLoss;
+            const tax_m = (p * (tax / 100)) / 12;
+            const maint_m = eff * (maint / 100);
+            const exp = mort + tax_m + ins + maint_m;
+            const cf = eff - exp;
+            const noi = eff - (tax_m + ins + maint_m);
+            const dscr = mort > 0 ? noi / mort : 0;
+            
+            document.getElementById('results').innerHTML = `
+                <div class="result-big">
+                    <div class="label">DSCR Ratio</div>
+                    <div class="value ${dscr >= 1.25 ? 'good' : 'bad'}">${dscr.toFixed(2)}</div>
+                </div>
+                <div class="result-row">
+                    <div class="result-item"><div class="label">Monthly Cash Flow</div><div class="value">${fmt(cf)}</div></div>
+                    <div class="result-item"><div class="label">Annual Cash Flow</div><div class="value">${fmt(cf * 12)}</div></div>
+                    <div class="result-item"><div class="label">Monthly Mortgage</div><div class="value">${fmt(mort)}</div></div>
+                </div>
+                <div class="result-row">
+                    <div class="result-item"><div class="label">Gross Rent</div><div class="value">${fmt(rent)}</div></div>
+                    <div class="result-item"><div class="label">Total Expenses</div><div class="value">${fmt(exp)}</div></div>
+                    <div class="result-item"><div class="label">Down Payment</div><div class="value">${fmt(p * down / 100)}</div></div>
+                </div>
+            `;
+        }
+        
+        function calcConst() {
+            const land = parseFloat(document.getElementById('c_land').value) || 0;
+            const budget = parseFloat(document.getElementById('c_budget').value) || 0;
+            const arv = parseFloat(document.getElementById('c_arv').value) || 0;
+            const time = parseInt(document.getElementById('c_time').value) || 0;
+            const rate = parseFloat(document.getElementById('c_rate').value) || 0;
+            const pts = parseFloat(document.getElementById('c_points').value) || 0;
+            
+            const loan = land * 0.7 + budget;
+            const pointsFee = loan * (pts / 100);
+            const interest = (loan * (rate / 100) / 12) * time;
+            const cost = land + budget + pointsFee + interest;
+            const profit = arv - cost - (arv * 0.08);
+            const cash = land * 0.3 + pointsFee + interest;
+            const roi = cash > 0 ? (profit / cash) * 100 : 0;
+            
+            document.getElementById('results').innerHTML = `
+                <div class="result-big">
+                    <div class="label">Net Profit</div>
+                    <div class="value ${profit > 0 ? 'good' : 'bad'}">${fmt(profit)}</div>
+                </div>
+                <div class="result-row">
+                    <div class="result-item"><div class="label">ROI</div><div class="value">${roi.toFixed(1)}%</div></div>
+                    <div class="result-item"><div class="label">Cash In</div><div class="value">${fmt(cash)}</div></div>
+                    <div class="result-item"><div class="label">Loan Amount</div><div class="value">${fmt(loan)}</div></div>
+                </div>
+                <div class="result-row">
+                    <div class="result-item"><div class="label">Total Interest</div><div class="value">${fmt(interest)}</div></div>
+                    <div class="result-item"><div class="label">Build Timeline</div><div class="value">${time} mo</div></div>
+                    <div class="result-item"><div class="label">Total Cost</div><div class="value">${fmt(cost)}</div></div>
+                </div>
+            `;
+        }
+        
+        function calcBridge() {
+            const val = parseFloat(document.getElementById('b_value').value) || 0;
+            const ltv = parseFloat(document.getElementById('b_ltv').value) || 0;
+            const rate = parseFloat(document.getElementById('b_rate').value) || 0;
+            const pts = parseFloat(document.getElementById('b_points').value) || 0;
+            const hold = parseInt(document.getElementById('b_hold').value) || 0;
+            
+            const loan = val * (ltv / 100);
+            const pointsFee = loan * (pts / 100);
+            const payment = (loan * (rate / 100)) / 12;
+            const interest = payment * hold;
+            const total = pointsFee + interest;
+            
+            document.getElementById('results').innerHTML = `
+                <div class="result-big">
+                    <div class="label">Loan Amount</div>
+                    <div class="value">${fmt(loan)}</div>
+                </div>
+                <div class="result-row">
+                    <div class="result-item"><div class="label">Monthly Payment</div><div class="value">${fmt(payment)}</div></div>
+                    <div class="result-item"><div class="label">Total Interest</div><div class="value">${fmt(interest)}</div></div>
+                    <div class="result-item"><div class="label">Loan Points</div><div class="value">${fmt(pointsFee)}</div></div>
+                </div>
+                <div class="result-row">
+                    <div class="result-item"><div class="label">Total Cost</div><div class="value">${fmt(total)}</div></div>
+                    <div class="result-item"><div class="label">Balloon Payment</div><div class="value">${fmt(loan)}</div></div>
+                    <div class="result-item"><div class="label">Hold Time</div><div class="value">${hold} mo</div></div>
+                </div>
+            `;
+        }
+        
+        function save() {
+            const data = { type };
+            document.querySelectorAll('input, select').forEach(el => data[el.id] = el.value);
+            localStorage.setItem('loan-calc', JSON.stringify(data));
+            alert('✓ Saved');
+        }
+        
+        function load() {
+            const saved = localStorage.getItem('loan-calc');
+            if (!saved) return alert('No saved data');
+            const data = JSON.parse(saved);
+            Object.keys(data).forEach(k => {
+                const el = document.getElementById(k);
+                if (el) el.value = data[k];
+            });
+            if (data.type) {
+                type = data.type;
+                document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+                document.querySelector('.tab').parentElement.children[['flip','dscr','construction','bridge'].indexOf(type)].classList.add('active');
+                document.querySelectorAll('.inputs-panel').forEach(el => el.classList.add('hidden'));
+                document.getElementById(type + '-inputs').classList.remove('hidden');
+                if (type === 'dscr') updateUnits();
+            }
+            calc();
+            alert('✓ Loaded');
+        }
+        
+        function reset() {
+            if (confirm('Reset all values?')) location.reload();
+        }
+        
+        // Initialize
+        updateUnits();
+        calc();
+    </script>
+</body>
+</html>
