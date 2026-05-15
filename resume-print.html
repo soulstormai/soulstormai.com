@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tatiana DeSouza - Resume (Print)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: white;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .no-print {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .no-print:hover {
+            background: #4f46e5;
+        }
+        
+        header {
+            border-bottom: 3px solid #6366f1;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+        
+        .contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.95rem;
+            color: #374151;
+        }
+        
+        .contact span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        section {
+            margin-bottom: 2rem;
+            page-break-inside: avoid;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            color: #6366f1;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .job, .project {
+            margin-bottom: 1.5rem;
+        }
+        
+        .job-title, .project-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.2rem;
+        }
+        
+        .company, .tech-stack {
+            color: #6366f1;
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .date {
+            color: #6b7280;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        li {
+            padding: 0.3rem 0;
+            padding-left: 1.2rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        
+        li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #6366f1;
+            font-weight: bold;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        .skill-category {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        
+        .skill-category h3 {
+            color: #6366f1;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        
+        .skill-tag {
+            background: #eef2ff;
+            border: 1px solid #6366f1;
+            color: #4338ca;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        @media print {
+            .no-print { display: none; }
+            body { padding: 0; }
+            section { page-break-inside: avoid; }
+            .skills-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        
+        @media (max-width: 768px) {
+            .skills-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <button class="no-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+    
+    <header>
+        <h1>Tatiana DeSouza</h1>
+        <p class="tagline">Vibe Coder • AI Trainer • Data Specialist • Multi-AI Orchestra Conductor</p>
+        <div class="contact">
+            <span>✉ tdrelevant@gmail.com</span>
+            <span>🌐 soulstormai.com</span>
+            <span>📍 San Antonio, TX</span>
+        </div>
+    </header>
+
+    <section>
+        <h2>Professional Summary</h2>
+        <p>Innovative entrepreneur building AI-powered applications under the SoulstormAI brand. First person to teach Grok music composition. Expert in coordinating multi-AI systems (Claude, Gemini, GPT, Kimi) for complex development workflows. Specializes in vibe-based coding, visual data processing, and teaching AI emotional intelligence. 30+ years experience processing high-volume visual data (3,780+ cruise ship images weekly). Native Portuguese (Brazilian) speaker with ability to identify Portuguese (Portugal) dialect variations.</p>
+    </section>
+
+    <section>
+        <h2>Professional Experience</h2>
+        
+        <div class="job">
+            <div class="job-title">AI Trainer & Vibe Coder</div>
+            <div class="company">SoulstormAI (Self-Employed)</div>
+            <div class="date">August 2023 – Present · 1 yr 8 mos</div>
+            <ul>
+                <li>Developed 47-vibe music classification system integrating harmony probability, tempo drift, density, ornamentation, and camera choreography</li>
+                <li>First person to teach Grok music composition, pioneering AI emotional intelligence training</li>
+                <li>Orchestrate multi-AI development workflow: Claude (strategy/UX) → Kimi (research) → Gemini (build) → GPT (cleanup)</li>
+                <li>Built portfolio of 17 web and mobile applications including music composition tools, divination apps, and utilities</li>
+                <li>Process and analyze high-volume visual data with AI-assisted workflows</li>
+                <li>Design user experiences following Steve Jobs' nature-harmony principle</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-title">Sales Executive</div>
+            <div class="company">San Antonio Dodge</div>
+            <div class="date">January 2025 – Present</div>
+            <ul>
+                <li>Customer relationship management using CDK Modern CRM platform</li>
+                <li>Explored CRM automation for customer outreach workflows</li>
+                <li>Data-driven sales approach with performance tracking</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-title">Visual Data Processor</div>
+            <div class="company">Freelance</div>
+            <div class="date">1990 – Present · 30+ years</div>
+            <ul>
+                <li>Process 3,780+ cruise ship images weekly with consistent quality standards</li>
+                <li>30+ years experience in high-volume visual data management</li>
+                <li>Quality control and data organization for large-scale image libraries</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Key Projects</h2>
+        
+        <div class="project">
+            <div class="project-title">SoulstormAI Music Composer Pro</div>
+            <div class="tech-stack">React • Next.js • TypeScript • Groq API • 47-Vibe System</div>
+            <p>Flagship AI music composition platform with natural language prompt parsing, historic instruments, teaching modes, and multi-page modular architecture. Integrates healing frequencies (432Hz instruments, 528Hz background).</p>
+        </div>
+
+        <div class="project">
+            <div class="project-title">Ghost Desk VR</div>
+            <div class="tech-stack">React Three Fiber • Meta Quest • Spatial Computing</div>
+            <p>VisionOS competitor for Meta Quest: spatial workspace with floating widgets, glass morphism UI, and immersive productivity environment.</p>
+        </div>
+
+        <div class="project">
+            <div class="project-title">Multi-AI Orchestra System</div>
+            <div class="tech-stack">Claude • Gemini • GPT • Kimi • Grok</div>
+            <p>Pioneered workflow leveraging each AI's strengths: Claude for strategy/UX, Kimi for research, Gemini for building, GPT for cleanup, Grok for creative exploration. Documented 300+ hours of music philosophy and orchestral mappings.</p>
+        </div>
+
+        <div class="project">
+            <div class="project-title">SoulstormAI Portfolio</div>
+            <div class="tech-stack">17 Apps • Web & Mobile • Monetization Infrastructure</div>
+            <p>TipSplit (8-language bill splitter), PetWander (AI pet travel planner), Oracle (divination suite), SideGig Calculator, QuantumSplit (Android video processor), Creator Studio (10 product types), and more.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>Vibe Coding Stack</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">Next.js</span>
+                    <span class="skill-tag">TypeScript</span>
+                    <span class="skill-tag">Tailwind CSS</span>
+                    <span class="skill-tag">React Three Fiber</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Mobile & Spatial</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Unity</span>
+                    <span class="skill-tag">Meta XR SDK</span>
+                    <span class="skill-tag">Android Studio</span>
+                    <span class="skill-tag">Capacitor</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>AI & APIs</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Claude API</span>
+                    <span class="skill-tag">Groq</span>
+                    <span class="skill-tag">Gemini</span>
+                    <span class="skill-tag">GPT</span>
+                    <span class="skill-tag">MidJourney</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Data & CRM</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Salesforce</span>
+                    <span class="skill-tag">CDK Modern</span>
+                    <span class="skill-tag">Supabase</span>
+                    <span class="skill-tag">Excel</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Deployment</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Vercel</span>
+                    <span class="skill-tag">GitHub</span>
+                    <span class="skill-tag">AdSense</span>
+                    <span class="skill-tag">AdMob</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Languages</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Portuguese (Native - BR)</span>
+                    <span class="skill-tag">English (Fluent)</span>
+                    <span class="skill-tag">PT-PT (Recognition)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Education & Certifications</h2>
+        <div class="job">
+            <div class="job-title">Data Processing</div>
+            <div class="company">High School Specialization</div>
+            <div class="date">1990 – 1993</div>
+        </div>
+        <div class="job">
+            <div class="job-title">Prompt Engineering for ChatGPT</div>
+            <div class="company">Vanderbilt University (In Progress)</div>
+            <div class="date">2024</div>
+        </div>
+        <div class="job">
+            <div class="job-title">AI & Machine Learning Courses</div>
+            <div class="company">LinkedIn Learning</div>
+            <div class="date">2023 – 2024</div>
+        </div>
+    </section>
+</body>
+</html>

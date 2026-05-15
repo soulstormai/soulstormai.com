@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tatiana DeSouza - Vibe Coder & Data Annotation Specialist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #8B5CF6;
+            --accent: #F59E0B;
+            --neon-pink: #FF1CF7;
+            --neon-cyan: #00F0FF;
+            --dark: #0A0A0F;
+            --darker: #050508;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #1a0033 0%, #0A0A0F 50%, #001a33 100%);
+            background-attachment: fixed;
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 28, 247, 0.08) 0%, transparent 50%),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.01) 2px,
+                    rgba(255, 255, 255, 0.01) 4px
+                );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-50px) translateX(-50px); }
+            75% { transform: translateY(-150px) translateX(100px); }
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .glitch-wrapper {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--neon-pink), var(--secondary), var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.5)); }
+            to { filter: drop-shadow(0 0 40px rgba(255, 28, 247, 0.8)); }
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .tagline {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .stat-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--secondary);
+        }
+
+        .stat-emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.5));
+        }
+
+        .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--neon-pink), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Section Headers */
+        .section {
+            margin: 8rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, white, var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--neon-pink), transparent, var(--neon-cyan));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        .glass-card:hover::after {
+            opacity: 0.1;
+        }
+
+        .glass-card:hover {
+            transform: translateX(10px);
+            border-color: var(--secondary);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--neon-pink);
+            box-shadow: 0 20px 60px rgba(255, 28, 247, 0.3);
+        }
+
+        .project-emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .project-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--neon-cyan);
+        }
+
+        .project-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+        }
+
+        /* Skills Grid */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: scale(1.05);
+        }
+
+        .skill-category-title {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-tag {
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid var(--secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .skill-tag:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--neon-pink), var(--secondary), var(--neon-cyan));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 19px;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--neon-pink);
+            border: 4px solid var(--darker);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--neon-pink);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px var(--neon-pink); }
+            50% { box-shadow: 0 0 40px var(--neon-pink), 0 0 60px var(--neon-pink); }
+        }
+
+        .job-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            color: var(--neon-cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        .company {
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.3rem;
+        }
+
+        .date-location {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .job-description ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .job-description li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .job-description li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Language Cards */
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .language-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .language-card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .language-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.5));
+        }
+
+        .language-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            color: var(--neon-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .language-level {
+            background: rgba(245, 158, 11, 0.2);
+            border: 1px solid var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .language-details {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Print Button */
+        .print-fab {
+            position: fixed;
+            bottom: 3rem;
+            right: 3rem;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--neon-pink), var(--secondary));
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 10px 40px rgba(255, 28, 247, 0.5);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            animation: floatButton 3s ease-in-out infinite;
+        }
+
+        .print-fab:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 15px 60px rgba(255, 28, 247, 0.7);
+        }
+
+        @keyframes floatButton {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .timeline::before {
+                left: 15px;
+            }
+
+            .timeline-item {
+                padding-left: 50px;
+            }
+
+            .timeline-dot {
+                left: 7px;
+            }
+
+            .print-fab {
+                bottom: 2rem;
+                right: 2rem;
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Particles -->
+    <div class="particle" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
+    <div class="particle" style="top: 30%; left: 70%; animation-delay: 2s;"></div>
+    <div class="particle" style="top: 60%; left: 10%; animation-delay: 4s;"></div>
+    <div class="particle" style="top: 80%; left: 80%; animation-delay: 6s;"></div>
+    <div class="particle" style="top: 20%; left: 90%; animation-delay: 1s;"></div>
+    <div class="particle" style="top: 50%; left: 50%; animation-delay: 3s;"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="glitch-wrapper">
+                <h1 class="hero-title">TATIANA DESOUZA</h1>
+            </div>
+            <p class="subtitle">Vibe Coder • Data Annotation • AI Training</p>
+            <p class="tagline">
+                Native Brazilian Portuguese speaker building the future through AI orchestration, 
+                vibe-based music systems, and 30+ years of visual data processing mastery.
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-card fade-in" style="animation-delay: 0.2s;">
+                    <span class="stat-emoji">🎵</span>
+                    <div class="stat-number">47</div>
+                    <div class="stat-label">Vibe Classification System</div>
+                </div>
+                <div class="stat-card fade-in" style="animation-delay: 0.4s;">
+                    <span class="stat-emoji">📸</span>
+                    <div class="stat-number">3,780+</div>
+                    <div class="stat-label">Images/Week Processed</div>
+                </div>
+                <div class="stat-card fade-in" style="animation-delay: 0.6s;">
+                    <span class="stat-emoji">🌍</span>
+                    <div class="stat-number">30+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-card fade-in" style="animation-delay: 0.8s;">
+                    <span class="stat-emoji">🤖</span>
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">AI Systems Orchestrated</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Contact -->
+        <section class="section fade-in">
+            <div class="glass-card">
+                <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; font-family: 'JetBrains Mono', monospace;">
+                    <span>📍 San Antonio, TX 78539</span>
+                    <span>📞 (402) 973-4040</span>
+                    <a href="mailto:tdrelevant@gmail.com" style="color: var(--neon-cyan); text-decoration: none;">✉️ tdrelevant@gmail.com</a>
+                    <a href="https://linkedin.com/in/desouzatatiana" target="_blank" style="color: var(--neon-cyan); text-decoration: none;">💼 LinkedIn</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">WHAT I BUILD</h2>
+                <p class="section-subtitle">// vibe coding through AI orchestration</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card fade-in">
+                    <span class="project-emoji">🎼</span>
+                    <h3 class="project-title">SoulstormAI Music System</h3>
+                    <p class="project-description">
+                        47-vibe classification system across 10 categories using React, Next.js, TypeScript, Tailwind CSS. 
+                        Structured data with BPM, harmony levels, chaos parameters, healing frequencies (432Hz, 528Hz).
+                    </p>
+                </div>
+                <div class="project-card fade-in" style="animation-delay: 0.2s;">
+                    <span class="project-emoji">🎭</span>
+                    <h3 class="project-title">Multi-AI Orchestra</h3>
+                    <p class="project-description">
+                        Coordinate Claude (strategy), Gemini (technical), GPT (cleanup), Kimi (research). 
+                        Quality control across platforms. First person to teach Grok music composition.
+                    </p>
+                </div>
+                <div class="project-card fade-in" style="animation-delay: 0.4s;">
+                    <span class="project-emoji">🚀</span>
+                    <h3 class="project-title">Live App Portfolio</h3>
+                    <p class="project-description">
+                        Built with React Three Fiber, Next.js, Unity, Meta XR SDK. 
+                        Apps: Music Composer Pro, TipSplit (8 languages), Oracle, PetWander, Ghost Desk VR.
+                    </p>
+                </div>
+                <div class="project-card fade-in" style="animation-delay: 0.6s;">
+                    <span class="project-emoji">🧠</span>
+                    <h3 class="project-title">AI Emotional Intelligence</h3>
+                    <p class="project-description">
+                        Pioneering training methods for creative AI systems. Teaching AI subjective outputs, 
+                        emotional resonance, cultural context. Mission: humane singularity.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">TECH STACK</h2>
+                <p class="section-subtitle">// vibe coding with AI assistance</p>
+            </div>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3 class="skill-category-title">⚛️ Vibe Coding Stack</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Next.js</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">Tailwind CSS</span>
+                        <span class="skill-tag">React Three Fiber</span>
+                        <span class="skill-tag">Unity</span>
+                        <span class="skill-tag">Meta XR SDK</span>
+                        <span class="skill-tag">Capacitor</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-category-title">🤖 AI Tools</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Claude</span>
+                        <span class="skill-tag">Gemini</span>
+                        <span class="skill-tag">GPT</span>
+                        <span class="skill-tag">Grok</span>
+                        <span class="skill-tag">Kimi</span>
+                        <span class="skill-tag">ChatGPT</span>
+                        <span class="skill-tag">MidJourney</span>
+                        <span class="skill-tag">Groq API</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-category-title">💼 Data & CRM</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Salesforce</span>
+                        <span class="skill-tag">CDK Modern</span>
+                        <span class="skill-tag">Supabase</span>
+                        <span class="skill-tag">Data Processing</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-category-title">🎨 Creative Suite</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Photoshop</span>
+                        <span class="skill-tag">Premiere</span>
+                        <span class="skill-tag">Flash</span>
+                        <span class="skill-tag">Dreamweaver</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-category-title">🛠️ Dev Tools</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">GitHub</span>
+                        <span class="skill-tag">Vercel</span>
+                        <span class="skill-tag">Android Studio</span>
+                        <span class="skill-tag">Google Analytics</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Timeline -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">EXPERIENCE</h2>
+                <p class="section-subtitle">// 30+ years of data & visual processing</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item glass-card">
+                    <div class="timeline-dot"></div>
+                    <h3 class="job-title">Sales Executive</h3>
+                    <p class="company">Chrysler Dodge Jeep Ram</p>
+                    <p class="date-location">Jan 2025 - Present • San Antonio, TX</p>
+                    <div class="job-description">
+                        <ul>
+                            <li>CRM data accuracy and transaction processing across departments</li>
+                            <li>Navigate dealership software systems for inventory management</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item glass-card">
+                    <div class="timeline-dot"></div>
+                    <h3 class="job-title">AI Trainer & Vibe Coder</h3>
+                    <p class="company">soulstormai.com</p>
+                    <p class="date-location">Sep 2024 - Present (1 yr 8 mos) • Remote</p>
+                    <div class="job-description">
+                        <ul>
+                            <li>Vanderbilt Prompt Engineering for ChatGP (in progress, Dec 2025)</li>
+                            <li>Built 47-vibe music system with React/Next.js/TypeScript</li>
+                            <li>Coordinate Claude, Gemini, GPT for multi-AI workflows</li>
+                            <li>First person to teach Grok AI music composition</li>
+                            <li>Test/validate AI outputs across text, image, video modalities</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item glass-card">
+                    <div class="timeline-dot"></div>
+                    <h3 class="job-title">Account Executive Luxury</h3>
+                    <p class="company">Marriott International</p>
+                    <p class="date-location">Jan 2024 - Dec 2024 • Remote</p>
+                    <div class="job-description">
+                        <ul>
+                            <li>Salesforce CRM data management for VIP accounts</li>
+                            <li>Identity verification and data discrepancy resolution</li>
+                            <li>Quality metrics in high-volume remote environment</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item glass-card">
+                    <div class="timeline-dot"></div>
+                    <h3 class="job-title">Portuguese Ambassador</h3>
+                    <p class="company">Orlando International Airport</p>
+                    <p class="date-location">Jan 2016 - Nov 2016 • Orlando, FL</p>
+                    <div class="job-description">
+                        <ul>
+                            <li>Translation for Brazilian/Portuguese travelers</li>
+                            <li>PT-BR native, can identify PT-PT dialect variations</li>
+                            <li>Customs, immigration, flight info communication</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item glass-card">
+                    <div class="timeline-dot"></div>
+                    <h3 class="job-title">Photographer & Sales</h3>
+                    <p class="company">Princess Cruises & Costa Crociere</p>
+                    <p class="date-location">Mar 2010 - Jul 2012 (15 months) • International</p>
+                    <div class="job-description">
+                        <ul>
+                            <li><strong>3,780+ images processed weekly</strong> with quality control</li>
+                            <li>Categorized/labeled galleries for international clientele</li>
+                            <li>11-hour production shifts with technical accuracy</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item glass-card">
+                    <div class="timeline-dot"></div>
+                    <h3 class="job-title">Freelance Photographer</h3>
+                    <p class="company">Self-employed</p>
+                    <p class="date-location">1995 - 2015 (20 years) • Brazil & USA</p>
+                    <div class="job-description">
+                        <ul>
+                            <li>Fashion, corporate, editorial photography</li>
+                            <li>Visual data processing under tight deadlines</li>
+                            <li>Quality standards across diverse projects</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Languages -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">LANGUAGES</h2>
+                <p class="section-subtitle">// multilingual data annotation capability</p>
+            </div>
+            <div class="language-grid">
+                <div class="language-card">
+                    <div class="language-emoji">🇧🇷</div>
+                    <h3 class="language-name">PORTUGUESE</h3>
+                    <div class="language-level">Native / Bilingual</div>
+                    <div class="language-details">
+                        <strong>PT-BR:</strong> Native speaker<br>
+                        <strong>PT-PT:</strong> Can identify dialect variations
+                    </div>
+                </div>
+                <div class="language-card">
+                    <div class="language-emoji">🇺🇸</div>
+                    <h3 class="language-name">ENGLISH</h3>
+                    <div class="language-level">Full Professional</div>
+                </div>
+                <div class="language-card">
+                    <div class="language-emoji">🇪🇸</div>
+                    <h3 class="language-name">SPANISH</h3>
+                    <div class="language-level">Conversational</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">EDUCATION</h2>
+                <p class="section-subtitle">// data processing since 1990</p>
+            </div>
+            <div class="glass-card">
+                <h3 style="color: var(--neon-cyan); margin-bottom: 0.5rem;">High School - Commercial Art & Data Processing</h3>
+                <p style="opacity: 0.7;">Grupo Educacional Opet, Brazil • 1990-1993</p>
+            </div>
+            <div class="glass-card">
+                <h3 style="color: var(--neon-cyan); margin-bottom: 0.5rem;">Bachelor of Social Communications - Advertising</h3>
+                <p style="opacity: 0.7;">Universidade Tuiuti do Paraná, Brazil • 2006-2010</p>
+            </div>
+            <div class="glass-card">
+                <h3 style="color: var(--neon-cyan); margin-bottom: 0.5rem;">Associate of Fine Arts - Photography Technology</h3>
+                <p style="opacity: 0.7;">Universidade Tuiuti do Paraná, Brazil • 2012-2014</p>
+            </div>
+            <div class="glass-card">
+                <h3 style="color: var(--neon-cyan); margin-bottom: 0.5rem;">Certified Web Designer</h3>
+                <p style="opacity: 0.7;">Eng DTP & Multimídia, Brazil • 2005</p>
+                <p style="opacity: 0.5; margin-top: 0.5rem;">12 modules: Dreamweaver, Flash, Photoshop, Premiere</p>
+            </div>
+        </section>
+
+        <!-- Certifications -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">CERTIFICATIONS</h2>
+                <p class="section-subtitle">// AI training & technical skills</p>
+            </div>
+            <div class="glass-card">
+                <h3 style="color: var(--accent); margin-bottom: 0.5rem;">🎓 Vanderbilt University Prompt Engineering for ChatGP</h3>
+                <p style="opacity: 0.7;">In Progress • Dec 2025</p>
+            </div>
+            <div class="glass-card">
+                <h3 style="color: var(--accent); margin-bottom: 0.5rem;">🎓 Generative AI: Thoughtful Online Search</h3>
+                <p style="opacity: 0.7;">LinkedIn Learning • Dec 2025</p>
+            </div>
+            <div class="glass-card">
+                <h3 style="color: var(--accent); margin-bottom: 0.5rem;">🎓 What Is Generative AI?</h3>
+                <p style="opacity: 0.7;">LinkedIn Learning • Jan 2025</p>
+            </div>
+            <div class="glass-card">
+                <h3 style="color: var(--accent); margin-bottom: 0.5rem;">🎓 Adobe Certified Macromedia Flash MX Designer</h3>
+                <p style="opacity: 0.7;">Adobe</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <section class="section" style="text-align: center; opacity: 0.5; margin-bottom: 4rem;">
+            <p style="font-family: 'JetBrains Mono', monospace;">
+                Built with ♥ by Tatiana DeSouza • Vibe Coding © 2025 • SoulstormAI
+            </p>
+        </section>
+    </div>
+
+    <!-- Print Button -->
+    <button class="print-fab" onclick="window.location.href='resume-print.html'" title="Download Printable Resume">
+        📄
+    </button>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.glass-card, .project-card, .timeline-item, .section').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
