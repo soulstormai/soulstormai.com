@@ -61,6 +61,7 @@ audio{width:100%;height:40px}
 .next{margin-top:90px;padding:44px 0;border-top:1px solid var(--line)}
 .next h3{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1;margin-bottom:18px}
 .next h3 em{font-style:italic;font-weight:600;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.next .btn{margin:0 12px 12px 0}
 .next p{font-weight:300;max-width:600px;opacity:.85;margin-bottom:28px}
 .btn{padding:18px 45px;border:1px solid var(--fg);color:var(--fg);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all .3s}
 .btn:hover{background:var(--fg);color:var(--bg)}
@@ -235,7 +236,10 @@ footer{padding:100px 80px;border-top:1px solid var(--line);display:grid;grid-tem
       <ul><li>Make a voice sing badly on purpose: half the notes land a step or two off</li><li>Hold every other line's last note way too long, like a singer who thinks they're nailing it</li><li>Switch to a new voice (British) and a new genre ('80s synth-pop) when the old ones get repetitive</li></ul>
       <div class="result">
         <div class="row"><span class="t">“Who Are You Again?” · about strangers in the DMs</span><span class="d">synth-pop · minor · 112 BPM · 1:17</span></div>
+        <div class="d">Final take · new British voice, '80s synth-pop</div>
         <audio controls preload="none" src="/musiclab/audio/08-who-are-you-again.mp3"></audio>
+        <div class="d">First take · rejected by the reviewer: “You're using the same voice and base”</div>
+        <audio controls preload="none" src="/musiclab/audio/08b-who-are-you-again-take1.mp3"></audio>
         <div class="verdict v-good"><b>Verdict</b>FlopTok music.</div>
         <details class="lyrics"><summary>Read the lyrics</summary><div class="stanza"><span>Verse</span><p>Woke up to my DMs, oh my gosh, oh no,<br>Someone says I'm “unstable,” I just said hello!<br>Called me the B-word with a sparkle emoji,<br>Said “F-off forever,” then he followed me.<br>You wrote “you're insane” in capital letters,<br>I sent you a kitten and a “hope you feel better.”</p></div><div class="stanza"><span>Pre-chorus</span><p>You said “change your attitude, or I'm leaving you,”<br>But who are you again? I really have no clue!</p></div><div class="stanza"><span>Chorus</span><p>What did I do to you? I-D-K! I-D-K!<br>What did I do to you? Have a lovely day!<br>You say you're leaving, but we never met,<br>Who are you again? Who are you again?</p></div></details>
       </div>
@@ -249,6 +253,8 @@ footer{padding:100px 80px;border-top:1px solid var(--line);display:grid;grid-tem
       <div class="result">
         <div class="row"><span class="t">“Boundary Crossing Mofa” · built from real DM quotes</span><span class="d">ballad → eurodance · 72 → 140 BPM · 1:40</span></div>
         <audio controls preload="none" src="/musiclab/audio/09-boundary-crossing-mofa.mp3"></audio>
+        <video controls playsinline preload="none" src="/musiclab/video/09-mofa-storyboard.mp4" style="width:100%;max-width:360px;aspect-ratio:9/16;background:#000;align-self:center"></video>
+        <div class="d">Storyboard video · Yellowstone · HE, SHE and BOTH karaoke, made in code by Claude AI</div>
         <div class="verdict v-good"><b>Verdict</b>FlopTok music.</div>
         <details class="lyrics"><summary>Read the lyrics</summary><div class="stanza"><span>Part 1 · Ballad · HE</span><p>You text like someone who's mentally unstable,<br>It's hard to understand you.</p></div><div class="stanza"><span>SHE</span><p>I don't keep a grudge museum, it stresses my liver.<br>You being entitled and rude earned you a block.<br>At least fast learners already verified<br>that F-off is never the best thing to say.</p></div><div class="stanza"><span>Part 2 · Eurodance · SHE (chorus)</span><p>Me not wanting to remember you earned you the unblock,<br>Two different things,<br>neither one is about missing you.</p></div><div class="stanza"><span>HE (rushed)</span><p>When you're ready to have a meaningful conversation with me, let me know,<br>Just block me, because I will continue to share this crazy stuff.</p></div><div class="stanza"><span>SHE</span><p>None of this matters to me,<br>I'm here for my own entertainment, not yours,<br>L-O-L!</p></div><div class="stanza"><span>Key change · SHE</span><p>Calling me mentally unstable and asking me to calm down isn't a good start,<br>If you want a real conversation, start over.</p></div><div class="stanza"><span>BOTH</span><p>Boundary crossing mofa,<br>Boundary crossing mofa,<br>Boundary crossing mofaaaaaa…</p></div></details>
       </div>
@@ -272,6 +278,7 @@ footer{padding:100px 80px;border-top:1px solid var(--line);display:grid;grid-tem
   <section class="next">
     <h3>Next experiment: <em>a voice that sounds human</em></h3>
     <p>Flop Mode is live in Logs 08 and 09. Next, Claude AI tries to make a singer you could mistake for a person, and to put that voice on top of the new pop-electronic production from Log 10.</p>
+    <a class="btn" href="/musiclab/studio/">Make music in Soundfont Studio</a>
     <a class="btn" href="https://www.tiktok.com/@soulstormai.com" target="_blank" rel="noopener">Follow @soulstormai.com on TikTok</a>
   </section>
 

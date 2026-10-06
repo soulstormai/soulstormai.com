@@ -1,0 +1,280 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Soulstorm Soundfont Studio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: mixing-console — rack of control strips on the left, piano-roll monitor on the right; one dark studio look by choice */
+:root{
+  --bg:#12111a; --panel:#1b1a26; --line:#2d2b3d; --fg:#ece9f5; --mute:#9a95b3;
+  --accent:#ff9a3c; --accent2:#7c6cff; --ok:#46d39a; --err:#ff6b7a;
+  --display:"Bricolage Grotesque",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.5 var(--mono);padding-block:28px;padding-inline:max(16px,4vw);min-height:100%}
+header{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;margin-bottom:22px}
+h1{font:800 clamp(28px,5vw,46px)/1 var(--display);margin:0;letter-spacing:-.02em;text-wrap:balance}
+h1 span{color:var(--accent)}
+.tag{color:var(--mute);font-size:13px}
+.wrap{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:20px}
+@media (max-width:820px){.wrap{grid-template-columns:minmax(0,1fr)}}
+.rack{display:flex;flex-direction:column;gap:12px}
+.strip{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.lbl{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--mute)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+select,input[type=number]{width:100%;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:8px;font:inherit}
+input[type=range]{width:100%;accent-color:var(--accent)}
+select:focus-visible,input:focus-visible,button:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+.drop{border:1.5px dashed var(--line);border-radius:8px;padding:16px;text-align:center;cursor:pointer;color:var(--mute)}
+.drop.on{border-color:var(--ok);color:var(--fg)}
+.drop strong{color:var(--fg);display:block;font-family:var(--display);font-size:17px}
+.monitor{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:14px;min-width:0}
+canvas{width:100%;height:280px;background:var(--bg);border-radius:6px;display:block}
+.chords{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:600 14px var(--mono);padding:6px 12px;border-radius:999px;background:var(--bg);border:1px solid var(--line)}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+button{font:600 14px var(--mono);border-radius:8px;padding:11px 16px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer}
+button.primary{background:var(--accent);color:#1a1008;border-color:var(--accent)}
+button:disabled{opacity:.4;cursor:not-allowed}
+#status{font-size:13px;color:var(--mute);min-height:20px}
+#status.err{color:var(--err)} #status.ok{color:var(--ok)}
+.foot{margin-top:20px;font-size:12px;color:var(--mute)}
+@media (prefers-reduced-motion:no-preference){button{transition:transform .1s} button:active:not(:disabled){transform:scale(.97)}}
+</style>
+
+<header>
+  <h1>Soundfont <span>Studio</span></h1>
+  <div class="tag">SoulstormAI · load .sf2 / .sf3 · compose · export MIDI + WAV · runs 100% in your browser</div>
+</header>
+
+<div class="wrap">
+  <div class="rack">
+    <div class="strip">
+      <div class="lbl">1 · Sound source</div>
+      <div class="row">
+        <button id="modeLib" class="primary" type="button">Library</button>
+        <button id="modeFile" type="button">My file</button>
+      </div>
+      <div id="libBox">
+        <label class="lbl" for="libSrc">Soundfont</label>
+        <select id="libSrc"></select>
+        <div class="tag" id="libLic" style="margin-top:6px"></div>
+      </div>
+      <label class="drop" id="drop" for="sf" hidden>
+        <strong id="sfName">Drop a .sf2 or .sf3 file</strong>
+        <span id="sfInfo">or tap to choose · try MuseScore_General.sf3</span>
+      </label>
+      <input type="file" id="sf" accept=".sf2,.sf3,.sfogg,.dls" hidden>
+    </div>
+
+    <div class="strip">
+      <div class="lbl">2 · Instruments</div>
+      <label class="lbl" for="leadInst">Lead</label>
+      <select id="leadInst" disabled><option>Load a soundfont first</option></select>
+      <label class="lbl" for="padInst">Chords</label>
+      <select id="padInst" disabled><option>Load a soundfont first</option></select>
+      <label class="lbl" for="drums">Drums</label>
+      <select id="drums"><option value="on">On · four-on-the-floor</option><option value="half">On · half-time</option><option value="off">Off</option></select>
+    </div>
+
+    <div class="strip">
+      <div class="lbl">3 · Song</div>
+      <div class="row">
+        <div><label class="lbl" for="prog">Vibe</label><select id="prog"></select></div>
+        <div><label class="lbl" for="key">Key</label><select id="key"></select></div>
+      </div>
+      <div class="row">
+        <div><label class="lbl" for="pattern">Lead pattern</label>
+          <select id="pattern"><option value="arp">Arpeggio up</option><option value="bounce">Bounce</option><option value="sparse">Sparse melody</option><option value="none">Chords only</option></select></div>
+        <div><label class="lbl" for="loops">Loops</label><input type="number" id="loops" min="1" max="8" value="2"></div>
+      </div>
+      <label class="lbl" for="bpm">Tempo · <span id="bpmVal">90</span> BPM</label>
+      <input type="range" id="bpm" min="60" max="160" value="90">
+    </div>
+  </div>
+
+  <div class="monitor">
+    <div class="chords" id="chords"></div>
+    <canvas id="roll" aria-label="Piano roll preview"></canvas>
+    <div class="btns">
+      <button class="primary" id="play" disabled>▶ Render &amp; play</button>
+      <button id="stop" disabled>■ Stop</button>
+      <button id="dlMid">⬇ MIDI</button>
+      <button id="dlWav" disabled>⬇ WAV</button>
+    </div>
+    <div id="status">Library ready. Pick instruments and press Render &amp; play.</div>
+  </div>
+</div>
+<div class="foot">Sound engine: SpessaSynth (Apache-2.0). Audio you render with an MIT/CC0 soundfont like MuseScore General is safe for commercial use.</div>
+
+<script type="module">
+import { SoundBankLoader, SpessaSynthProcessor, SpessaSynthSequencer, BasicMIDI, audioToWav } from "https://cdn.jsdelivr.net/npm/spessasynth_core@4.3.14/+esm";
+
+const $ = id => document.getElementById(id);
+const KEYS = ["C","C#","D","Eb","E","F","F#","G","Ab","A","Bb","B"];
+const Q = {maj:[0,4,7], min:[0,3,7], maj7:[0,4,7,11], min7:[0,3,7,10], dom7:[0,4,7,10]};
+const QN = {maj:"", min:"m", maj7:"maj7", min7:"m7", dom7:"7"};
+const PROGS = {
+  "Pop anthem":   [[0,"maj"],[7,"maj"],[9,"min"],[5,"maj"]],
+  "Lo-fi chill":  [[2,"min7"],[7,"dom7"],[0,"maj7"],[9,"min7"]],
+  "Cinematic":    [[9,"min"],[5,"maj"],[0,"maj"],[7,"maj"]],
+  "Dark trap":    [[0,"min"],[8,"maj"],[3,"maj"],[10,"maj"]],
+  "Soul / R&B":   [[0,"maj7"],[9,"min7"],[2,"min7"],[7,"dom7"]],
+};
+for (const k of Object.keys(PROGS)) $("prog").add(new Option(k,k));
+KEYS.forEach((k,i)=>$("key").add(new Option(k,i)));
+
+const GM="Acoustic Grand Piano|Bright Piano|Electric Grand|Honky-tonk Piano|Electric Piano 1|Electric Piano 2|Harpsichord|Clavinet|Celesta|Glockenspiel|Music Box|Vibraphone|Marimba|Xylophone|Tubular Bells|Dulcimer|Drawbar Organ|Percussive Organ|Rock Organ|Church Organ|Reed Organ|Accordion|Harmonica|Bandoneon|Nylon Guitar|Steel Guitar|Jazz Guitar|Clean Guitar|Muted Guitar|Overdrive Guitar|Distortion Guitar|Guitar Harmonics|Acoustic Bass|Finger Bass|Pick Bass|Fretless Bass|Slap Bass 1|Slap Bass 2|Synth Bass 1|Synth Bass 2|Violin|Viola|Cello|Contrabass|Tremolo Strings|Pizzicato Strings|Harp|Timpani|String Ensemble 1|String Ensemble 2|Synth Strings 1|Synth Strings 2|Choir Aahs|Voice Oohs|Synth Voice|Orchestra Hit|Trumpet|Trombone|Tuba|Muted Trumpet|French Horn|Brass Section|Synth Brass 1|Synth Brass 2|Soprano Sax|Alto Sax|Tenor Sax|Baritone Sax|Oboe|English Horn|Bassoon|Clarinet|Piccolo|Flute|Recorder|Pan Flute|Blown Bottle|Shakuhachi|Whistle|Ocarina|Square Lead|Saw Lead|Calliope Lead|Chiff Lead|Charang Lead|Voice Lead|Fifths Lead|Bass + Lead|New Age Pad|Warm Pad|Polysynth Pad|Choir Pad|Bowed Pad|Metallic Pad|Halo Pad|Sweep Pad|Rain FX|Soundtrack FX|Crystal FX|Atmosphere FX|Brightness FX|Goblins FX|Echoes FX|Sci-fi FX|Sitar|Banjo|Shamisen|Koto|Kalimba|Bagpipe|Fiddle|Shanai|Tinkle Bell|Agogo|Steel Drums|Woodblock|Taiko Drum|Melodic Tom|Synth Drum|Reverse Cymbal|Guitar Fret Noise|Breath Noise|Seashore|Bird Tweet|Telephone|Helicopter|Applause|Gunshot".split("|");
+const LIB={
+  "GeneralUser_GS_v2.0.3":{name:"GeneralUser GS 2.0",lic:"Free for commercial music, per author S. Christian Collins"},
+  "FluidR3_v3.1":{name:"FluidR3 GM",lic:"MIT license · commercial use OK"},
+  "TimGM6mb":{name:"TimGM 6MB (light)",lic:"Public domain · commercial use OK"},
+};
+const CDN="https://cdn.jsdelivr.net/gh/marmooo/free-soundfonts@main/docs/";
+for(const [k,v] of Object.entries(LIB)) $("libSrc").add(new Option(v.name,k));
+let mode="lib", bank=null, presets=[], wavBuf=null, ctx=null, src=null;
+const cache=new Map();
+const pad3=n=>String(n).padStart(3,"0");
+async function fetchBank(url){
+  if(!cache.has(url)) cache.set(url,(async()=>{const r=await fetch(url); if(!r.ok) throw new Error("Instrument not in this soundfont ("+r.status+")"); return SoundBankLoader.fromArrayBuffer(await r.arrayBuffer());})());
+  try{ return await cache.get(url); }catch(e){ cache.delete(url); throw e; }
+}
+function libSetup(){
+  for(const id of ["leadInst","padInst"]){ const s=$(id); s.innerHTML=""; GM.forEach((n,i)=>s.add(new Option(`${i}: ${n}`,i))); s.disabled=false; }
+  $("leadInst").value=4; $("padInst").value=89;
+  $("libLic").textContent=LIB[$("libSrc").value].lic+" · streamed free from jsDelivr";
+  $("play").disabled=false;
+}
+function setMode(m){
+  mode=m; $("modeLib").className=m==="lib"?"primary":""; $("modeFile").className=m==="file"?"primary":"";
+  $("libBox").hidden=m!=="lib"; $("drop").hidden=m!=="file";
+  if(m==="lib"){ libSetup(); status("Library ready. Pick instruments and press Render & play."); }
+  else if(!bank){ for(const id of ["leadInst","padInst"]){$(id).innerHTML="<option>Load a soundfont first</option>";$(id).disabled=true;} $("play").disabled=true; status("Drop your own .sf2 or .sf3 file."); }
+  else loadPresetsIntoSelects();
+  draw();
+}
+function patch(role){
+  const v=+$(role==="lead"?"leadInst":"padInst").value;
+  return mode==="lib"?{program:v,bankMSB:0,bankLSB:0}:presets[v];
+}
+async function banksForRender(){
+  if(mode==="file") return [bank];
+  const s=$("libSrc").value, urls=[CDN+s+"/000/"+pad3(patch("lead").program)+".sf3", CDN+s+"/000/"+pad3(patch("pad").program)+".sf3"];
+  if($("drums").value!=="off") urls.push(CDN+s+"/128/000.sf3");
+  status("Loading instruments…");
+  return Promise.all([...new Set(urls)].map(fetchBank));
+}
+const status=(t,c="")=>{ $("status").textContent=t; $("status").className=c; };
+
+function buildNotes(){
+  const root = 48 + +$("key").value, prog = PROGS[$("prog").value];
+  const loops = Math.max(1,Math.min(8,+$("loops").value||1)), pat=$("pattern").value;
+  const notes=[]; // [ch,pitch,startBeat,durBeats,vel]
+  for(let l=0;l<loops;l++) prog.forEach(([off,q],b)=>{
+    const t=(l*prog.length+b)*4, chord=Q[q].map(x=>root+off+x);
+    chord.forEach(p=>notes.push([1,p,t,4,70]));
+    notes.push([1,root+off-12,t,4,80]); // bass
+    const up=chord.map(p=>p+12);
+    if(pat==="arp") [0,1,2,1,0,1,2,3%up.length].forEach((i,s)=>notes.push([0,up[i%up.length],t+s*.5,.5,95]));
+    if(pat==="bounce") [0,2,1,2].forEach((i,s)=>notes.push([0,up[i]+(s%2?12:0),t+s,1,95]));
+    if(pat==="sparse") notes.push([0,up[2],t,1.5,100],[0,up[1],t+2,1,90],[0,up[0],t+3,1,85]);
+    const dr=$("drums").value;
+    if(dr!=="off"){
+      for(let h=0;h<8;h++) notes.push([9,42,t+h*.5,.25,h%2?55:75]);
+      const kicks=dr==="on"?[0,1,2,3]:[0,2.5], snares=dr==="on"?[1,3]:[2];
+      kicks.forEach(k=>notes.push([9,36,t+k,.5,110])); snares.forEach(k=>notes.push([9,38,t+k,.5,100]));
+    }
+  });
+  return {notes, beats:loops*prog.length*4, prog, root};
+}
+
+function writeMidi({notes}){
+  const TPQ=480, bpm=+$("bpm").value, ev=[];
+  const lead=patch("lead"), pad=patch("pad");
+  const setup=(ch,p)=>{ if(!p) return; ev.push([0,[0xB0|ch,0,p.bankMSB||0]],[0,[0xB0|ch,32,p.bankLSB||0]],[0,[0xC0|ch,p.program]]); };
+  setup(0,lead); setup(1,pad);
+  if(!lead) ev.push([0,[0xC0,0]]); if(!pad) ev.push([0,[0xC1,89]]);
+  for(const [ch,p,s,d,v] of notes){ ev.push([Math.round(s*TPQ),[0x90|ch,p,v]],[Math.round((s+d)*TPQ)-1,[0x80|ch,p,0]]); }
+  ev.sort((a,b)=>a[0]-b[0]||(a[1][0]&0xF0)-(b[1][0]&0xF0));
+  const vlq=n=>{const o=[n&0x7f];while(n>>=7)o.unshift((n&0x7f)|0x80);return o;};
+  const tempo=Math.round(60e6/bpm), trk=[0,0xFF,0x51,3,(tempo>>16)&255,(tempo>>8)&255,tempo&255];
+  let last=0; for(const [t,m] of ev){ trk.push(...vlq(t-last),...m); last=t; }
+  trk.push(0,0xFF,0x2F,0);
+  const u32=n=>[(n>>>24)&255,(n>>16)&255,(n>>8)&255,n&255];
+  return new Uint8Array([0x4D,0x54,0x68,0x64,0,0,0,6,0,0,0,1,(TPQ>>8)&255,TPQ&255,0x4D,0x54,0x72,0x6B,...u32(trk.length),...trk]);
+}
+
+function draw(){
+  const song=buildNotes(), c=$("roll"), r=devicePixelRatio||1, W=c.clientWidth, H=c.clientHeight;
+  c.width=W*r; c.height=H*r; const g=c.getContext("2d"); g.scale(r,r);
+  const ps=song.notes.map(n=>n[1]), lo=Math.min(...ps)-2, hi=Math.max(...ps)+2;
+  const x=b=>b/song.beats*W, y=p=>H-(p-lo+1)/(hi-lo+1)*H, h=H/(hi-lo+1);
+  g.strokeStyle="#2d2b3d"; for(let b=0;b<=song.beats;b+=4){g.beginPath();g.moveTo(x(b),0);g.lineTo(x(b),H);g.stroke();}
+  for(const [ch,p,s,d] of song.notes){ g.fillStyle=ch===9?"#46d39a":ch?"#7c6cff":"#ff9a3c"; g.fillRect(x(s)+1,y(p),Math.max(2,x(d)-2),Math.max(2,h-1)); }
+  $("chords").innerHTML=song.prog.map(([o,q])=>`<span class="chip">${KEYS[(song.root+o)%12]}${QN[q]}</span>`).join("");
+  wavBuf=null; $("dlWav").disabled=true;
+}
+
+function save(bytes,name,type){
+  const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([bytes],{type})); a.download=name;
+  document.body.append(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+}
+const base=()=>`soulstorm-${$("prog").value.toLowerCase().replace(/[^a-z]+/g,"-")}-${KEYS[$("key").value]}-${$("bpm").value}bpm`;
+
+function loadPresetsIntoSelects(){
+  for(const id of ["leadInst","padInst"]){ const s=$(id); s.innerHTML=""; presets.forEach((p,i)=>s.add(new Option(`${p.program}: ${p.name}`,i))); s.disabled=false; }
+  const pick=(rx,d)=>{const i=presets.findIndex(p=>rx.test(p.name));return i<0?d:i;};
+  $("leadInst").value=pick(/piano/i,0); $("padInst").value=pick(/pad|string|warm/i,0);
+  $("play").disabled=false;
+}
+async function loadSF(file){
+  status("Loading "+file.name+"…");
+  try{
+    bank=SoundBankLoader.fromArrayBuffer(await file.arrayBuffer());
+    const probe=new SpessaSynthProcessor(44100,{eventsEnabled:false});
+    probe.soundBankManager.addSoundBank(bank,"main"); await probe.processorInitialized;
+    presets=probe.soundBankManager.presetList.filter(p=>!p.isGMGSDrum);
+    loadPresetsIntoSelects();
+    $("sfName").textContent=file.name; $("sfInfo").textContent=presets.length+" instruments ready"; $("drop").classList.add("on");
+    $("play").disabled=false; status("Soundfont loaded. Press Render & play.","ok");
+  }catch(e){ console.error(e); status("Could not read that file. Use a valid .sf2 or .sf3 soundfont.","err"); }
+}
+
+async function render(){
+  $("play").disabled=true; status("Rendering…");
+  await new Promise(r=>setTimeout(r,30));
+  try{
+    const banks=await banksForRender(); status("Rendering…");
+    const sr=48000, midi=BasicMIDI.fromArrayBuffer(writeMidi(buildNotes()).buffer);
+    const synth=new SpessaSynthProcessor(sr,{eventsEnabled:false});
+    banks.forEach((b,i)=>synth.soundBankManager.addSoundBank(b,"b"+i)); await synth.processorInitialized;
+    const seq=new SpessaSynthSequencer(synth); seq.loadNewSongList([midi]); seq.play();
+    const n=Math.ceil(sr*(midi.duration+2)), L=new Float32Array(n), R=new Float32Array(n);
+    for(let f=0;f<n;f+=128){ seq.processTick(); synth.process(L,R,f,Math.min(128,n-f)); }
+    wavBuf=audioToWav([L,R],sr); $("dlWav").disabled=false;
+    ctx=ctx||new AudioContext(); await ctx.resume(); stop();
+    const ab=ctx.createBuffer(2,n,sr); ab.copyToChannel(L,0); ab.copyToChannel(R,1);
+    src=ctx.createBufferSource(); src.buffer=ab; src.connect(ctx.destination); src.start();
+    src.onended=()=>$("stop").disabled=true; $("stop").disabled=false;
+    status(`Playing ${midi.duration.toFixed(1)}s · WAV ready to download.`,"ok");
+  }catch(e){ console.error(e); status("Render failed: "+e.message,"err"); }
+  $("play").disabled=false;
+}
+function stop(){ try{src&&src.stop();}catch{} src=null; $("stop").disabled=true; }
+
+$("sf").onchange=e=>e.target.files[0]&&loadSF(e.target.files[0]);
+const d=$("drop");
+d.ondragover=e=>{e.preventDefault();d.classList.add("on");};
+d.ondragleave=()=>{ if(!bank) d.classList.remove("on"); };
+d.ondrop=e=>{e.preventDefault(); const f=e.dataTransfer.files[0]; f&&loadSF(f);};
+$("play").onclick=render; $("stop").onclick=stop;
+$("dlMid").onclick=()=>save(writeMidi(buildNotes()),base()+".mid","audio/midi");
+$("dlWav").onclick=()=>wavBuf&&save(new Uint8Array(wavBuf instanceof ArrayBuffer?wavBuf:wavBuf.buffer||wavBuf),base()+".wav","audio/wav");
+for(const id of ["prog","key","pattern","loops","leadInst","padInst","drums"]) $(id).onchange=draw;
+$("libSrc").onchange=()=>{ $("libLic").textContent=LIB[$("libSrc").value].lic+" · streamed free from jsDelivr"; draw(); };
+$("modeLib").onclick=()=>setMode("lib"); $("modeFile").onclick=()=>setMode("file");
+libSetup();
+$("bpm").oninput=()=>{$("bpmVal").textContent=$("bpm").value; wavBuf=null; $("dlWav").disabled=true;};
+addEventListener("resize",draw); draw();
+</script>
