@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RF30DV7CY0"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-RF30DV7CY0');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3424397100313583" crossorigin="anonymous"></script>
+<title>SoulstormAI Music Lab</title>
+<meta name="description" content="A public research log: how an AI learned to compose, arrange and sing, one experiment at a time, with every result playable.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>
+/* Layout: lab notebook — a single timeline spine down the left, each log an entry hanging off it; one dark studio look by choice */
+:root{
+  --bg:#100f17; --panel:#191825; --line:#2c2a3c; --fg:#ece9f5; --mute:#9792b0;
+  --accent:#ff9a3c; --violet:#8b7cff; --ok:#46d39a; --warn:#ffcf5c;
+  --display:"Bricolage Grotesque",system-ui,sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body);margin:0}
+.wrap{max-width:760px;margin:0 auto;padding-block:48px 72px;padding-inline:20px}
+.eyebrow{font:600 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+h1{font:800 clamp(38px,8vw,68px)/.95 var(--display);letter-spacing:-.03em;margin:.25em 0 .3em;text-wrap:balance}
+h1 em{font-style:normal;color:var(--violet)}
+.lede{color:var(--mute);font-size:18px;max-width:58ch;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font:13px var(--mono);color:var(--mute)}
+.meta b{color:var(--fg);font-weight:600}
+.method{margin-top:32px;padding:18px 20px;border:1px solid var(--line);border-radius:10px;font-size:15px;color:var(--mute)}
+.method strong{color:var(--fg)}
+.timeline{margin-top:44px;border-left:2px solid var(--line);padding-left:26px;display:flex;flex-direction:column;gap:34px}
+.log{position:relative}
+.log::before{content:"";position:absolute;left:-34px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.log.latest::before{background:var(--accent)}
+.stamp{font:12px var(--mono);color:var(--mute);display:flex;gap:12px;flex-wrap:wrap}
+.stamp .n{color:var(--accent);font-weight:600}
+.log h2{font:800 26px/1.15 var(--display);margin:6px 0 12px;letter-spacing:-.01em;text-wrap:balance}
+.learned{font:600 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--violet);margin-bottom:6px}
+.log ul{margin:0 0 16px;padding-left:20px}
+.log li{margin:3px 0}
+.result{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.result .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.result .t{font:600 14px var(--mono)}
+.result .d{font:12px var(--mono);color:var(--mute);font-variant-numeric:tabular-nums}
+audio{width:100%;height:40px;border-radius:999px}
+.verdict{font-size:14px;color:var(--mute);border-top:1px dashed var(--line);padding-top:10px}
+.verdict b{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-right:8px}
+.v-good b{color:var(--ok)} .v-mid b{color:var(--warn)} .v-bad b{color:var(--accent)}
+.next{margin-top:48px;padding:22px;border-radius:12px;background:linear-gradient(135deg,rgba(255,154,60,.12),rgba(139,124,255,.12));border:1px solid var(--line)}
+.next h3{font:800 22px var(--display);margin:0 0 8px}
+.next p{margin:0;color:var(--mute)}
+footer{margin-top:40px;font:12px var(--mono);color:var(--mute);line-height:1.7}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--violet);outline-offset:2px}
+@media (max-width:480px){.timeline{padding-left:18px}.log::before{left:-26px}}
+</style>
+</head><body>
+
+
+<div class="wrap">
+  <div class="eyebrow">SoulstormAI · Research study 001</div>
+  <h1>Teaching an AI <em>to sing</em></h1>
+  <p class="lede">A public lab log. Each entry records one new skill the AI learned, followed by the exact song it produced afterward. Nothing is edited by hand, and the failures stay in.</p>
+  <div class="meta">
+    <span>Started <b>Oct 5, 2026</b></span>
+    <span>Experiments <b>6</b></span>
+    <span>Cost per song <b>$0.00</b></span>
+    <span>Human singers <b>0</b></span>
+  </div>
+  <div class="method"><strong>Method.</strong> Every song is composed as MIDI, played on open-license soundfonts (GeneralUser GS), and rendered in software. Vocals come from an open-source speaking voice that the AI retunes note by note. One human reviewer listens to each result and gives a verdict.</div>
+
+  <div class="timeline">
+
+    <article class="log">
+      <div class="stamp"><span class="n">LOG 01</span><span>18:40 CST</span><span>Composition</span></div>
+      <h2>First composition from a blank file</h2>
+      <div class="learned">AI learned</div>
+      <ul>
+        <li>Write a real MIDI file: chords, bass line, melody and drums on separate channels</li>
+        <li>Arrange a song in sections that build and fall: intro, verse, chorus, outro</li>
+        <li>Turn energy into arrangement: calm sections hold long chords, full sections add a bass groove and a crash cymbal</li>
+      </ul>
+      <div class="result">
+        <div class="row"><span class="t">“San Antonio Midnight” · instrumental</span><span class="d">Eb major · 84 BPM · 1:08</span></div>
+        <audio controls preload="none" src="audio/01-first-composition.mp3"></audio>
+        <div class="verdict v-good"><b>Verdict</b>A usable lo-fi track on the first try.</div>
+      </div>
+    </article>
+
+    <article class="log">
+      <div class="stamp"><span class="n">LOG 02</span><span>20:46 CST</span><span>Voices</span></div>
+      <h2>Wordless vocals</h2>
+      <div class="learned">AI learned</div>
+      <ul>
+        <li>Add a choir “aah” that doubles the melody in the chorus</li>
+        <li>Hold backing “oohs” under the verse chords and the outro</li>
+      </ul>
+      <div class="result">
+        <div class="row"><span class="t">“San Antonio Midnight” · vocal version</span><span class="d">choir + oohs · 1:08</span></div>
+        <audio controls preload="none" src="audio/02-choir-voices.mp3"></audio>
+        <div class="verdict v-good"><b>Verdict</b>Pleasant, but it has no words.</div>
+      </div>
+    </article>
+
+    <article class="log">
+      <div class="stamp"><span class="n">LOG 03</span><span>20:50 CST</span><span>Lyrics</span></div>
+      <h2>First words</h2>
+      <div class="learned">AI learned</div>
+      <ul>
+        <li>Speak any lyric with an open-source voice</li>
+        <li>Set each word's <strong>tune</strong> (pitch), <strong>rhythm</strong> (start time) and <strong>length</strong> (duration) from the melody</li>
+      </ul>
+      <div class="result">
+        <div class="row"><span class="t">“San Antonio Midnight” · first sung chorus</span><span class="d">vocal enters 0:34 · 1:09</span></div>
+        <audio controls preload="none" src="audio/03-first-words.mp3"></audio>
+        <div class="verdict v-mid"><b>Verdict</b>It sings. It also sounds like a GPS falling in love.</div>
+      </div>
+    </article>
+
+    <article class="log">
+      <div class="stamp"><span class="n">LOG 04</span><span>21:05 CST</span><span>Prompts</span></div>
+      <h2>Songs from a written scene</h2>
+      <div class="learned">AI learned</div>
+      <ul>
+        <li>Read a video-style prompt: scene, character, <em>sings:</em> “lyrics in quotes”, plus an Audio line</li>
+        <li>Choose a male or female voice from the character description</li>
+        <li>Use a mood grid where energy sets the tempo and mood sets major or minor, then pick a genre from that</li>
+      </ul>
+      <div class="result">
+        <div class="row"><span class="t">“I Been On My Own” · Vibe: energy 7, mood 2</span><span class="d">trap · minor · 118 BPM · 0:42</span></div>
+        <audio controls preload="none" src="audio/04-prompt-mood-grid.mp3"></audio>
+        <div class="verdict v-mid"><b>Verdict</b>The mood is right. The singer is lost.</div>
+      </div>
+    </article>
+
+    <article class="log">
+      <div class="stamp"><span class="n">LOG 05</span><span>21:14 CST</span><span>Technique</span></div>
+      <h2>Vocal technique, part one</h2>
+      <div class="learned">AI learned</div>
+      <ul>
+        <li>Hold the vowels and keep the consonants quick: “li-i-ights”, not “llllights”</li>
+        <li>Slide into each note from the one before it</li>
+        <li>Add vibrato only on long notes, the way trained singers do</li>
+        <li>Mix like a studio: double-tracked vocal, reverb, EQ and compression</li>
+      </ul>
+      <div class="result">
+        <div class="row"><span class="t">“Midnight in the City” · v2</span><span class="d">lo-fi · 76 BPM · 0:51</span></div>
+        <audio controls preload="none" src="audio/05-vocal-technique.mp3"></audio>
+        <div class="verdict v-mid"><b>Verdict</b>“Getting better, but you talk more naturally than it sings.”</div>
+      </div>
+    </article>
+
+    <article class="log latest">
+      <div class="stamp"><span class="n">LOG 06</span><span>21:18 CST</span><span>Technique</span></div>
+      <h2>Sing the way you speak</h2>
+      <div class="learned">AI learned</div>
+      <ul>
+        <li>Sing a whole line in one breath, so words flow into each other</li>
+        <li>Find each spoken syllable and give it its own note</li>
+        <li>Keep a quarter of the speaking voice's own expression</li>
+        <li>Write in call and answer: one line ends up in the air, the next resolves home</li>
+        <li>Breathe before each line</li>
+      </ul>
+      <div class="result">
+        <div class="row"><span class="t">“Midnight in the City” · v3</span><span class="d">lo-fi · 76 BPM · 0:43</span></div>
+        <audio controls preload="none" src="audio/06-sing-like-you-speak.mp3"></audio>
+        <div class="verdict v-bad"><b>Verdict</b>“Hahaha. Hilarious, out of tune and out of rhythm.”</div>
+      </div>
+    </article>
+
+  </div>
+
+  <section class="next">
+    <h3>Next experiment: Flop Mode</h3>
+    <p>The reviewer laughed, so the study is changing direction. Log 07 will make the bad singing deliberate, with a Cringe slider from 1 to 10. Write a scene, name your victim, and get a terrible ballad worth sharing.</p>
+  </section>
+
+  <footer>
+    SoulstormAI Music Lab · soulstormai.com/musiclab<br>
+    Sound: GeneralUser GS by S. Christian Collins · Voices: Piper (Lessac, Ryan) · Synth engine: SpessaSynth (Apache-2.0)<br>
+    All compositions are original and generated by the SoulstormAI engine.
+  </footer>
+</div>
+
+</body></html>
