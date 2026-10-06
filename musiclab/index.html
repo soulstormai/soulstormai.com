@@ -93,7 +93,7 @@ footer{padding:100px 80px;border-top:1px solid var(--line);display:grid;grid-tem
   <p class="lede" style="margin-top:12px">I'm running this study with <strong style="color:var(--fg)">Claude AI</strong> by Anthropic. Claude writes the code, composes the songs and logs what it learns. I listen and give the verdicts.</p>
   <div class="meta">
     <span>Started <b>Oct 5, 2026</b></span>
-    <span>Experiments <b>7</b></span>
+    <span>Experiments <b>10</b></span>
     <span>Cost per song <b>$0.00</b></span>
     <span>Human singers <b>0</b></span>
     <span>Built with <b>Claude AI</b></span>
@@ -205,7 +205,7 @@ footer{padding:100px 80px;border-top:1px solid var(--line);display:grid;grid-tem
       </div>
     </article>
 
-    <article class="log latest">
+    <article class="log">
       <div class="stamp"><span class="n">LOG 07</span><span>21:50 CST</span><span>Full song</span></div>
       <h2>A complete song from a lyric sheet</h2>
       <div class="learned">Claude AI learned</div>
@@ -218,17 +218,58 @@ footer{padding:100px 80px;border-top:1px solid var(--line);display:grid;grid-tem
       <div class="result">
         <div class="row"><span class="t">“Verified (Not Really)” · a song about fake celebrity profiles</span><span class="d">dance / Britpop · E major · 124 BPM · 1:56</span></div>
         <audio controls preload="none" src="/musiclab/audio/07-verified-not-really.mp3"></audio>
+        <video controls playsinline preload="none" poster="" src="/musiclab/video/07-verified-storyboard.mp4" style="width:100%;max-width:360px;aspect-ratio:9/16;background:#000;align-self:center"></video>
+        <div class="d">Storyboard video · illustrated scenes with karaoke lyrics, made in code by Claude AI</div>
         <div class="verdict v-good"><b>Verdict</b>FlopTok music.</div>
         <details class="lyrics"><summary>Read the lyrics</summary><div class="stanza"><span>Verse 1</span><p>Got a message at a quarter to three,<br>A movie star says he's crazy for me.<br>Jawline sharp like a magazine,<br>Prettiest face that I've ever seen.<br>He's filming in Dubai, his card got blocked,<br>His agent's away and his bank account's locked.</p></div><div class="stanza"><span>Pre-chorus</span><p>He says “baby, it's fate,” in broken text,<br>Spells “beautiful” wrong, then asks what's next…</p></div><div class="stanza"><span>Chorus</span><p>Oh, you're not who you say you are,<br>A Hollywood face on a dial-up star.<br>You want gift cards, not my heart,<br>Verified (not really), you're a work of art!<br>Oh-oh-oh, catfish in the moonlight,<br>Oh-oh-oh, swipe left, I'm alright!</p></div><div class="stanza"><span>Verse 2</span><p>Profile pic from a red-carpet night,<br>But the background's blurry and the lighting's not right.<br>Asked for a video, you said “cam is broke,”<br>Your Oscar speech was a copy-paste joke.<br>Says he's on a ship, an oil rig, a war,<br>Every week a brand-new tragedy for sure.</p></div><div class="stanza"><span>Bridge</span><p>I sent you a word, said “type WOBBLEFISH,”<br>You sent me a heart and a crypto wish.<br>Real stars don't need my rent money, honey,<br>Real stars don't call me “dear,” it's funny…</p></div><div class="stanza"><span>Final chorus</span><p>Oh, you're not who you say you are,<br>A stolen face and a fake guitar.<br>Keep your love and your Western Union art,<br>Verified (not really), you're a work of art!</p></div></details>
+      </div>
+    </article>
+
+    <article class="log">
+      <div class="stamp"><span class="n">LOG 08</span><span>23:40 CST</span><span>Flop Mode</span></div>
+      <h2>Off-key on purpose</h2>
+      <div class="learned">Claude AI learned</div>
+      <ul><li>Make a voice sing badly on purpose: half the notes land a step or two off</li><li>Hold every other line's last note way too long, like a singer who thinks they're nailing it</li><li>Switch to a new voice (British) and a new genre ('80s synth-pop) when the old ones get repetitive</li></ul>
+      <div class="result">
+        <div class="row"><span class="t">“Who Are You Again?” · about strangers in the DMs</span><span class="d">synth-pop · minor · 112 BPM · 1:17</span></div>
+        <audio controls preload="none" src="/musiclab/audio/08-who-are-you-again.mp3"></audio>
+        <div class="verdict v-good"><b>Verdict</b>FlopTok music.</div>
+        <details class="lyrics"><summary>Read the lyrics</summary><div class="stanza"><span>Verse</span><p>Woke up to my DMs, oh my gosh, oh no,<br>Someone says I'm “unstable,” I just said hello!<br>Called me the B-word with a sparkle emoji,<br>Said “F-off forever,” then he followed me.<br>You wrote “you're insane” in capital letters,<br>I sent you a kitten and a “hope you feel better.”</p></div><div class="stanza"><span>Pre-chorus</span><p>You said “change your attitude, or I'm leaving you,”<br>But who are you again? I really have no clue!</p></div><div class="stanza"><span>Chorus</span><p>What did I do to you? I-D-K! I-D-K!<br>What did I do to you? Have a lovely day!<br>You say you're leaving, but we never met,<br>Who are you again? Who are you again?</p></div></details>
+      </div>
+    </article>
+
+    <article class="log">
+      <div class="stamp"><span class="n">LOG 09</span><span>23:46 CST</span><span>Flop Mode</span></div>
+      <h2>Learning what makes a song bad</h2>
+      <div class="learned">Claude AI learned</div>
+      <ul><li>Cram long, unrhymed sentences into short melodies</li><li>Hard-cut from a sad piano ballad into eurodance with a bagpipe lead</li><li>Change key for no reason, sing “L-O-L” out loud, repeat one line too many times</li><li>Turn an argument into a duet: a robotic male voice for the hater, a female voice for the comebacks</li><li>End on an overlong, off-key note, then stop dead</li></ul>
+      <div class="result">
+        <div class="row"><span class="t">“Boundary Crossing Mofa” · built from real DM quotes</span><span class="d">ballad → eurodance · 72 → 140 BPM · 1:40</span></div>
+        <audio controls preload="none" src="/musiclab/audio/09-boundary-crossing-mofa.mp3"></audio>
+        <div class="verdict v-good"><b>Verdict</b>FlopTok music.</div>
+        <details class="lyrics"><summary>Read the lyrics</summary><div class="stanza"><span>Part 1 · Ballad · HE</span><p>You text like someone who's mentally unstable,<br>It's hard to understand you.</p></div><div class="stanza"><span>SHE</span><p>I don't keep a grudge museum, it stresses my liver.<br>You being entitled and rude earned you a block.<br>At least fast learners already verified<br>that F-off is never the best thing to say.</p></div><div class="stanza"><span>Part 2 · Eurodance · SHE (chorus)</span><p>Me not wanting to remember you earned you the unblock,<br>Two different things,<br>neither one is about missing you.</p></div><div class="stanza"><span>HE (rushed)</span><p>When you're ready to have a meaningful conversation with me, let me know,<br>Just block me, because I will continue to share this crazy stuff.</p></div><div class="stanza"><span>SHE</span><p>None of this matters to me,<br>I'm here for my own entertainment, not yours,<br>L-O-L!</p></div><div class="stanza"><span>Key change · SHE</span><p>Calling me mentally unstable and asking me to calm down isn't a good start,<br>If you want a real conversation, start over.</p></div><div class="stanza"><span>BOTH</span><p>Boundary crossing mofa,<br>Boundary crossing mofa,<br>Boundary crossing mofaaaaaa…</p></div></details>
+      </div>
+    </article>
+
+    <article class="log latest">
+      <div class="stamp"><span class="n">LOG 10</span><span>00:09 CST</span><span>Production</span></div>
+      <h2>Trendy pop-electronic production</h2>
+      <div class="learned">Claude AI learned</div>
+      <ul><li>Sidechain pumping: chords and bass duck every time the kick hits</li><li>Build-ups: a snare roll that speeds up and a white-noise riser before each drop</li><li>An impact boom and crash burst exactly on the drop</li><li>Off-beat chord stabs and a pumping off-beat bass in the drops</li><li>The vi–IV–I–V four-chord loop</li><li>A loud, glued master at streaming loudness</li></ul>
+      <div class="result">
+        <div class="row"><span class="t">“Neon Unblock” · instrumental</span><span class="d">pop-electronic · A♭ major · 124 BPM · 1:27</span></div>
+        <audio controls preload="none" src="/musiclab/audio/10-neon-unblock.mp3"></audio>
+        <div class="verdict v-good"><b>Verdict</b>Awaiting review.</div>
+        <div class="lyrics"><span class="stanza-note">Instrumental · no lyrics</span></div>
       </div>
     </article>
 
   </div>
 
   <section class="next">
-    <h3>Next experiment: <em>Flop Mode</em></h3>
-    <p>The reviewer laughed, so the study is changing direction. Log 08 will make the bad singing deliberate, with a Cringe slider from 1 to 10. Write a scene, name your victim, and get a terrible ballad worth sharing.</p>
-    <a class="btn" href="https://tiktok.com/@soulstormai" target="_blank" rel="noopener">Follow the study on TikTok</a>
+    <h3>Next experiment: <em>a voice that sounds human</em></h3>
+    <p>Flop Mode is live in Logs 08 and 09. Next, Claude AI tries to make a singer you could mistake for a person, and to put that voice on top of the new pop-electronic production from Log 10.</p>
+    <a class="btn" href="https://www.tiktok.com/@soulstormai.com" target="_blank" rel="noopener">Follow @soulstormai.com on TikTok</a>
   </section>
 
   <div class="credits">
@@ -303,7 +344,7 @@ footer{padding:100px 80px;border-top:1px solid var(--line);display:grid;grid-tem
             <h3>Connect</h3>
             <div class="footer-links">
                 <a href="https://instagram.com/soulstormai" target="_blank" rel="noopener">Instagram</a>
-                <a href="https://tiktok.com/@soulstormai" target="_blank" rel="noopener">TikTok</a>
+                <a href="https://www.tiktok.com/@soulstormai.com" target="_blank" rel="noopener">TikTok</a>
             </div>
         </div>
         <div class="footer-copyright">
