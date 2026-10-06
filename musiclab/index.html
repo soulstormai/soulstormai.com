@@ -49,6 +49,14 @@ h1 em{display:block;font-style:italic;font-weight:600;background:var(--grad);-we
 audio{width:100%;height:40px}
 .verdict{font-size:.95rem;font-weight:300;font-style:italic;color:var(--soft);border-top:1px solid var(--line);padding-top:14px}
 .verdict b{font-style:normal;font-weight:500;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fg);margin-right:12px}
+.lyrics{border-top:1px solid var(--line);padding-top:14px}
+.lyrics summary{cursor:pointer;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);list-style:none}
+.lyrics summary::-webkit-details-marker{display:none}
+.lyrics summary::after{content:" +"}
+.lyrics[open] summary::after{content:" −"}
+.stanza{margin-top:22px}
+.stanza span{display:block;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);margin-bottom:6px}
+.stanza p{font-family:"Cormorant Garamond",serif;font-size:1.35rem;line-height:1.45;font-weight:400}
 .next{margin-top:90px;padding:44px 0;border-top:1px solid var(--line)}
 .next h3{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1;margin-bottom:18px}
 .next h3 em{font-style:italic;font-weight:600;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
@@ -203,7 +211,8 @@ footer{padding:100px 80px;border-top:1px solid var(--line);display:grid;grid-tem
       <div class="result">
         <div class="row"><span class="t">“Verified (Not Really)” · a song about fake celebrity profiles</span><span class="d">dance / Britpop · E major · 124 BPM · 1:56</span></div>
         <audio controls preload="none" src="/musiclab/audio/07-verified-not-really.mp3"></audio>
-        <div class="verdict v-good"><b>Verdict</b>“That's gonna be awesome.”</div>
+        <div class="verdict v-good"><b>Verdict</b>FlopTok music.</div>
+        <details class="lyrics"><summary>Read the lyrics</summary><div class="stanza"><span>Verse 1</span><p>Got a message at a quarter to three,<br>A movie star says he's crazy for me.<br>Jawline sharp like a magazine,<br>Prettiest face that I've ever seen.<br>He's filming in Dubai, his card got blocked,<br>His agent's away and his bank account's locked.</p></div><div class="stanza"><span>Pre-chorus</span><p>He says “baby, it's fate,” in broken text,<br>Spells “beautiful” wrong, then asks what's next…</p></div><div class="stanza"><span>Chorus</span><p>Oh, you're not who you say you are,<br>A Hollywood face on a dial-up star.<br>You want gift cards, not my heart,<br>Verified (not really), you're a work of art!<br>Oh-oh-oh, catfish in the moonlight,<br>Oh-oh-oh, swipe left, I'm alright!</p></div><div class="stanza"><span>Verse 2</span><p>Profile pic from a red-carpet night,<br>But the background's blurry and the lighting's not right.<br>Asked for a video, you said “cam is broke,”<br>Your Oscar speech was a copy-paste joke.<br>Says he's on a ship, an oil rig, a war,<br>Every week a brand-new tragedy for sure.</p></div><div class="stanza"><span>Bridge</span><p>I sent you a word, said “type WOBBLEFISH,”<br>You sent me a heart and a crypto wish.<br>Real stars don't need my rent money, honey,<br>Real stars don't call me “dear,” it's funny…</p></div><div class="stanza"><span>Final chorus</span><p>Oh, you're not who you say you are,<br>A stolen face and a fake guitar.<br>Keep your love and your Western Union art,<br>Verified (not really), you're a work of art!</p></div></details>
       </div>
     </article>
 
