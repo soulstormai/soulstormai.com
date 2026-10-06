@@ -5,55 +5,78 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3424397100313583" crossorigin="anonymous"></script>
 <title>SoulstormAI Music Lab</title>
 <meta name="description" content="A public research log: how Claude AI learned to compose, arrange and sing, one experiment at a time, with every result playable.">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,600&family=Space+Grotesk:wght@300;400;500;600&display=swap">
 <style>
-/* Layout: lab notebook — a single timeline spine down the left, each log an entry hanging off it; one dark studio look by choice */
-:root{
-  --bg:#100f17; --panel:#191825; --line:#2c2a3c; --fg:#ece9f5; --mute:#9792b0;
-  --accent:#ff9a3c; --violet:#8b7cff; --ok:#46d39a; --warn:#ffcf5c;
-  --display:"Bricolage Grotesque",system-ui,sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
-  color-scheme:dark;
-}
-*{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body);margin:0}
-.wrap{max-width:760px;margin:0 auto;padding-block:48px 72px;padding-inline:20px}
-.eyebrow{font:600 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
-h1{font:800 clamp(38px,8vw,68px)/.95 var(--display);letter-spacing:-.03em;margin:.25em 0 .3em;text-wrap:balance}
-h1 em{font-style:normal;color:var(--violet)}
-.lede{color:var(--mute);font-size:18px;max-width:58ch;margin:0}
-.meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font:13px var(--mono);color:var(--mute)}
-.meta b{color:var(--fg);font-weight:600}
-.method{margin-top:32px;padding:18px 20px;border:1px solid var(--line);border-radius:10px;font-size:15px;color:var(--mute)}
-.method strong{color:var(--fg)}
-.timeline{margin-top:44px;border-left:2px solid var(--line);padding-left:26px;display:flex;flex-direction:column;gap:34px}
+/* Layout: matches soulstormai.com home — editorial serif headlines, hairline rules, dot-timeline like the home nav */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0a;--fg:#e8e8e8;--soft:rgba(232,232,232,.62);--line:rgba(255,255,255,.1);--card:rgba(255,255,255,.02);--gold:#C9A870;--grad:linear-gradient(90deg,#4A148C,#B8860B);color-scheme:dark}
+[data-theme="light"]{--bg:#f5f5f5;--fg:#0a0a0a;--soft:rgba(10,10,10,.62);--line:rgba(0,0,0,.12);--card:rgba(0,0,0,.025);--gold:#8B7040;color-scheme:light}
+body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;transition:background .8s ease,color .8s ease}
+a{color:var(--fg)}
+:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:32px 40px 0;gap:16px}
+.home{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;opacity:.7;transition:opacity .3s}
+.home:hover{opacity:1}
+.theme-toggle{background:transparent;border:1px solid var(--fg);width:50px;height:50px;border-radius:50%;font-size:1.2rem;color:var(--fg);cursor:pointer;transition:all .3s}
+.theme-toggle:hover{background:var(--fg);color:var(--bg)}
+.wrap{max-width:820px;margin:0 auto;padding-block:60px 100px;padding-inline:24px}
+.eyebrow{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;opacity:.55}
+h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(3.2rem,9vw,6.5rem);line-height:.9;letter-spacing:-.02em;margin:20px 0 32px;text-wrap:balance}
+h1 em{display:block;font-style:italic;font-weight:600;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lede{font-size:clamp(1.05rem,2vw,1.3rem);font-weight:300;line-height:1.6;max-width:600px;opacity:.9}
+.lede strong{font-weight:500}
+.meta{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:36px;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--soft)}
+.meta b{color:var(--fg);font-weight:500}
+.method{margin-top:44px;padding:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-weight:300;color:var(--soft)}
+.method strong{color:var(--fg);font-weight:500}
+.timeline{margin-top:70px;border-left:1px solid var(--line);padding-left:36px;display:flex;flex-direction:column;gap:64px}
 .log{position:relative}
-.log::before{content:"";position:absolute;left:-34px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
-.log.latest::before{background:var(--accent)}
-.stamp{font:12px var(--mono);color:var(--mute);display:flex;gap:12px;flex-wrap:wrap}
-.stamp .n{color:var(--accent);font-weight:600}
-.log h2{font:800 26px/1.15 var(--display);margin:6px 0 12px;letter-spacing:-.01em;text-wrap:balance}
-.learned{font:600 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--violet);margin-bottom:6px}
-.log ul{margin:0 0 16px;padding-left:20px}
-.log li{margin:3px 0}
-.result{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
-.result .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
-.result .t{font:600 14px var(--mono)}
-.result .d{font:12px var(--mono);color:var(--mute);font-variant-numeric:tabular-nums}
-audio{width:100%;height:40px;border-radius:999px}
-.verdict{font-size:14px;color:var(--mute);border-top:1px dashed var(--line);padding-top:10px}
-.verdict b{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-right:8px}
-.v-good b{color:var(--ok)} .v-mid b{color:var(--warn)} .v-bad b{color:var(--accent)}
-.next{margin-top:48px;padding:22px;border-radius:12px;background:linear-gradient(135deg,rgba(255,154,60,.12),rgba(139,124,255,.12));border:1px solid var(--line)}
-.next h3{font:800 22px var(--display);margin:0 0 8px}
-.next p{margin:0;color:var(--mute)}
-footer{margin-top:40px;font:12px var(--mono);color:var(--mute);line-height:1.7}
-a{color:var(--accent)}
-:focus-visible{outline:2px solid var(--violet);outline-offset:2px}
-@media (max-width:480px){.timeline{padding-left:18px}.log::before{left:-26px}}
+.log::before{content:"";position:absolute;left:-41px;top:10px;width:9px;height:9px;border-radius:50%;border:1px solid var(--soft);background:var(--bg)}
+.log.latest::before{background:var(--fg);border-color:var(--fg);transform:scale(1.5)}
+.stamp{display:flex;gap:16px;flex-wrap:wrap;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--soft)}
+.stamp .n{color:var(--gold)}
+.log h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(2rem,4.5vw,2.8rem);line-height:1.05;margin:10px 0 20px;text-wrap:balance}
+.learned{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.log ul{list-style:none;margin:0 0 26px;display:flex;flex-direction:column;gap:8px;font-weight:300}
+.log li{padding-left:22px;position:relative}
+.log li::before{content:"";position:absolute;left:0;top:.75em;width:10px;height:1px;background:var(--soft)}
+.log li strong{font-weight:500}
+.result{padding:24px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;gap:14px;transition:border-color .3s}
+.result:hover{border-color:var(--soft)}
+.result .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.result .t{font-weight:500;font-size:1.05rem}
+.result .d{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--soft);font-variant-numeric:tabular-nums}
+audio{width:100%;height:40px}
+.verdict{font-size:.95rem;font-weight:300;font-style:italic;color:var(--soft);border-top:1px solid var(--line);padding-top:14px}
+.verdict b{font-style:normal;font-weight:500;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fg);margin-right:12px}
+.next{margin-top:90px;padding:44px 0;border-top:1px solid var(--line)}
+.next h3{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1;margin-bottom:18px}
+.next h3 em{font-style:italic;font-weight:600;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.next p{font-weight:300;max-width:600px;opacity:.85;margin-bottom:28px}
+.btn{padding:18px 45px;border:1px solid var(--fg);color:var(--fg);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all .3s}
+.btn:hover{background:var(--fg);color:var(--bg)}
+.credits{margin-top:70px;font-size:.75rem;letter-spacing:.05em;line-height:1.9;color:var(--soft)}
+footer{padding:100px 80px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:60px}
+.footer-section h3{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;margin-bottom:30px}
+.footer-links{display:flex;flex-direction:column;gap:15px}
+.footer-links a{text-decoration:none;font-size:.9rem;letter-spacing:.05em;opacity:.7;transition:all .3s}
+.footer-links a:hover{opacity:1;padding-left:10px}
+.footer-copyright{grid-column:1/-1;text-align:center;font-size:.75rem;opacity:.4;margin-top:40px}
+.partners{grid-column:1/-1;padding-bottom:60px;border-bottom:1px solid var(--line)}
+.partners h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;opacity:.6;text-align:center;margin-bottom:40px}
+.partner-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.affiliate-card{padding:25px;background:var(--card);border:1px solid var(--line);text-decoration:none;display:block;transition:all .3s}
+.affiliate-card:hover{border-color:var(--soft);transform:translateY(-4px)}
+.affiliate-category{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;opacity:.5;margin-bottom:10px}
+.affiliate-name{font-size:1.1rem;font-weight:500;margin-bottom:8px}
+.affiliate-desc{font-size:.85rem;opacity:.7}
+@media (max-width:768px){.topbar{padding:24px 20px 0}footer{padding:60px 24px;grid-template-columns:1fr;gap:40px}.timeline{padding-left:24px}.log::before{left:-29px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head><body>
 
 
+<div class="topbar"><a class="home" href="/">← SoulstormAI</a><button class="theme-toggle" id="themeToggle" aria-label="Switch light or dark">◐</button></div>
 <div class="wrap">
   <div class="eyebrow">SoulstormAI · Research study 001</div>
   <h1>Teaching Claude AI <em>to sing</em></h1>
@@ -170,15 +193,92 @@ a{color:var(--accent)}
   </div>
 
   <section class="next">
-    <h3>Next experiment: Flop Mode</h3>
+    <h3>Next experiment: <em>Flop Mode</em></h3>
     <p>The reviewer laughed, so the study is changing direction. Log 07 will make the bad singing deliberate, with a Cringe slider from 1 to 10. Write a scene, name your victim, and get a terrible ballad worth sharing.</p>
+    <a class="btn" href="https://tiktok.com/@soulstormai" target="_blank" rel="noopener">Follow the study on TikTok</a>
   </section>
 
-  <footer>
+  <div class="credits">
     SoulstormAI Music Lab · soulstormai.com/musiclab<br>
     Sound: GeneralUser GS by S. Christian Collins · Voices: Piper (Lessac, Ryan) · Synth engine: SpessaSynth (Apache-2.0)<br>
-    All compositions are original and generated by the SoulstormAI engine, built with Claude by Anthropic.
-  </footer>
+    All compositions are original and generated by the SoulstormAI engine, built with Claude AI by Anthropic.
+  </div>
 </div>
+<footer>
+        <!-- Affiliate Partners Section -->
+        <div class="partners">
+            <h3>Tools We Use & Recommend</h3>
+            <div class="partner-grid">
 
+                <!-- Base44 -->
+                <a href="https://base44.pxf.io/c/6821189/2049275/25619?trafcat=base" target="_blank" rel="noopener" class="affiliate-card">
+                    <div class="affiliate-category">Development</div>
+                    <div class="affiliate-name">Base44</div>
+                    <div class="affiliate-desc">Developer tools</div>
+                </a>
+
+                <!-- Easyship -->
+                <a href="https://easyship.ilbqy6.net/JK9RW2" target="_blank" rel="noopener" class="affiliate-card">
+                    <div class="affiliate-category">Shipping</div>
+                    <div class="affiliate-name">Easyship</div>
+                    <div class="affiliate-desc">Global shipping</div>
+                </a>
+
+                <!-- Nextiva -->
+                <a href="https://nextiva.7eer.net/vP5xDW" target="_blank" rel="noopener" class="affiliate-card">
+                    <div class="affiliate-category">Business</div>
+                    <div class="affiliate-name">Nextiva</div>
+                    <div class="affiliate-desc">Phone systems</div>
+                </a>
+
+                <!-- Shopify -->
+                <a href="https://shopify.pxf.io/jeNZea" target="_blank" rel="noopener" class="affiliate-card">
+                    <div class="affiliate-category">E-Commerce</div>
+                    <div class="affiliate-name">Shopify</div>
+                    <div class="affiliate-desc">Online stores</div>
+                </a>
+
+                <!-- Vista Social -->
+                <a href="https://vistasocial.sjv.io/BnNR1B" target="_blank" rel="noopener" class="affiliate-card">
+                    <div class="affiliate-category">Marketing</div>
+                    <div class="affiliate-name">Vista Social</div>
+                    <div class="affiliate-desc">Social media</div>
+                </a>
+
+                <!-- Wine Express -->
+                <a href="https://wineexpress.vneoga.net/WyZ20J" target="_blank" rel="noopener" class="affiliate-card">
+                    <div class="affiliate-category">Hospitality</div>
+                    <div class="affiliate-name">Wine Express</div>
+                    <div class="affiliate-desc">Wine supplier</div>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <h3>Navigation</h3>
+            <div class="footer-links">
+                <a href="/tools/">All Tools</a>
+                <a href="/blog.html">Blog</a>
+                <a href="/privacy.html">Privacy Policy</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/musiclab/">Music Lab</a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h3>Connect</h3>
+            <div class="footer-links">
+                <a href="https://instagram.com/soulstormai" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://tiktok.com/@soulstormai" target="_blank" rel="noopener">TikTok</a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            © 2026 SoulstormAI — Apps that work.
+        </div>
+    </footer>
+<script>
+(function(){var r=document.documentElement,t;try{t=localStorage.getItem('theme')}catch(e){}r.setAttribute('data-theme',t||'dark');
+document.getElementById('themeToggle').addEventListener('click',function(){var n=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n)}catch(e){}});})();
+</script>
 </body></html>
