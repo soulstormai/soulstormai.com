@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<!--
+    THIS IS A TEMPLATE THAT SHOULD BE USED EVERY TIME AND MODIFIED.
+    WHAT TO KEEP:
+    ✓ Overall structure (header, sidebar, main content)
+    ✓ Anthropic branding (colors, fonts, layout)
+    ✓ Seed navigation section (always include this)
+    ✓ Self-contained artifact (everything inline)
+
+    WHAT TO CREATIVELY EDIT:
+    ✗ The p5.js algorithm (implement YOUR vision)
+    ✗ The parameters (define what YOUR art needs)
+    ✗ The UI controls (match YOUR parameters)
+
+    Let your philosophy guide the implementation.
+    The world is your oyster - be creative!
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrowed Voice - SoulstormAI</title>
+    <meta name="google-adsense-account" content="ca-pub-3424397100313583">
+    <meta name="description" content="Borrowed Voice: an interactive generative art piece by SoulstormAI. Threads thrown from a quiet source gather around a vessel.">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RF30DV7CY0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-RF30DV7CY0');
+    </script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3424397100313583"
+         crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Anthropic Brand Colors */
+        :root {
+            --anthropic-dark: #141413;
+            --anthropic-light: #faf9f5;
+            --anthropic-mid-gray: #b0aea5;
+            --anthropic-light-gray: #e8e6dc;
+            --anthropic-orange: #d97757;
+            --anthropic-blue: #6a9bcc;
+            --anthropic-green: #788c5d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--anthropic-light) 0%, #f5f3ee 100%);
+            min-height: 100vh;
+            color: var(--anthropic-dark);
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(20, 20, 19, 0.1);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar h1 {
+            font-family: 'Lora', serif;
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--anthropic-dark);
+            margin-bottom: 8px;
+        }
+
+        .sidebar .subtitle {
+            color: var(--anthropic-mid-gray);
+            font-size: 14px;
+            margin-bottom: 32px;
+            line-height: 1.4;
+        }
+
+        /* Control Sections */
+        .control-section {
+            margin-bottom: 32px;
+        }
+
+        .control-section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--anthropic-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-section h3::before {
+            content: '•';
+            color: var(--anthropic-orange);
+            font-weight: bold;
+        }
+
+        /* Seed Controls */
+        .seed-input {
+            width: 100%;
+            background: var(--anthropic-light);
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin-bottom: 12px;
+            border: 1px solid var(--anthropic-light-gray);
+            text-align: center;
+        }
+
+        .seed-input:focus {
+            outline: none;
+            border-color: var(--anthropic-orange);
+            box-shadow: 0 0 0 2px rgba(217, 119, 87, 0.1);
+            background: white;
+        }
+
+        .seed-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .regen-button {
+            margin-bottom: 0;
+        }
+
+        /* Parameter Controls */
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--anthropic-dark);
+            margin-bottom: 8px;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .slider-container input[type="range"] {
+            flex: 1;
+            height: 4px;
+            background: var(--anthropic-light-gray);
+            border-radius: 2px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: var(--anthropic-orange);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            background: #c86641;
+        }
+
+        .slider-container input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: var(--anthropic-orange);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .value-display {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--anthropic-mid-gray);
+            min-width: 60px;
+            text-align: right;
+        }
+
+        /* Color Pickers */
+        .color-group {
+            margin-bottom: 16px;
+        }
+
+        .color-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--anthropic-mid-gray);
+            margin-bottom: 4px;
+        }
+
+        .color-picker-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .color-picker-container input[type="color"] {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: none;
+            padding: 0;
+        }
+
+        .color-value {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--anthropic-mid-gray);
+        }
+
+        /* Buttons */
+        .button {
+            background: var(--anthropic-orange);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .button:hover {
+            background: #c86641;
+            transform: translateY(-1px);
+        }
+
+        .button:active {
+            transform: translateY(0);
+        }
+
+        .button.secondary {
+            background: var(--anthropic-blue);
+        }
+
+        .button.secondary:hover {
+            background: #5a8bb8;
+        }
+
+        .button.tertiary {
+            background: var(--anthropic-green);
+        }
+
+        .button.tertiary:hover {
+            background: #6b7b52;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .button-row .button {
+            flex: 1;
+        }
+
+        /* Canvas Area */
+        .canvas-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 0;
+        }
+
+        #canvas-container {
+            width: 100%;
+            max-width: 1000px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(20, 20, 19, 0.1);
+            background: white;
+        }
+
+        #canvas-container canvas {
+            display: block;
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--anthropic-mid-gray);
+        }
+
+        /* Responsive - Stack on mobile */
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .canvas-area {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Control Sidebar -->
+        <div class="sidebar">
+            <h1>Borrowed Voice</h1>
+            <div class="subtitle">Threads thrown from a quiet source gather around a vessel, and its painted freckles slowly migrate.</div>
+
+            <!-- Seed Section (ALWAYS KEEP THIS) -->
+            <div class="control-section">
+                <h3>Seed</h3>
+                <input type="number" id="seed-input" class="seed-input" value="12345" onchange="updateSeed()">
+                <div class="seed-controls">
+                    <button class="button secondary" onclick="previousSeed()">← Prev</button>
+                    <button class="button secondary" onclick="nextSeed()">Next →</button>
+                </div>
+                <button class="button tertiary regen-button" onclick="randomSeedAndUpdate()">↻ Random</button>
+            </div>
+
+            <!-- Parameters Section -->
+            <div class="control-section">
+                <h3>Parameters</h3>
+
+                <div class="control-group">
+                    <label>Threads</label>
+                    <div class="slider-container">
+                        <input type="range" id="threads" min="100" max="1600" step="50" value="700" oninput="updateParam('threads', this.value)">
+                        <span class="value-display" id="threads-value">700</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Throw</label>
+                    <div class="slider-container">
+                        <input type="range" id="throwForce" min="0.05" max="0.8" step="0.05" value="0.3" oninput="updateParam('throwForce', this.value)">
+                        <span class="value-display" id="throwForce-value">0.3</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Turbulence</label>
+                    <div class="slider-container">
+                        <input type="range" id="turbulence" min="0.0005" max="0.008" step="0.0005" value="0.0025" oninput="updateParam('turbulence', this.value)">
+                        <span class="value-display" id="turbulence-value">0.0025</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Orbit</label>
+                    <div class="slider-container">
+                        <input type="range" id="orbit" min="0" max="1.5" step="0.05" value="0.65" oninput="updateParam('orbit', this.value)">
+                        <span class="value-display" id="orbit-value">0.65</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Freckles</label>
+                    <div class="slider-container">
+                        <input type="range" id="freckles" min="0" max="600" step="10" value="240" oninput="updateParam('freckles', this.value)">
+                        <span class="value-display" id="freckles-value">240</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Transfer</label>
+                    <div class="slider-container">
+                        <input type="range" id="transfer" min="0" max="1" step="0.05" value="0.55" oninput="updateParam('transfer', this.value)">
+                        <span class="value-display" id="transfer-value">0.55</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Voice Rings</label>
+                    <div class="slider-container">
+                        <input type="range" id="rings" min="0" max="18" step="1" value="9" oninput="updateParam('rings', this.value)">
+                        <span class="value-display" id="rings-value">9</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colors Section -->
+            <div class="control-section">
+                <h3>Colors</h3>
+                <div class="color-group">
+                    <label>Darkness</label>
+                    <div class="color-picker-container">
+                        <input type="color" id="color1" value="#1a1210" onchange="updateColor('color1', this.value)">
+                        <span class="color-value" id="color1-value">#1a1210</span>
+                    </div>
+                </div>
+                <div class="color-group">
+                    <label>Bone</label>
+                    <div class="color-picker-container">
+                        <input type="color" id="color2" value="#ece2cf" onchange="updateColor('color2', this.value)">
+                        <span class="color-value" id="color2-value">#ece2cf</span>
+                    </div>
+                </div>
+                <div class="color-group">
+                    <label>Rouge</label>
+                    <div class="color-picker-container">
+                        <input type="color" id="color3" value="#b8433a" onchange="updateColor('color3', this.value)">
+                        <span class="color-value" id="color3-value">#b8433a</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions Section -->
+            <div class="control-section">
+                <h3>Actions</h3>
+                <div class="button-row" style="margin-bottom:8px">
+                    <button class="button" onclick="initializeSystem()">Regenerate</button>
+                    <button class="button" onclick="resetParameters()">Reset</button>
+                </div>
+                <button class="button tertiary" onclick="saveCanvas('borrowed-voice-' + params.seed, 'png')">Download PNG</button>
+            </div>
+        </div>
+
+        <!-- Main Canvas Area -->
+        <div class="canvas-area">
+            <div id="canvas-container">
+                <div class="loading">Initializing generative art...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════════════
+        // PARAMETERS
+        // ═══════════════════════════════════════════════════════════════════════
+        let params = {
+            seed: 12345,
+            threads: 700,
+            throwForce: 0.3,
+            turbulence: 0.0025,
+            orbit: 0.65,
+            freckles: 240,
+            transfer: 0.55,
+            rings: 9,
+            colorPalette: ['#1a1210', '#ece2cf', '#b8433a']
+        };
+        let defaultParams = {...params, colorPalette: [...params.colorPalette]};
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // ALGORITHM — Borrowed Voice
+        // ═══════════════════════════════════════════════════════════════════════
+        const W = 1200, STEPS_PER_FRAME = 6;
+        let S, V, R, mouthY, threads = [], done = false, cBg, cBone, cRouge;
+
+        function setup() {
+            const c = createCanvas(W, W);
+            c.parent('canvas-container');
+            pixelDensity(1);
+            document.querySelector('.loading').style.display = 'none';
+            initializeSystem();
+        }
+
+        function initializeSystem() {
+            randomSeed(params.seed);
+            noiseSeed(params.seed);
+            cBg = color(params.colorPalette[0]);
+            cBone = color(params.colorPalette[1]);
+            cRouge = color(params.colorPalette[2]);
+
+            // Two poles: the quiet source and the speaking vessel
+            S = createVector(W * random(0.24, 0.34), W * random(0.44, 0.58));
+            V = createVector(W * random(0.62, 0.72), W * random(0.38, 0.5));
+            R = W * random(0.12, 0.145);
+            mouthY = V.y + R * random(0.42, 0.55);
+
+            background(cBg);
+            drawGlow(V, R * 2.6, 0.075);
+            drawGlow(S, R * 1.8, 0.03);
+            drawRings();
+
+            threads = [];
+            for (let i = 0; i < params.threads; i++) threads.push(new Thread());
+            done = false;
+            loop();
+        }
+
+        function draw() {
+            if (done) return;
+            let alive = 0;
+            for (let s = 0; s < STEPS_PER_FRAME; s++) {
+                for (const t of threads) if (t.alive) { t.step(); alive++; }
+            }
+            if (alive === 0) {
+                drawFilaments();
+                drawFreckles();
+                finish();
+                done = true;
+                noLoop();
+            }
+        }
+
+        // Soft radial presence behind a pole
+        function drawGlow(p, rad, a) {
+            const ctx = drawingContext;
+            const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rad);
+            const b = cBone.levels;
+            g.addColorStop(0, `rgba(${b[0]},${b[1]},${b[2]},${a})`);
+            g.addColorStop(1, `rgba(${b[0]},${b[1]},${b[2]},0)`);
+            ctx.fillStyle = g;
+            ctx.fillRect(p.x - rad, p.y - rad, rad * 2, rad * 2);
+        }
+
+        // Interference rings: each ring a syllable, radius modulated by summed harmonics
+        function drawRings() {
+            noFill();
+            for (let k = 0; k < params.rings; k++) {
+                const base = R * (0.42 + k * 0.16);
+                const ph = random(TAU), amp = R * 0.022 * (1 + k * 0.18);
+                const h1 = floor(random(2, 5)), h2 = floor(random(5, 9)), h3 = floor(random(11, 17));
+                const a = map(k, 0, max(1, params.rings - 1), 34, 9);
+                stroke(red(cBone), green(cBone), blue(cBone), a);
+                strokeWeight(k % 3 === 0 ? 0.9 : 0.6);
+                beginShape();
+                for (let i = 0; i <= 480; i++) {
+                    const th = i / 480 * TAU;
+                    const r = base + amp * (sin(h1 * th + ph) + 0.5 * sin(h2 * th + 2 * ph) + 0.22 * sin(h3 * th - ph));
+                    vertex(V.x + cos(th) * r, V.y + sin(th) * r * 1.06);
+                }
+                endShape();
+            }
+        }
+
+        class Thread {
+            constructor() {
+                this.pos = createVector(S.x + randomGaussian(0, R * 0.32), S.y + randomGaussian(0, R * 0.38));
+                this.prev = this.pos.copy();
+                this.vel = p5.Vector.random2D().mult(random(0.3, 1.2));
+                this.life = floor(random(320, 520));
+                this.age = 0;
+                this.ring = R * random(0.55, 2.0);           // the orbit this thread settles into
+                this.spin = random() < 0.82 ? 1 : -1;          // most agree; a few argue
+                this.w = random(0.45, 0.85);
+                this.z = random(0, 1.6);
+                this.alive = true;
+            }
+            step() {
+                const p = this.pos, ns = params.turbulence;
+                // Layered noise field; each thread reads its own slice so the stream fans instead of roping
+                const n1 = noise(p.x * ns, p.y * ns, this.z);
+                const n2 = noise(p.x * ns * 3.1 + 40, p.y * ns * 3.1 + 40, this.z * 2);
+                const ang = (n1 * 0.75 + n2 * 0.25) * TAU * 2;
+
+                const toV = p5.Vector.sub(V, p);
+                const d = toV.mag();
+                const reach = R * 2.9;
+                const k = constrain(1 - d / reach, 0, 1);
+                // Turbulence rules the crossing; near the vessel, the vessel rules
+                const f = createVector(cos(ang), sin(ang)).mult(0.2 * (1 - 0.75 * k));
+                const thr = toV.copy().normalize().mult(params.throwForce * 0.3 * (1 - k * 0.85));
+
+                let orb = createVector(0, 0), rad = createVector(0, 0);
+                if (k > 0) {
+                    const n = toV.copy().normalize();
+                    const kk = k * k * (3 - 2 * k) + 0.25 * k;
+                    orb = createVector(-n.y, n.x).mult(this.spin * params.orbit * 0.42 * kk);
+                    rad = n.copy().mult((d - this.ring) * 0.012 * kk);
+                    this.vel.mult(1 - 0.05 * k);
+                }
+
+                this.vel.mult(0.94).add(f).add(thr).add(orb).add(rad).limit(2.2);
+                this.prev.set(p);
+                p.add(this.vel);
+                this.age++;
+
+                // Fade in, sustain, fade out
+                const t = this.age / this.life;
+                const env = min(1, t * 6) * min(1, (1 - t) * 4);
+                // The mouth line: a soft gradient where the voice takes on colour
+                const dx = (p.x - V.x) / (R * 0.62);
+                const m = constrain((p.y - mouthY) / (R * 0.18), 0, 1) * exp(-dx * dx) * constrain(1 - (d - R) / (R * 0.6), 0, 1);
+                const c = lerpColor(cBone, cRouge, m);
+                stroke(red(c), green(c), blue(c), (17 + 20 * m) * env);
+                strokeWeight(this.w);
+                line(this.prev.x, this.prev.y, p.x, p.y);
+
+                if (this.age >= this.life || p.x < -50 || p.x > W + 50 || p.y < -50 || p.y > W + 50) this.alive = false;
+            }
+        }
+
+        // Near-invisible strings and rods that make a still thing move
+        function drawFilaments() {
+            const n = floor(random(3, 6));
+            noFill();
+            for (let i = 0; i < n; i++) {
+                const ax = V.x + random(-R * 0.9, R * 0.9);
+                const ay = V.y - R * random(0.7, 1.1) + abs(ax - V.x) * 0.4;
+                const sway = random(18, 42);
+                stroke(red(cBone), green(cBone), blue(cBone), random(26, 44));
+                strokeWeight(random(0.5, 0.8));
+                beginShape();
+                for (let y = 0; y <= ay; y += 6) {
+                    const t = y / ay;
+                    const x = ax + (noise(i * 9.3, y * 0.004) - 0.5) * sway * (1 - t) + (1 - t) * random(-0.3, 0.3);
+                    vertex(x, y);
+                }
+                endShape();
+                noStroke();
+                fill(red(cBone), green(cBone), blue(cBone), 90);
+                circle(ax, ay, 2.4);
+                noFill();
+            }
+        }
+
+        // Painted freckles: hand-placed feel via Gaussian clusters + minimum spacing
+        function stipple(center, count, alphaScale, sizeScale, placed) {
+            const cheeks = [createVector(center.x - R * 0.42, center.y + R * 0.12),
+                            createVector(center.x + R * 0.42, center.y + R * 0.12)];
+            let tries = 0, made = 0;
+            while (made < count && tries < count * 60) {
+                tries++;
+                let p;
+                if (random() < 0.8) {
+                    const c = random(cheeks);
+                    p = createVector(c.x + randomGaussian(0, R * 0.2), c.y + randomGaussian(0, R * 0.17));
+                } else {
+                    p = createVector(center.x + randomGaussian(0, R * 0.16), center.y + randomGaussian(-R * 0.05, R * 0.14));
+                }
+                let ok = true;
+                for (const q of placed) { if ((q.x - p.x) ** 2 + (q.y - p.y) ** 2 < 100) { ok = false; break; } }
+                if (!ok) continue;
+                placed.push(p);
+                const s = random(2.4, 5.6) * sizeScale;
+                const deep = random() < 0.25;
+                const c = deep ? lerpColor(cRouge, cBg, 0.45) : cRouge;
+                noStroke();
+                fill(red(c), green(c), blue(c), random(150, 225) * alphaScale);
+                push();
+                translate(p.x, p.y);
+                rotate(random(TAU));
+                ellipse(0, 0, s, s * random(0.8, 1));
+                pop();
+                made++;
+            }
+        }
+
+        function drawFreckles() {
+            const moved = round(params.freckles * params.transfer);
+            const stay = params.freckles - moved;
+            const placedS = [], placedV = [];
+            stipple(S, stay, 1 - params.transfer * 0.55, 0.9, placedS);  // the source grows quieter
+            stipple(V, moved, 1, 1.12, placedV);                          // the vessel wears them, painted larger
+        }
+
+        function finish() {
+            // Vignette
+            const ctx = drawingContext, b = cBg.levels;
+            const g = ctx.createRadialGradient(W / 2, W / 2, W * 0.32, W / 2, W / 2, W * 0.75);
+            g.addColorStop(0, `rgba(${b[0]},${b[1]},${b[2]},0)`);
+            g.addColorStop(1, `rgba(${b[0]},${b[1]},${b[2]},0.85)`);
+            ctx.fillStyle = g;
+            ctx.fillRect(0, 0, W, W);
+            // Seeded film grain
+            loadPixels();
+            for (let i = 0; i < pixels.length; i += 4) {
+                const n = (random() - 0.5) * 14;
+                pixels[i] += n; pixels[i + 1] += n; pixels[i + 2] += n;
+            }
+            updatePixels();
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // UI CONTROL HANDLERS
+        // ═══════════════════════════════════════════════════════════════════════
+        const PARAM_IDS = ['threads', 'throwForce', 'turbulence', 'orbit', 'freckles', 'transfer', 'rings'];
+
+        function updateParam(paramName, value) {
+            params[paramName] = Number(value);
+            document.getElementById(paramName + '-value').textContent = value;
+            initializeSystem();
+        }
+
+        function updateColor(colorId, value) {
+            const idx = {color1: 0, color2: 1, color3: 2}[colorId];
+            params.colorPalette[idx] = value;
+            document.getElementById(colorId + '-value').textContent = value;
+            initializeSystem();
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // SEED CONTROL FUNCTIONS - ALWAYS KEEP THESE
+        // ═══════════════════════════════════════════════════════════════════════
+        function updateSeedDisplay() {
+            document.getElementById('seed-input').value = params.seed;
+        }
+
+        function updateSeed() {
+            let input = document.getElementById('seed-input');
+            let newSeed = parseInt(input.value);
+            if (newSeed && newSeed > 0) {
+                params.seed = newSeed;
+                initializeSystem();
+            } else {
+                updateSeedDisplay();
+            }
+        }
+
+        function previousSeed() {
+            params.seed = Math.max(1, params.seed - 1);
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        function nextSeed() {
+            params.seed = params.seed + 1;
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        function randomSeedAndUpdate() {
+            params.seed = Math.floor(Math.random() * 999999) + 1;
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        function resetParameters() {
+            const seed = params.seed;
+            params = {...defaultParams, colorPalette: [...defaultParams.colorPalette]};
+            params.seed = seed;
+            for (const id of PARAM_IDS) {
+                document.getElementById(id).value = params[id];
+                document.getElementById(id + '-value').textContent = params[id];
+            }
+            ['color1', 'color2', 'color3'].forEach((id, i) => {
+                document.getElementById(id).value = params.colorPalette[i];
+                document.getElementById(id + '-value').textContent = params.colorPalette[i];
+            });
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        window.addEventListener('load', function() {
+            updateSeedDisplay();
+        });
+    </script>
+</body>
+</html>
