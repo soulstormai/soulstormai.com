@@ -3,36 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Side Gig Calculator — SoulstormAI</title>
-    <meta http-equiv="refresh" content="0;url=https://sidehustlecalc.soulstormai.com">
-    <link rel="canonical" href="https://sidehustlecalc.soulstormai.com">
+    <title>What a side gig actually pays per hour | SoulstormAI</title>
+    <meta name="description" content="How to turn a gig payout into an hourly rate: gross, fees, costs, unpaid time, and taxes you type in yourself. A worked example with assumed numbers, plus the SideGig Calculator.">
+    <link rel="canonical" href="https://soulstormai.com/tools/sidegig-calculator/">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RF30DV7CY0"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-RF30DV7CY0');
-      window.location.replace('https://sidehustlecalc.soulstormai.com');
     </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3424397100313583" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600&family=Space+Grotesk:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0a0a0a; color: #e8e8e8; font-family: 'Space Grotesk', sans-serif; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; }
-        .label { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.4; }
-        .name { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 600; color: #B8860B; text-align: center; }
-        .loading { font-size: 0.85rem; opacity: 0.5; }
-        .dot { display: inline-block; animation: blink 1.2s infinite; }
-        .dot:nth-child(2) { animation-delay: 0.2s; }
-        .dot:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes blink { 0%,80%,100%{opacity:0} 40%{opacity:1} }
-        a { color: #B8860B; font-size: 0.8rem; opacity: 0.6; }
+        :root { --bg: #0a0a0a; --fg: #e8e8e8; --muted: #666; --border: rgba(255,255,255,0.08); --accent: #B8860B; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; }
+        .site-nav { display: flex; flex-wrap: wrap; gap: 18px 28px; padding: 28px 40px; border-bottom: 1px solid var(--border); }
+        .site-nav a { color: var(--muted); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; }
+        .site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--fg); }
+        article { max-width: 720px; margin: 0 auto; padding: 72px 24px 40px; }
+        .meta { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+        h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.05; margin-bottom: 24px; }
+        h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; margin: 48px 0 16px; color: var(--accent); }
+        p { margin-bottom: 18px; font-size: 1.05rem; }
+        ul, ol { margin: 0 0 18px 1.3rem; }
+        li { margin-bottom: 8px; }
+        .example { border: 1px solid var(--border); padding: 22px 24px; margin: 24px 0; font-variant-numeric: tabular-nums; }
+        a.btn { display: inline-block; margin: 8px 0 24px; padding: 16px 28px; border: 1px solid var(--fg); color: var(--fg); text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.8rem; }
+        a.btn:hover { background: var(--fg); color: var(--bg); }
+        a { color: var(--accent); }
+        footer { max-width: 720px; margin: 0 auto; padding: 20px 24px 80px; color: var(--muted); font-size: 0.9rem; }
+        @media (max-width: 768px) { .site-nav { padding: 20px; } }
     </style>
 </head>
 <body>
-    <p class="label">SoulstormAI / Tools</p>
-    <h1 class="name">Side Gig<br>Calculator</h1>
-    <p class="loading">Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></p>
-    <a href="https://sidehustlecalc.soulstormai.com">Click here if not redirected</a>
+    <nav class="site-nav" aria-label="Site">
+        <a href="/">Home</a>
+        <a href="/tools/" aria-current="page">Tools</a>
+        <a href="/musiclab/">Music Lab</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy.html">Privacy</a>
+    </nav>
+    <article>
+        <p class="meta">Side gigs · Method</p>
+        <h1>What a side gig pays after the costs that never make the ad</h1>
+        <p>A payout screen shows gross. An hourly rate is what is left after fees, costs, and the hours you were not paid to sit, drive, or do paperwork, divided by all of those hours. This page is that division. It is not a ranking of gigs and it is not tax advice.</p>
+        <p><a class="btn" href="https://sidehustlecalc.soulstormai.com">Open SideGig Calculator</a></p>
+        <p>The calculator lives on its own site. Use it with your numbers. The steps below are the same worksheet if you would rather use a notebook.</p>
+
+        <h2>Five lines, in order</h2>
+        <ol>
+            <li><strong>Gross.</strong> What the platform, client, or customer paid you in the period you are measuring. Tips included if you actually received them. Promised “up to” rates do not go on this line.</li>
+            <li><strong>Platform fees.</strong> The cut taken before the deposit. If the gross you wrote down is already after that cut, do not subtract it twice.</li>
+            <li><strong>Costs of doing the work.</strong> Fuel, parking, supplies, software, extra insurance, and a portion of maintenance if the car or bike is what makes the money. A commute to a W-2 job is a different category. Here, count the miles the gig required.</li>
+            <li><strong>A tax set-aside you choose.</strong> Federal self-employment tax is a real category for people who are not having an employer withhold: it is the combined Social Security and Medicare tax on net self-employment earnings, currently described by the IRS as 15.3 percent before additional Medicare tax and before income tax. Income tax is separate and depends on your bracket, deductions, and state. Type the percent you are actually setting aside. Do not treat 15.3 as your whole tax bill, and do not treat this page as a filing position.</li>
+            <li><strong>Hours.</strong> Active time plus wait time, travel between jobs, and the admin you would not have done otherwise. An hourly rate that ignores unpaid time is an advertisement.</li>
+        </ol>
+        <p>Net for the period = gross − fees − costs − the tax set-aside. Hourly = that net ÷ hours. If you want a rate before tax, stop before the set-aside and label it “before tax” so you do not compare it to a W-2 wage that is already discussing withholdings differently.</p>
+
+        <h2>A worked example with assumed numbers</h2>
+        <p>Nothing below was measured from a driver’s account. The numbers are round so the arithmetic is visible. Replace every one of them.</p>
+        <div class="example">
+            <p>Assume a week of deliveries.</p>
+            <p>Gross payouts: $640. Platform fee already removed, so fees on this worksheet: $0.</p>
+            <p>Miles driven for the gigs: 280. The driver uses $0.40 a mile as their own cost guess for gas and wear: 280 × 0.40 = $112. Parking and supplies: $18. Costs = $130.</p>
+            <p>Net before tax = 640 − 130 = $510.</p>
+            <p>They set aside 25% of that $510 for self-employment tax plus a rough income-tax estimate: $127.50. That 25% is their choice for this example, not a bracket.</p>
+            <p>Left: $382.50.</p>
+            <p>Hours: 18 hours on deliveries, 4 hours waiting, 2 hours on mileage notes. Total 24 hours.</p>
+            <p>Hourly after the set-aside: 382.50 ÷ 24 = $15.94.</p>
+            <p>The gross-only version of the same week, 640 ÷ 18, is $35.56. Both figures are “the hourly rate.” They answer different questions. The second one is the one that compares to your time.</p>
+        </div>
+
+        <h2>How to use the result</h2>
+        <p>Compare the net hourly figure to the wage you could earn in the same hours doing something else you would actually accept, including a job that withholds taxes for you. There is no universal cutoff on this site. A lower rate can still be worth it if the hours are the only hours you can work, or if you want the skill more than the money. A higher gross rate can still be a bad trade if the car costs and the dead time eat it.</p>
+        <p>Run two versions when you are unsure of a cost. One with your cautious mile rate, one with a cheaper mile rate. If the decision flips when you change a guess, you do not know the answer yet. You need a better guess, not a more confident app.</p>
+        <p>The longer walk-through of the same idea is <a href="/blog/side-hustle-math.html">the side hustle math essay</a>. If a line on this page is wrong for your tax situation, a preparer beats a calculator. Write to <a href="/contact.html">contact</a> if the calculator itself is broken.</p>
+    </article>
+    <footer>
+        <a href="https://sidehustlecalc.soulstormai.com">SideGig Calculator</a> · <a href="/blog/side-hustle-math.html">Essay</a> · <a href="/tools/">All tools</a>
+    </footer>
 </body>
 </html>

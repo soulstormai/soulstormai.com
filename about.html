@@ -7,7 +7,7 @@
 
     <!-- SEO Meta Tags -->
     <title>About - SoulstormAI</title>
-    <meta name="description" content="Building intelligent tools that solve real problems. Bill splitting, tip calculator, pet travel planning, tarot with I-Ching and runes. Apps that actually work.">
+    <meta name="description" content="SoulstormAI publishes browser calculators, a music lab, and essays. House flips, loans, bill splits, side gigs, and household budgets — with the assumptions labeled.">
     <meta name="keywords" content="SoulstormAI, bill splitting app, tip calculator, pet travel planner, tarot readings, I-Ching, runes, divination app, intelligent software">
     <meta name="author" content="SoulstormAI">
 
@@ -144,216 +144,110 @@
         a:hover {
             opacity: 0.7;
         }
+
+        .site-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px 24px;
+            margin-bottom: 48px;
+        }
+
+        .site-nav a {
+            color: var(--muted);
+            border-bottom: none;
+            font-size: 0.75rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .site-nav a:hover {
+            opacity: 1;
+            color: var(--fg);
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <nav class="site-nav" aria-label="Site">
+            <a href="/">Home</a>
+            <a href="/tools/">Tools</a>
+            <a href="/musiclab/">Music Lab</a>
+            <a href="/blog.html">Blog</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/privacy.html">Privacy</a>
+        </nav>
         <h1>About SoulstormAI</h1>
 
         <p>
-            Welcome to SoulstormAI, where we build <strong>apps that actually solve problems</strong>. 
-            No buzzwords. No hype. Just practical tools that make everyday life easier.
+            SoulstormAI publishes small tools and the notes that explain them. The useful pages are calculators, a music lab, one generative art piece, and essays. The calculators on this domain run in your browser.
         </p>
 
-        <h2>Our Story</h2>
-        
+        <h2>What is actually on the site</h2>
+
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--accent);">House Flip Calculator</h3>
         <p>
-            SoulstormAI was founded in 2024 out of frustration with the current state of mobile applications. 
-            Too many apps promise everything and deliver nothing. They're bloated with features nobody uses, 
-            riddled with ads, and designed to waste your time rather than save it.
+            A worksheet for a single flip: purchase, rehab, holding, selling, and financing. It checks the 70% rule against the numbers you type and can save deals in this browser. State presets are round examples so the form is not empty. They are not a market report. Replace them with the property in front of you. <a href="/tools/house-flip-calculator/">Open it</a>.
         </p>
 
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--accent);">Loan Calculator</h3>
         <p>
-            We decided to do things differently. Every app we build starts with a real problem that we've 
-            personally experienced. We don't build solutions looking for problems—we solve problems that 
-            genuinely frustrate people.
-        </p>
-
-        <div class="highlight">
-            <p style="font-size: 1.2rem; font-style: italic; margin: 0;">
-                "Most apps are solutions looking for problems. We do the opposite. We find real problems 
-                that real people have, then build the simplest possible solution."
-            </p>
-        </div>
-
-        <h2>Our Mission</h2>
-        
-        <p>
-            Our mission is simple: <strong>Build apps that people actually use.</strong> Not apps that look 
-            good in screenshots. Not apps that win design awards. Apps that solve specific problems and get 
-            out of your way.
-        </p>
-
-        <p>We achieve this by following these principles:</p>
-        
-        <ul>
-            <li><strong>Problem-First Approach:</strong> We only build apps that solve problems we've personally encountered.</li>
-            <li><strong>Simplicity Over Features:</strong> We resist feature creep. If it doesn't solve the core problem, it doesn't ship.</li>
-            <li><strong>Respect for Users:</strong> No dark patterns, no manipulation, no wasting your time.</li>
-            <li><strong>Privacy-Focused:</strong> We collect the minimum data necessary and never sell your information.</li>
-            <li><strong>Fair Pricing:</strong> Free tiers that actually work. Premium features that are worth paying for.</li>
-            <li><strong>Quality Over Quantity:</strong> We'd rather have 5 excellent apps than 50 mediocre ones.</li>
-        </ul>
-
-        <h2>What Makes Us Different</h2>
-        
-        <p><strong>We Use Our Own Apps.</strong></p>
-        <p>
-            Every app we build is something we use ourselves. PetWander exists because we got tired of 
-            spending hours researching pet-friendly hotels. TipSplit exists because we couldn't find a 
-            bill-splitting app that let us split the bill one way and the tip another.
-        </p>
-
-        <p><strong>No Venture Capital.</strong></p>
-        <p>
-            We're 100% bootstrapped. This means we answer to our users, not investors. We don't have to 
-            chase unrealistic growth targets or compromise our values to please shareholders. Our only 
-            goal is to build apps that people love.
-        </p>
-
-        <p><strong>Transparency.</strong></p>
-        <p>
-            We're honest about what our apps can and can't do. We don't make exaggerated claims or use 
-            misleading marketing. If something doesn't work perfectly, we tell you.
-        </p>
-
-        <p><strong>AI Where It Helps.</strong></p>
-        <p>
-            We use artificial intelligence where it genuinely improves the user experience, not as a 
-            marketing gimmick. Our AI features serve real purposes—personalized recommendations, smart 
-            search, predictive features—not just buzzword compliance.
-        </p>
-
-        <h2>Our Apps</h2>
-        
-        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--accent);">PetWander</h3>
-        <p>
-            Travel planning for pet owners. We built PetWander after spending countless hours researching 
-            pet-friendly accommodations for every trip. Now you can find pet-friendly hotels, restaurants, 
-            parks, and emergency vets in one place. Plan your entire trip in minutes instead of hours.
+            Fix-and-flip, rental, construction, and bridge sketches. Interest, points, and rent are inputs, not looked-up rates. <a href="/tools/loan-calculator/">Open it</a>.
         </p>
 
         <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--accent);">TipSplit</h3>
         <p>
-            Bill splitting calculator with advanced features. Most bill-splitting apps make you choose: 
-            split everything equally or calculate each person's exact items. We added a third option: 
-            split the bill one way and the tip another way. Perfect for when only some people want to tip.
+            Bill splitting when the plates and the drinks are not the same. The method is written out <a href="/tools/tipsplit/">on this site</a>. The calculator itself is at <a href="https://tipsplit.soulstormai.com">tipsplit.soulstormai.com</a>.
         </p>
 
-        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--accent);">Oracle</h3>
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--accent);">Side gig math</h3>
         <p>
-            AI-powered divination combining tarot, I-Ching, and runes. Currently in development. We saw 
-            people paying $50+ for single tarot readings and thought there had to be a better way. Oracle 
-            provides unlimited readings for one monthly subscription.
+            How to turn a payout into an hourly rate after costs, unpaid time, and a tax set-aside you choose. <a href="/tools/sidegig-calculator/">The worksheet</a> links to the SideGig Calculator.
         </p>
 
-        <h2>The Technology</h2>
-        
-        <p>We build with modern, reliable technologies:</p>
-        
-        <ul>
-            <li><strong>React + TypeScript:</strong> For maintainable, type-safe code</li>
-            <li><strong>Google Gemini:</strong> For intelligent AI features</li>
-            <li><strong>Supabase:</strong> For secure, scalable backend infrastructure</li>
-            <li><strong>Vercel:</strong> For fast, reliable hosting</li>
-            <li><strong>Stripe:</strong> For secure payment processing</li>
-        </ul>
-
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--accent);">FamiliarBank</h3>
         <p>
-            We choose technologies based on reliability and developer experience, not hype. Every technology 
-            in our stack has proven itself in production at scale.
+            A household budget method — income, fixed bills, variable spending, savings rate — and a link to the calculator on familiarbank.com. <a href="/tools/familiarbank-calculator/">Read the method</a>.
         </p>
 
-        <h2>Who's Behind This</h2>
-        
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--accent);">Pet travel notes</h3>
         <p>
-            SoulstormAI is an independent software development company. We're a small team focused on 
-            quality over quantity. No corporate bureaucracy, no endless meetings, no feature committees. 
-            Just people who care about building excellent software.
+            A checklist for hotel policies: fees, weight limits, and what to ask before you pay. An older PetWander host is not linked, because its certificate is expired. <a href="/tools/petwander/">Use the checklist</a>.
         </p>
 
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--accent);">Music Lab and Borrowed Voice</h3>
         <p>
-            We believe in the power of small, focused teams. We'd rather have a handful of people who 
-            deeply care about the work than a large organization where everyone is just going through 
-            the motions.
+            <a href="/musiclab/">Music Lab</a> is a public log of composition experiments, with the audio still attached. <a href="/musiclab/studio/">Soundfont Studio</a> runs in the browser. <a href="/art/borrowed-voice/">Borrowed Voice</a> is a generative drawing you can change with sliders and download. Neither page uploads your work.
         </p>
 
-        <h2>Our Commitment to Privacy</h2>
-        
+        <h2>How the pages are written</h2>
         <p>
-            We take your privacy seriously. We collect only the data necessary to provide our services, 
-            and we never sell your information to third parties. When we use third-party services like 
-            analytics or payment processing, we choose vendors who share our commitment to privacy.
+            Essays explain a method. When a page uses an example with dollars, it says the dollars are assumed. This site does not publish survey results, retention rates, or “average profit by state.” If an older page did, that was a mistake and it has been taken out.
+        </p>
+        <p>
+            The <a href="/blog.html">blog</a> covers bill splitting, side-gig arithmetic, pet-hotel policies, a skeptical way to use tarot cards, moon-phase planning as a calendar trick, and which kinds of software are worth keeping.
         </p>
 
+        <h2>Money</h2>
         <p>
-            For full details, read our <a href="privacy.html">Privacy Policy</a>.
+            The tools on this domain are free to use. The site may show Google ads. The homepage also lists affiliate links; those are labeled, and a commission does not change the calculator math. There is no subscription checkout on soulstormai.com.
+        </p>
+        <p>
+            Details of cookies, analytics, and ads are in the <a href="/privacy.html">privacy policy</a>.
         </p>
 
-        <h2>Business Model</h2>
-        
+        <h2>Who this is</h2>
         <p>
-            We believe in sustainable business models that align our interests with yours. Our apps use 
-            a combination of:
-        </p>
-
-        <ul>
-            <li><strong>Freemium Model:</strong> Core features free forever. Premium features available for subscription.</li>
-            <li><strong>One-Time Purchases:</strong> For apps where subscriptions don't make sense.</li>
-            <li><strong>Advertising:</strong> Minimal, non-intrusive ads in free versions (Google AdSense).</li>
-            <li><strong>Affiliate Partnerships:</strong> We recommend tools we actually use and earn a commission when you sign up.</li>
-        </ul>
-
-        <p>
-            We never use dark patterns to extract money from users. Our pricing is straightforward, and 
-            you always know exactly what you're paying for.
-        </p>
-
-        <h2>Roadmap</h2>
-        
-        <p>We're constantly working on new apps and improving existing ones. Coming in 2025:</p>
-        
-        <ul>
-            <li><strong>Q1 2025:</strong> Oracle AI launch, PetWander mobile app, WeddingBudgetPro</li>
-            <li><strong>Q2 2025:</strong> MoveMate, MoonHabit AI, StatusStack</li>
-            <li><strong>Q3 2025:</strong> TaxHackr, EquityNav</li>
-            <li><strong>Q4 2025:</strong> Three unannounced apps we're excited about</li>
-        </ul>
-
-        <h2>Get in Touch</h2>
-        
-        <p>
-            We'd love to hear from you. Whether you have feedback on our apps, ideas for new features, 
-            or just want to say hi, we read every message.
-        </p>
-
-        <p>
-            <strong>Email:</strong> <a href="mailto:info@soulstormai.com">info@soulstormai.com</a><br>
-            <strong>Instagram:</strong> <a href="https://instagram.com/soulstormai" target="_blank" rel="noopener">@soulstormai</a><br>
-            <strong>TikTok:</strong> <a href="https://tiktok.com/@soulstormai" target="_blank" rel="noopener">@soulstormai</a>
-        </p>
-
-        <p>
-            We typically respond within 24 hours. For urgent issues, please mark your email as urgent.
-        </p>
-
-        <h2>Join Us</h2>
-        
-        <p>
-            We're always looking for talented people who share our values. If you're a developer, designer, 
-            or writer who believes in building quality software that actually helps people, we'd love to 
-            hear from you. Email us at <a href="mailto:info@soulstormai.com">info@soulstormai.com</a> with 
-            your portfolio and why you want to work with us.
+            SoulstormAI is an independent project. The site is the work. It is not a venture-backed product company, and it does not have a public hiring pipeline. If you want to report a broken calculator or a wrong sentence, use the <a href="/contact.html">contact page</a>.
         </p>
 
         <div class="highlight">
             <p style="margin: 0;">
-                <strong>Thank you for using our apps.</strong> We're building them for people like you who 
-                appreciate quality, simplicity, and respect. We hope they make your life a little bit easier.
+                If a sentence on this site states a number, you should be able to see where the number came from: your inputs, a labeled example, or a rule you can check. If you cannot, <a href="mailto:info@soulstormai.com">tell us</a>.
             </p>
         </div>
 
-        <a href="index.html" class="back-link">← Back to Home</a>
+        <a href="/" class="back-link">← Back to Home</a>
     </div>
 </body>
 </html>

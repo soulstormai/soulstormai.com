@@ -3,36 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TipSplit — SoulstormAI</title>
-    <meta http-equiv="refresh" content="0;url=https://tipsplit.soulstormai.com">
-    <link rel="canonical" href="https://tipsplit.soulstormai.com">
+    <title>How to split a restaurant bill | SoulstormAI</title>
+    <meta name="description" content="A clear method for splitting a check: even split, itemized food, separate drinks, and a tip that is calculated on the whole bill. Includes a worked example with assumed prices.">
+    <link rel="canonical" href="https://soulstormai.com/tools/tipsplit/">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RF30DV7CY0"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-RF30DV7CY0');
-      window.location.replace('https://tipsplit.soulstormai.com');
     </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3424397100313583" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600&family=Space+Grotesk:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0a0a0a; color: #e8e8e8; font-family: 'Space Grotesk', sans-serif; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; }
-        .label { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.4; }
-        .name { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 600; color: #00FF00; }
-        .loading { font-size: 0.85rem; opacity: 0.5; }
-        .dot { display: inline-block; animation: blink 1.2s infinite; }
-        .dot:nth-child(2) { animation-delay: 0.2s; }
-        .dot:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes blink { 0%,80%,100%{opacity:0} 40%{opacity:1} }
-        a { color: #00FF00; font-size: 0.8rem; opacity: 0.6; }
+        :root { --bg: #0a0a0a; --fg: #e8e8e8; --muted: #666; --border: rgba(255,255,255,0.08); --accent: #9dff9d; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; }
+        .site-nav { display: flex; flex-wrap: wrap; gap: 18px 28px; padding: 28px 40px; border-bottom: 1px solid var(--border); }
+        .site-nav a { color: var(--muted); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; }
+        .site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--fg); }
+        article { max-width: 720px; margin: 0 auto; padding: 72px 24px 40px; }
+        .meta { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+        h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.05; margin-bottom: 24px; }
+        h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; margin: 48px 0 16px; color: var(--accent); }
+        p { margin-bottom: 18px; font-size: 1.05rem; }
+        ul, ol { margin: 0 0 18px 1.3rem; }
+        li { margin-bottom: 8px; }
+        .note, .example { border: 1px solid var(--border); padding: 22px 24px; margin: 24px 0; }
+        .example { font-variant-numeric: tabular-nums; }
+        a.btn { display: inline-block; margin: 8px 0 24px; padding: 16px 28px; border: 1px solid var(--fg); color: var(--fg); text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.8rem; }
+        a.btn:hover { background: var(--fg); color: var(--bg); }
+        a { color: var(--accent); }
+        footer { max-width: 720px; margin: 0 auto; padding: 20px 24px 80px; color: var(--muted); font-size: 0.9rem; }
+        @media (max-width: 768px) { .site-nav { padding: 20px; } }
     </style>
 </head>
 <body>
-    <p class="label">SoulstormAI / Tools</p>
-    <h1 class="name">TipSplit</h1>
-    <p class="loading">Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></p>
-    <a href="https://tipsplit.soulstormai.com">Click here if not redirected</a>
+    <nav class="site-nav" aria-label="Site">
+        <a href="/">Home</a>
+        <a href="/tools/" aria-current="page">Tools</a>
+        <a href="/musiclab/">Music Lab</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy.html">Privacy</a>
+    </nav>
+    <article>
+        <p class="meta">Bills · Method</p>
+        <h1>How to split a check when people did not order the same thing</h1>
+        <p>The argument starts when one number — “split it four ways” — is asked to describe two different decisions: who ate what, and how the table tips. Separate those decisions and the math is short.</p>
+        <p><a class="btn" href="https://tipsplit.soulstormai.com">Open TipSplit</a></p>
+        <p>TipSplit is the calculator on its own address. It runs without an account on this site. The method below is the same arithmetic, written out so you can do it on a receipt if you are offline.</p>
+
+        <h2>Decide the rule before anyone does division</h2>
+        <p>Say the rule out loud when the menus are still open, not when the check is face-down on the table.</p>
+        <ul>
+            <li><strong>Even food</strong> works when the plates are in the same price band and nobody ordered with a budget in mind.</li>
+            <li><strong>Itemized food</strong> works when one person ordered a salad and another ordered the expensive plate, or when someone said they were keeping it light.</li>
+            <li><strong>Shared plates</strong> belong to the people who agreed to share them. A plate one person ordered “for the table” without asking is that person’s plate.</li>
+            <li><strong>Drinks</strong> are the usual reason an even split feels wrong. Alcohol is optional. Water is not a subsidy for cocktails.</li>
+        </ul>
+        <p>More on the social side, without a pretend survey, is in <a href="/blog/bill-splitting-rules.html">the unspoken rules of bill splitting</a>.</p>
+
+        <h2>The arithmetic</h2>
+        <ol>
+            <li>Start from the subtotal, before tax and before tip, if the receipt separates them. If it does not, use the total and skip the tax step.</li>
+            <li>Give each person their own food. Split a shared plate by the number of people who agreed to it.</li>
+            <li>Give each person their own drinks. A non-drinker’s drink line is zero.</li>
+            <li>Split tax in proportion to each person’s pre-tax amount, or split tax evenly if the amounts are close and nobody cares. Proportional is cleaner when the plates differ.</li>
+            <li>Calculate the tip on the <em>whole</em> pre-tip bill, unless the table agreed otherwise. The server did not serve only the salad. Then split that tip evenly, or split it in proportion to each person’s bill if the table would rather do that. Pick one and say it.</li>
+            <li>Each person pays their food + their drinks + their share of tax + their share of tip.</li>
+        </ol>
+        <p>The only special case worth naming: someone wants to tip a different percent than the rest of the table. Then the tip is not one pool. Each person applies their own percent to their own pre-tip amount, and you stop pretending there is a single tip line.</p>
+
+        <h2>A worked example, with made-up prices</h2>
+        <p>These prices are an illustration so the steps have numbers. They are not a receipt from a real dinner and they are not an average meal.</p>
+        <div class="example">
+            <p>Four people. Food: $22, $24, $28, $46. Drinks: $0, $14, $16, $30. Tax on the receipt: $18. The table agrees to tip 20% of the pre-tip total, split evenly.</p>
+            <p>Food + drinks = $180. Tax $18. Pre-tip total $198. Tip = 0.20 × 198 = $39.60. Each person’s tip share = $9.90.</p>
+            <p>Person A (food $22, drinks $0) pays 22 + 0 + their tax share + 9.90.</p>
+            <p>Tax share for A, proportional: 22 / 180 × 18 = $2.20. A pays $34.10.</p>
+            <p>Person D (food $46, drinks $30) has a pre-tax amount of $76. Tax share: 76 / 180 × 18 = $7.60. D pays 76 + 7.60 + 9.90 = $93.50.</p>
+            <p>An even four-way split of $237.60 would have been $59.40 each. A would have overpaid. D would have underpaid. That gap is the entire argument.</p>
+        </div>
+        <p>If your receipt’s tax is already inside each line, do not add tax again. Read the paper once before you add.</p>
+
+        <h2>What to type into TipSplit</h2>
+        <p>Use the subtotal, the headcount, and the tip percent the table actually agreed to. If drinks should not be shared, do that split first on paper or in the app’s itemized mode, then tip. Rounding to the nearest dollar is fine if you say you are rounding. Rounding only downward, so someone else eats the coins, is the move that restarts the argument.</p>
+        <p>Nobody on this page needs an account, and the example above does not require the app. The app is there so the table is not doing proportional tax in their heads.</p>
+    </article>
+    <footer>
+        <a href="https://tipsplit.soulstormai.com">TipSplit</a> · <a href="/blog/bill-splitting-rules.html">Bill-splitting essay</a> · <a href="/tools/">All tools</a>
+    </footer>
 </body>
 </html>
