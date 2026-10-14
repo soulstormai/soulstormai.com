@@ -1,9 +1,15 @@
-# SoulstormAI - Robots.txt
+# SoulstormAI
 User-agent: *
 Allow: /
 
-# Sitemaps
-Sitemap: https://soulstormai.com/sitemap.xml
+# Backups, drafts, and files that are not public pages
+Disallow: /Backup/
+Disallow: /do%20not%20deploy/
+Disallow: /do not deploy/
+Disallow: /index-BACKUP.html
+Disallow: /version2-underground.html
+Disallow: /resume.html
+Disallow: /resume-print.html
+Disallow: /MANIFEST.md
 
-# Crawl-delay
-Crawl-delay: 10
+Sitemap: https://soulstormai.com/sitemap.xml

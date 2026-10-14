@@ -6,7 +6,7 @@
     <meta name="google-adsense-account" content="ca-pub-3424397100313583">
 
     <title>House Flip Calculator — All 50 States | SoulstormAI</title>
-    <meta name="description" content="Free house flipping calculator for all 50 states. Run the full numbers: purchase, rehab, holding, financing, and selling costs. Includes 70% Rule checker, deal score, and save/load deals.">
+    <meta name="description" content="Free house flip calculator. Enter purchase, rehab, holding, selling, and financing. Includes a 70% rule check and local save. State presets are examples, not market data.">
     <meta name="keywords" content="house flip calculator, house flipping calculator, real estate investment calculator, 70% rule calculator, flip profit calculator, rehab cost estimator">
     <meta name="author" content="SoulstormAI">
 
@@ -499,26 +499,19 @@
     <div class="header-inner">
         <a href="/tools/" class="header-badge">← SoulstormAI / Tools</a>
         <h1>House Flip<br>Calculator</h1>
-        <p class="header-sub">Professional Analysis · All 50 States · Real Market Data</p>
+        <p class="header-sub">Your numbers · 70% rule · presets are examples, not market data</p>
         <div class="header-pills">
-            <span class="pill">70% Rule Built-In</span>
-            <span class="pill">Deal Score</span>
-            <span class="pill">Save Deals Locally</span>
-            <span class="pill">Data: May 2026</span>
+            <span class="pill">70% Rule on Your Inputs</span>
+            <span class="pill">Score from Those Inputs</span>
+            <span class="pill">Saved in This Browser</span>
         </div>
     </div>
 </header>
 
-<!-- Ad Top -->
-<div class="ad-slot">
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3424397100313583" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-
 <main class="main">
 
     <div class="disclaimer">
-        <strong>Disclaimer:</strong> This calculator provides estimates for educational purposes only. Market data is approximate. Always consult licensed real estate professionals before making investment decisions.
+        <strong>Disclaimer:</strong> This is a worksheet for numbers you type. It is not a loan, an appraisal, or tax advice. The state presets are round examples so the form is not empty. They are not published medians, tax rates, or profit figures. Replace every field with the deal in front of you, and check the result with a licensed professional before you spend money.
     </div>
 
     <!-- Quick Templates -->
@@ -548,35 +541,27 @@
         </div>
     </div>
 
-    <!-- Top 10 Markets -->
-    <div class="templates-card">
-        <div class="card-header amber">Top 10 Markets by Average Profit</div>
-        <div class="card-body">
-            <div class="markets-grid" id="marketsGrid"></div>
-        </div>
-    </div>
-
     <!-- State Selector -->
     <div class="state-card">
-        <div class="card-header stone">Select Your Market</div>
+        <div class="card-header stone">Load an example preset</div>
         <div class="card-body">
             <select class="state-select" id="stateSelect" onchange="applyStatePreset(this.value)"></select>
             <div class="state-stats">
                 <div class="stat-box">
-                    <div class="stat-label">Property Tax</div>
+                    <div class="stat-label">Example tax rate</div>
                     <div class="stat-value" id="statTax">—</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-label">Insurance/mo</div>
+                    <div class="stat-label">Example insurance</div>
                     <div class="stat-value" id="statIns">—</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-label">Median Home</div>
+                    <div class="stat-label">Example price</div>
                     <div class="stat-value" id="statMedian">—</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-label">Avg Profit</div>
-                    <div class="stat-value green" id="statProfit">—</div>
+                    <div class="stat-label">Example rehab</div>
+                    <div class="stat-value" id="statRehab">—</div>
                 </div>
             </div>
         </div>
@@ -620,8 +605,8 @@
                         <input type="number" id="closingCostsPurchase" value="3420" oninput="updateCalc()">
                     </div>
                     <div class="alert alert-blue" style="margin-top:10px">
-                        <strong>Pro Tip: Hidden Soft Costs</strong>
-                        Budget 10% of purchase price for all closing costs: title, escrow, transfer taxes, recording fees, inspection, appraisal.
+                        <strong>Use the quote you have</strong>
+                        Title, escrow, and lender fees differ by deal. If you have a title quote or a loan estimate, type that. A flat percent is only a placeholder until you do.
                     </div>
                 </div>
             </div>
@@ -656,8 +641,8 @@
                     <label>Contingency (%)</label>
                     <input type="number" id="contingency" value="15" oninput="updateCalc()">
                     <div class="alert alert-blue" style="margin-top:10px">
-                        <strong>Pro Tip: Always Pad Your Budget</strong>
-                        Industry standard is 10–20% contingency. First-time flippers often underestimate by 30–50%. When in doubt, go higher.
+                        <strong>Leave room in the rehab number</strong>
+                        A contingency line is for bids that come in higher than the walkthrough. Ten to twenty percent of the rehab budget is a common planning range. Use more when a contractor has not walked the house.
                     </div>
                 </div>
             </div>
@@ -737,8 +722,8 @@
                         <input type="number" id="loanAmount" value="0" oninput="updateCalc()">
                     </div>
                     <div class="alert alert-blue" style="margin-top:10px">
-                        <strong>Pro Tip: Hard Money vs. Cash</strong>
-                        Leave Loan Amount at 0 for all-cash analysis. Hard money lenders typically charge 10–14% interest plus 2–3 points. Factor this in carefully — financing can turn a good deal bad.
+                        <strong>Cash versus a loan</strong>
+                        Leave the loan amount at 0 to see the same deal with no financing cost. If you borrow, type the rate and the points from the term sheet, not a number you remember from an article.
                     </div>
                 </div>
                 <div class="field">
@@ -825,16 +810,10 @@
         </div>
     </div>
 
-    <!-- Ad Mid -->
-    <div style="margin-top:32px">
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3424397100313583" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-
 </main>
 
 <footer class="site-footer">
-    <p>Built by <a href="/">SoulstormAI</a> · <a href="/tools/">All Tools</a> · <a href="/privacy.html">Privacy</a></p>
+    <p>Built by <a href="/">SoulstormAI</a> · <a href="/tools/">All Tools</a> · <a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/privacy.html">Privacy</a></p>
     <p style="margin-top:8px; font-size:0.72rem; opacity:0.6;">For educational purposes only. Not financial or legal advice. Always consult a licensed professional before investing.</p>
 </footer>
 
@@ -1087,7 +1066,7 @@ function applyStatePreset(code) {
     document.getElementById('propertyTax').value = Math.round((s.medianHome * s.tax) / 12);
     document.getElementById('insurance').value = s.insurance;
     document.getElementById('rehabCosts').value = s.avgRehab;
-    document.getElementById('arv').value = s.medianHome + s.avgProfit + s.avgRehab;
+    document.getElementById('arv').value = s.medianHome;
     document.getElementById('closingCostsSelling').value = (s.closingSell * 100).toFixed(1);
     document.getElementById('utilities').value = 100;
     document.getElementById('lawnMaintenance').value = 100;
@@ -1097,7 +1076,7 @@ function applyStatePreset(code) {
     document.getElementById('statTax').textContent = (s.tax * 100).toFixed(2) + '%';
     document.getElementById('statIns').textContent = '$' + s.insurance;
     document.getElementById('statMedian').textContent = '$' + (s.medianHome / 1000).toFixed(0) + 'K';
-    document.getElementById('statProfit').textContent = '$' + (s.avgProfit / 1000).toFixed(0) + 'K';
+    document.getElementById('statRehab').textContent = '$' + (s.avgRehab / 1000).toFixed(0) + 'K';
 
     document.querySelectorAll('.market-btn').forEach(b => b.classList.remove('active'));
     const activeBtn = document.querySelector('[data-code="' + code + '"]');
@@ -1173,25 +1152,10 @@ function init() {
         .forEach(([code, data]) => {
             const opt = document.createElement('option');
             opt.value = code;
-            opt.textContent = data.name + ' · $' + (data.medianHome/1000).toFixed(0) + 'K median · $' + (data.avgProfit/1000).toFixed(0) + 'K avg profit';
+            opt.textContent = data.name + ' — example preset';
             if (code === 'TX') opt.selected = true;
             sel.appendChild(opt);
         });
-
-    // Top 10 markets
-    const top10 = Object.entries(STATE_DATA)
-        .map(([code, d]) => ({ code, name: d.name, profit: d.avgProfit, roi: ((d.avgProfit / (d.medianHome + d.avgRehab)) * 100).toFixed(1) }))
-        .sort((a, b) => b.profit - a.profit)
-        .slice(0, 10);
-
-    document.getElementById('marketsGrid').innerHTML = top10.map((s, idx) => `
-        <button class="market-btn${s.code === 'TX' ? ' active' : ''}" data-code="${s.code}" onclick="applyStatePreset('${s.code}')">
-            <div class="market-rank">#${idx+1}</div>
-            <div class="market-name">${s.name}</div>
-            <div class="market-profit">$${(s.profit/1000).toFixed(0)}K avg</div>
-            <div class="market-roi">${s.roi}% ROI</div>
-        </button>
-    `).join('');
 
     // Load saved deals
     renderDeals();

@@ -3,36 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetWander — SoulstormAI</title>
-    <meta http-equiv="refresh" content="0;url=https://petwander.soulstormai.com">
-    <link rel="canonical" href="https://petwander.soulstormai.com">
+    <title>Traveling with a pet: what to check before you book | SoulstormAI</title>
+    <meta name="description" content="A practical checklist for hotel stays with a dog or cat: fees, weight limits, what to ask before you pay, and how to read a pet policy that only says pet-friendly.">
+    <link rel="canonical" href="https://soulstormai.com/tools/petwander/">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RF30DV7CY0"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-RF30DV7CY0');
-      window.location.replace('https://petwander.soulstormai.com');
     </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3424397100313583" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600&family=Space+Grotesk:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0a0a0a; color: #e8e8e8; font-family: 'Space Grotesk', sans-serif; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; }
-        .label { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.4; }
-        .name { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 600; color: #8B7355; }
-        .loading { font-size: 0.85rem; opacity: 0.5; }
-        .dot { display: inline-block; animation: blink 1.2s infinite; }
-        .dot:nth-child(2) { animation-delay: 0.2s; }
-        .dot:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes blink { 0%,80%,100%{opacity:0} 40%{opacity:1} }
-        a { color: #8B7355; font-size: 0.8rem; opacity: 0.6; }
+        :root { --bg: #0a0a0a; --fg: #e8e8e8; --muted: #666; --border: rgba(255,255,255,0.08); --accent: #8B7355; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; }
+        .site-nav { display: flex; flex-wrap: wrap; gap: 18px 28px; padding: 28px 40px; border-bottom: 1px solid var(--border); }
+        .site-nav a { color: var(--muted); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; }
+        .site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--fg); }
+        article { max-width: 720px; margin: 0 auto; padding: 72px 24px 40px; }
+        .meta { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+        h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.05; margin-bottom: 24px; }
+        h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; margin: 48px 0 16px; color: var(--accent); }
+        p { margin-bottom: 18px; font-size: 1.05rem; }
+        ul, ol { margin: 0 0 18px 1.3rem; }
+        li { margin-bottom: 8px; }
+        .note { border-left: 3px solid var(--accent); padding-left: 20px; margin: 28px 0; color: #cfcfcf; }
+        a { color: var(--accent); }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0 28px; font-size: 0.95rem; }
+        th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+        th { color: var(--accent); font-weight: 500; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; }
+        footer { max-width: 720px; margin: 0 auto; padding: 20px 24px 80px; color: var(--muted); font-size: 0.9rem; }
+        @media (max-width: 768px) { .site-nav { padding: 20px; } }
     </style>
 </head>
 <body>
-    <p class="label">SoulstormAI / Tools</p>
-    <h1 class="name">PetWander</h1>
-    <p class="loading">Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></p>
-    <a href="https://petwander.soulstormai.com">Click here if not redirected</a>
+    <nav class="site-nav" aria-label="Site">
+        <a href="/">Home</a>
+        <a href="/tools/" aria-current="page">Tools</a>
+        <a href="/musiclab/">Music Lab</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy.html">Privacy</a>
+    </nav>
+    <article>
+        <p class="meta">Pet travel · Guide</p>
+        <h1>Traveling with a pet: what to check before you book</h1>
+        <p>A listing that says “pet-friendly” has not told you the price, the weight limit, or whether your animal can stay in the room while you eat dinner. Those three facts decide the trip. This page is the checklist. It does not search hotels for you.</p>
+        <p class="note">An older PetWander host at petwander.soulstormai.com is not linked from here. Its certificate is expired, so sending you there would be a broken door. Use the hotel’s own site, then call the property.</p>
+
+        <h2>Read the policy, not the badge</h2>
+        <p>Booking sites often inherit one “pets allowed” flag for a whole brand. The flag can be wrong for the building you will actually sleep in. Open the property page on the hotel’s own website and look for a pet policy with numbers in it. If the only sentence is “pets welcome,” treat that as unfinished and call.</p>
+        <p>Write down what they say, including the person’s name if you call. A fee quoted on the phone and a fee charged at the desk are sometimes different. Email confirmation is the useful version.</p>
+
+        <h2>The six lines that matter</h2>
+        <table>
+            <thead>
+                <tr><th>Ask</th><th>Why it changes the stay</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Weight or size limit</td><td>A cap can exclude the dog you are traveling with even when the hotel “allows pets.”</td></tr>
+                <tr><td>How many animals</td><td>Two pets is a different stay from one. Some desks stop at one.</td></tr>
+                <tr><td>Fee shape</td><td>A one-time cleaning fee and a per-night fee are different bills. Ask whether it is refundable.</td></tr>
+                <tr><td>Where the animal may go</td><td>Lobby, restaurant, pool deck, and the elevator are often “no” even when the guest room is “yes.”</td></tr>
+                <tr><td>Left alone in the room</td><td>Some hotels require a crate. Some do not allow the animal to be unattended at all.</td></tr>
+                <tr><td>Breed or species rules</td><td>Dogs and cats are not the same policy. Insurance rules at a property can exclude breeds. Ask about your animal specifically.</td></tr>
+            </tbody>
+        </table>
+
+        <h2>Fees, without a fake average</h2>
+        <p>There is no single pet fee. You will see at least four shapes:</p>
+        <ol>
+            <li><strong>No extra charge.</strong> The room rate is the rate. Still ask about damage deposits.</li>
+            <li><strong>One flat fee for the stay.</strong> Easy to add to the trip budget. Confirm it does not reset if you extend a night.</li>
+            <li><strong>A charge per night.</strong> Multiply it by the number of nights before you compare hotels. A small nightly number becomes the largest extra on a long stay.</li>
+            <li><strong>A refundable deposit plus a non-refundable fee.</strong> Ask when the deposit comes back and what counts as damage.</li>
+        </ol>
+        <p>Add the pet charge to the room rate, taxes, and parking before you decide a hotel is cheaper. The comparison is the whole stay, not the nightly headline.</p>
+
+        <h2>A call script</h2>
+        <p>You do not need a long conversation. This is enough:</p>
+        <p class="note">“I am booking a room for [dates] and traveling with [species, weight, and how many]. What is the full pet fee, is there a deposit, can they be in the room alone, and is there a place on the property for them to relieve themselves? Please email that to me.”</p>
+        <p>If the person cannot answer, ask them to check with a manager or email the policy. A front desk that cannot find its own pet rules is a reason to book somewhere that can.</p>
+
+        <h2>The room, the street, and the car</h2>
+        <p><strong>Relief.</strong> Ask where animals are supposed to go. A hotel in a dense downtown may not have grass. You want that answer before midnight.</p>
+        <p><strong>Flooring and floor.</strong> Some properties limit pets to specific floors. If you need a ground-floor room for an older dog, say so while rooms are still open.</p>
+        <p><strong>Food and water.</strong> Bring bowls. Do not assume a “welcome amenity” exists because a brand advertises one at other locations.</p>
+        <p><strong>The car.</strong> A dog in a parked car is a separate problem from the hotel policy. Plan stops. Do not treat the hotel as the only place the animal will be during the day if the policy forbids leaving them in the room.</p>
+        <p><strong>Papers.</strong> Rabies vaccination proof is a common request. Have a photo of it offline. Rules for service animals are legal categories, not a coupon for skipping a pet fee, and a hotel is allowed to ask the questions the law allows. If you are not sure which category you are in, read the current rules before you travel rather than arguing them at check-in.</p>
+
+        <h2>How this fits the rest of the site</h2>
+        <p>The longer essay on what the phrase “pet-friendly” is doing in a listing is on the blog: <a href="/blog/pet-friendly-hotels.html">Pet-friendly hotels: what the phrase is actually saying</a>. This page is the checklist you can use while a booking tab is open.</p>
+        <p>SoulstormAI does not take a commission on hotel stays, and this page does not rank properties. If a chain’s pet program matters to you, confirm it on that property’s current policy. Programs change by building.</p>
+    </article>
+    <footer>
+        <a href="/tools/">All tools</a> · <a href="/blog/pet-friendly-hotels.html">Related essay</a> · <a href="/contact.html">Corrections</a>
+    </footer>
 </body>
 </html>
