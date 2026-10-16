@@ -462,16 +462,33 @@ footer { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; colo
       src.start(t0); src.stop(t0 + 3.1);
     } catch (e) {}
   }
+  function audioFail(why) {
+    ac = null; rainGain = null; master = null; buf = null; soundOn = false;
+    sndBtn.setAttribute('aria-pressed', 'false');
+    sndBtn.textContent = 'No audio: ' + why;
+    try { console.warn('Soulstorm audio:', why); } catch (e2) {}
+  }
+  var sndStep = '';
   sndBtn.addEventListener('click', function () {
     try {
-      if (!ac && !initAudio()) { sndBtn.textContent = 'No audio'; return; }
+      if (!ac) {
+        sndStep = 'create';
+        if (!initAudio()) { audioFail('not supported in this browser'); return; }
+      }
+      sndStep = 'resume';
       var p = ac.resume ? ac.resume() : null;
       soundOn = !soundOn;
       sndBtn.setAttribute('aria-pressed', soundOn ? 'true' : 'false');
       sndBtn.textContent = soundOn ? 'Sound on' : 'Sound off';
       setRain();
-      if (p && p.catch) p.catch(function () {});
-    } catch (e) { sndBtn.textContent = 'No audio'; }
+      if (p && p.then) {
+        p.then(function () {
+          if (soundOn && ac && ac.state !== 'running') audioFail('blocked by browser');
+        }, function () { audioFail('blocked by browser'); });
+      }
+    } catch (e) {
+      audioFail(sndStep + ' ' + ((e && e.name) ? e.name : 'error'));
+    }
   });
 
   /* Breathing: 4 in, 4 hold, 6 out */
