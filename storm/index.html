@@ -11,14 +11,6 @@
 <meta property="og:description" content="An interactive storm you can steer, with a guided breathing orb.">
 <meta property="og:url" content="https://soulstormai.com/storm/">
 <link rel="icon" href="/favicon.ico">
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-RF30DV7CY0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-RF30DV7CY0');
-</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;700&display=swap">
 <style>
 /* Layout: full-bleed live storm canvas behind a single column; hero, then a breathing panel. Committed dark look. */
@@ -433,8 +425,8 @@ footer { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; colo
     var AC = window.AudioContext || window.webkitAudioContext;
     if (!AC) return false;
     ac = new AC();
-    var len = ac.sampleRate * 2;
-    buf = ac.createBuffer(1, len, ac.sampleRate);
+    var len = 96000;
+    buf = ac.createBuffer(1, len, 48000);
     var data = buf.getChannelData(0);
     for (var i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
     master = ac.createGain(); master.gain.value = 0.9; master.connect(ac.destination);
