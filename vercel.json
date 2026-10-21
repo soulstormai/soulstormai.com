@@ -16,5 +16,27 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "storm.soulstormai.com"
+        }
+      ],
+      "destination": "/storm/index.html"
+    },
+    {
+      "source": "/:path((?!storm/).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "storm.soulstormai.com"
+        }
+      ],
+      "destination": "/storm/:path"
+    }
   ]
 }
