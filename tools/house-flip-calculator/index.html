@@ -25,6 +25,8 @@
       gtag('config', 'G-RF30DV7CY0');
     </script>
 
+    <script>if (window.self !== window.top) document.documentElement.classList.add('embedded');</script>
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3424397100313583"
          crossorigin="anonymous"></script>
 
@@ -119,6 +121,13 @@
 
         /* Ad Slot */
         .ad-slot { max-width: 1200px; margin: 0 auto; padding: 24px; }
+        .ad-mid { margin-top: 32px; }
+        /* Collapse ads that don't fill, and drop them when embedded on the homepage */
+        ins.adsbygoogle[data-ad-status="unfilled"],
+        .ad-slot:has(ins[data-ad-status="unfilled"]),
+        .ad-mid:has(ins[data-ad-status="unfilled"]),
+        .embedded .ad-slot,
+        .embedded .ad-mid { display: none !important; }
 
         /* Main Layout */
         .main { max-width: 1200px; margin: 0 auto; padding: 32px 24px 80px; }
@@ -826,7 +835,7 @@
     </div>
 
     <!-- Ad Mid -->
-    <div style="margin-top:32px">
+    <div class="ad-mid">
         <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3424397100313583" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
