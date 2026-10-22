@@ -28,6 +28,17 @@
       ],
       "destination": "/storm/",
       "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "realitybreaker.soulstormai.com"
+        }
+      ],
+      "destination": "/realitybreaker/",
+      "permanent": false
     }
   ]
 }
