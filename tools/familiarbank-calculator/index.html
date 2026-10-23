@@ -3,36 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FamiliarBank Calculator — SoulstormAI</title>
-    <meta http-equiv="refresh" content="0;url=https://familiarbank.com/calculator.html">
-    <link rel="canonical" href="https://familiarbank.com/calculator.html">
+    <title>How to read a household budget | SoulstormAI</title>
+    <meta name="description" content="A plain method for a family budget: income, fixed bills, variable spending, and a savings rate you calculate from your own figures. Links to the FamiliarBank calculator.">
+    <link rel="canonical" href="https://soulstormai.com/tools/familiarbank-calculator/">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RF30DV7CY0"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-RF30DV7CY0');
-      window.location.replace('https://familiarbank.com/calculator.html');
     </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3424397100313583" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600&family=Space+Grotesk:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0a0a0a; color: #e8e8e8; font-family: 'Space Grotesk', sans-serif; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; }
-        .label { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.4; }
-        .name { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 600; color: #C9A870; text-align: center; }
-        .loading { font-size: 0.85rem; opacity: 0.5; }
-        .dot { display: inline-block; animation: blink 1.2s infinite; }
-        .dot:nth-child(2) { animation-delay: 0.2s; }
-        .dot:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes blink { 0%,80%,100%{opacity:0} 40%{opacity:1} }
-        a { color: #C9A870; font-size: 0.8rem; opacity: 0.6; }
+        :root { --bg: #0a0a0a; --fg: #e8e8e8; --muted: #666; --border: rgba(255,255,255,0.08); --accent: #C9A870; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; }
+        .site-nav { display: flex; flex-wrap: wrap; gap: 18px 28px; padding: 28px 40px; border-bottom: 1px solid var(--border); }
+        .site-nav a { color: var(--muted); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; }
+        .site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--fg); }
+        article { max-width: 720px; margin: 0 auto; padding: 72px 24px 40px; }
+        .meta { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+        h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.05; margin-bottom: 24px; }
+        h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; margin: 48px 0 16px; color: var(--accent); }
+        p { margin-bottom: 18px; font-size: 1.05rem; }
+        ul, ol { margin: 0 0 18px 1.3rem; }
+        li { margin-bottom: 8px; }
+        .example { border: 1px solid var(--border); padding: 22px 24px; margin: 24px 0; font-variant-numeric: tabular-nums; }
+        a.btn { display: inline-block; margin: 8px 0 24px; padding: 16px 28px; border: 1px solid var(--fg); color: var(--fg); text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.8rem; }
+        a.btn:hover { background: var(--fg); color: var(--bg); }
+        a { color: var(--accent); }
+        footer { max-width: 720px; margin: 0 auto; padding: 20px 24px 80px; color: var(--muted); font-size: 0.9rem; }
+        @media (max-width: 768px) { .site-nav { padding: 20px; } }
     </style>
 </head>
 <body>
-    <p class="label">SoulstormAI / Tools</p>
-    <h1 class="name">FamiliarBank<br>Calculator</h1>
-    <p class="loading">Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></p>
-    <a href="https://familiarbank.com/calculator.html">Click here if not redirected</a>
+    <nav class="site-nav" aria-label="Site">
+        <a href="/">Home</a>
+        <a href="/tools/" aria-current="page">Tools</a>
+        <a href="/musiclab/">Music Lab</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy.html">Privacy</a>
+    </nav>
+    <article>
+        <p class="meta">Household money · Method</p>
+        <h1>How to read a household budget without a fake “average family”</h1>
+        <p>A budget is a list of money in and money out for a period you choose, usually a month. The useful result is not a grade. It is three numbers you can check against the next month: what came in, what left, and what remained.</p>
+        <p><a class="btn" href="https://familiarbank.soulstormai.com/calculator.html">Open the FamiliarBank calculator</a></p>
+        <p>That calculator is at familiarbank.soulstormai.com. This page is the method, so the calculator has something honest to calculate. SoulstormAI does not see the numbers you type there.</p>
+
+        <h2>Use one month, and use take-home</h2>
+        <p>Pick a month that already happened. Future months are guesses. Take-home pay is what reached the bank after withholding. If you are self-employed, use what you actually transferred to yourself, and read <a href="/tools/sidegig-calculator/">the side-gig worksheet</a> before you treat a payout as income.</p>
+        <p>If income changes every month, write three months side by side and budget from the smaller one. The larger months are not a salary. They are variance.</p>
+
+        <h2>Sort spending into two piles</h2>
+        <p><strong>Fixed</strong> is anything with a due date and an amount you already know: rent or mortgage, insurance premiums, loan minimums, childcare that is contracted, utilities on a level plan. List the minimum you must pay to stay current. Extra principal is a choice, so put it with savings, not with the bill.</p>
+        <p><strong>Variable</strong> is everything else: groceries, fuel, eating out, clothes, gifts, medical bills that are not a premium, subscriptions you could cancel. Go through a statement. Memory undercounts restaurants and delivery.</p>
+        <p>A third pile, if you want it, is <strong>irregular</strong>: car registration, annual dues, gifts you know are coming. Divide the yearly amount by 12 and treat that twelfth as a monthly fixed cost. Otherwise those bills look like emergencies when they are on the calendar.</p>
+
+        <h2>The only ratio this page will defend</h2>
+        <p>Savings for the month = take-home − fixed − variable. Savings rate = that remainder ÷ take-home.</p>
+        <p>If the remainder is negative, the rate is negative. That is the sentence the budget is for. It does not mean you failed a national benchmark. It means the month spent more than it brought in, and the next question is which line you can change.</p>
+        <p>There is no target percent on this site. A household supporting a parent, paying a medical bill, or in a high-rent city is not the same problem as a household that is not. Compare yourself to your previous month.</p>
+
+        <h2>An example with invented dollars</h2>
+        <p>The dollars are made up so the ratio is easy to see. Do not treat them as a recommended budget.</p>
+        <div class="example">
+            <p>Take-home: $5,400.</p>
+            <p>Fixed: rent $1,800, insurance $220, car payment $310, childcare $900, phones $80. Fixed total $3,310.</p>
+            <p>Variable: groceries $650, fuel $160, eating out $240, everything else $280. Variable total $1,330.</p>
+            <p>Remainder: 5,400 − 3,310 − 1,330 = $760.</p>
+            <p>Savings rate: 760 ÷ 5,400 = about 14% of take-home that month.</p>
+            <p>If childcare is about to rise by $200, the remainder becomes $560 and the rate falls, with no change in “discipline.” The line changed. That is the point of writing the lines down.</p>
+        </div>
+
+        <h2>What to ignore</h2>
+        <ul>
+            <li>A pie chart of “what families spend” that is not your statement.</li>
+            <li>A rule that rent must be a certain percent, unless a landlord or a loan officer is actually applying that rule to you. Then use their rule, and still list the other bills.</li>
+            <li>Categories so fine that you stop updating them. Groceries and restaurants can be two lines. Twelve kinds of groceries cannot, unless you enjoy bookkeeping.</li>
+        </ul>
+        <p>When the list is honest for one month, take it to the FamiliarBank calculator if you want the arithmetic in a form you can change quickly. If a number on that other site disagrees with this worksheet, trust the worksheet you can explain.</p>
+    </article>
+    <footer>
+        <a href="https://familiarbank.soulstormai.com/calculator.html">FamiliarBank calculator</a> · <a href="/tools/">All tools</a> · <a href="/privacy.html">Privacy</a>
+    </footer>
 </body>
 </html>

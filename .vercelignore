@@ -1,0 +1,9 @@
+# Not part of the public site. Kept in git so nothing is lost,
+# excluded from the Vercel upload so they are not crawled as pages.
+Backup
+do not deploy
+index-BACKUP.html
+version2-underground.html
+resume.html
+resume-print.html
+MANIFEST.md

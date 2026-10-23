@@ -166,8 +166,61 @@
             color: var(--bg);
         }
 
+        .site-nav {
+            position: fixed;
+            top: 28px;
+            left: 40px;
+            z-index: 1000;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px 22px;
+            max-width: calc(100% - 120px);
+        }
+
+        .site-nav a {
+            color: var(--fg);
+            text-decoration: none;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            opacity: 0.65;
+        }
+
+        .site-nav a:hover {
+            opacity: 1;
+        }
+
+        .site-essay {
+            padding: 80px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .site-essay-inner {
+            max-width: 760px;
+        }
+
+        .site-essay h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            line-height: 1;
+            margin-bottom: 28px;
+        }
+
+        .site-essay p {
+            font-weight: 300;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            max-width: 640px;
+        }
+
+        .site-essay a {
+            color: var(--fg);
+        }
+
         /* Navigation - Minimal Side */
-        nav {
+        nav.section-nav {
             position: fixed;
             left: 40px;
             top: 50%;
@@ -178,7 +231,7 @@
             gap: 30px;
         }
 
-        nav a {
+        nav.section-nav a {
             width: 8px;
             height: 8px;
             background: transparent;
@@ -188,7 +241,7 @@
             cursor: none;
         }
 
-        nav a.active {
+        nav.section-nav a.active {
             background: var(--fg);
             border-color: var(--fg);
             transform: scale(1.5);
@@ -628,8 +681,18 @@
                 display: none;
             }
 
-            nav {
+            nav.section-nav {
                 display: none;
+            }
+
+            .site-nav {
+                position: static;
+                padding: 24px 70px 0 30px;
+                max-width: none;
+            }
+
+            .site-essay {
+                padding: 60px 30px;
             }
 
             .hero, .app-section, footer {
@@ -901,8 +964,17 @@
     <!-- Theme Toggle -->
     <button class="theme-toggle" id="themeToggle">◐</button>
 
+    <nav class="site-nav" aria-label="Site">
+        <a href="/tools/">Tools</a>
+        <a href="/musiclab/">Music Lab</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy.html">Privacy</a>
+    </nav>
+
     <!-- Navigation Dots -->
-    <nav>
+    <nav class="section-nav" aria-label="Sections">
         <a href="#hero" class="active"></a>
         <a href="#ghostdesk"></a>
         <a href="#storm"></a>
@@ -1114,15 +1186,14 @@
                     "Know if a flip is worth it before you buy."
                 </p>
                 <p class="app-solution">
-                    Professional real estate investment analysis with 50-state data, 
-                    70% rule checker, and complete profit breakdowns. All the math. 
-                    Zero guesswork.
+                    Purchase, rehab, holding, selling, and financing, with a 70% rule check on the numbers you type.
+                    State presets are round examples so the form is not empty. They are not market statistics. Replace them with the property in front of you.
                 </p>
                 <div class="app-features">
-                    <div class="feature-item">All 50 states with real market data</div>
-                    <div class="feature-item">70% rule pass/fail checker</div>
-                    <div class="feature-item">Deal scoring system (0-100)</div>
-                    <div class="feature-item">Save &amp; compare unlimited deals</div>
+                    <div class="feature-item">Example presets for each state — overwrite them</div>
+                    <div class="feature-item">70% rule check on your inputs</div>
+                    <div class="feature-item">A score computed from those inputs</div>
+                    <div class="feature-item">Save and compare deals in this browser</div>
                 </div>
                 <a href="/tools/house-flip-calculator/" class="btn">Run the Numbers</a>
             </div>
@@ -1132,52 +1203,64 @@
         </div>
     </section>
 
+    <section class="site-essay" id="about-site">
+        <div class="site-essay-inner">
+            <p class="app-label">The site</p>
+            <h2>Tools, notes, and the work behind them.</h2>
+            <p>SoulstormAI is an independent site. The homepage leads with GhostDesk, a browser productivity hub in open beta, and Soulstorm, an interactive storm you can steer with a guided 4-4-6 breathing rhythm. The rest is calculators that run in your browser, a music lab that keeps the audio from each experiment, and writing that shows the arithmetic.</p>
+            <p>The pages on this domain do not ask you to create an account. House-flip deals and loan scenarios you save stay in local storage on your device. If you use the newsletter form, it sends your name and email to a Google Form.</p>
+            <p>Google ads may appear on these pages. The storm page does not load the ad script. The partner links in the footer are affiliate links. A commission, if one is paid, does not change a calculator. The links are labeled below.</p>
+            <p>If a sentence states a number, you should be able to see where it came from: your inputs, a labeled example, or a rule you can check. Corrections go to the <a href="/contact.html">contact page</a>. The longer version of what this is, and what it is not, is on the <a href="/about.html">about page</a>.</p>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <!-- Affiliate Partners Section -->
         <div style="max-width: 1400px; margin: 0 auto 80px; padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);">
             <div style="text-align: center; margin-bottom: 40px;">
-                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; opacity: 0.6;">Tools We Use & Recommend</h3>
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; opacity: 0.6;">Affiliate links</h3>
+                <p style="max-width: 640px; margin: 0 auto 28px; font-size: 0.9rem; font-weight: 300; opacity: 0.7; line-height: 1.6;">These are paid partner links. If you sign up or buy through one, SoulstormAI may earn a commission. They are not reviews, and they are separate from the calculators.</p>
             </div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto;">
 
                 <!-- Base44 -->
-                <a href="https://base44.pxf.io/c/6821189/2049275/25619?trafcat=base" target="_blank" rel="noopener" class="affiliate-card">
+                <a href="https://base44.pxf.io/c/6821189/2049275/25619?trafcat=base" target="_blank" rel="sponsored noopener" class="affiliate-card">
                     <div class="affiliate-category">Development</div>
                     <div class="affiliate-name">Base44</div>
                     <div class="affiliate-desc">Developer tools</div>
                 </a>
 
                 <!-- Easyship -->
-                <a href="https://easyship.ilbqy6.net/JK9RW2" target="_blank" rel="noopener" class="affiliate-card">
+                <a href="https://easyship.ilbqy6.net/JK9RW2" target="_blank" rel="sponsored noopener" class="affiliate-card">
                     <div class="affiliate-category">Shipping</div>
                     <div class="affiliate-name">Easyship</div>
                     <div class="affiliate-desc">Global shipping</div>
                 </a>
 
                 <!-- Nextiva -->
-                <a href="https://nextiva.7eer.net/vP5xDW" target="_blank" rel="noopener" class="affiliate-card">
+                <a href="https://nextiva.7eer.net/vP5xDW" target="_blank" rel="sponsored noopener" class="affiliate-card">
                     <div class="affiliate-category">Business</div>
                     <div class="affiliate-name">Nextiva</div>
                     <div class="affiliate-desc">Phone systems</div>
                 </a>
 
                 <!-- Shopify -->
-                <a href="https://shopify.pxf.io/jeNZea" target="_blank" rel="noopener" class="affiliate-card">
+                <a href="https://shopify.pxf.io/jeNZea" target="_blank" rel="sponsored noopener" class="affiliate-card">
                     <div class="affiliate-category">E-Commerce</div>
                     <div class="affiliate-name">Shopify</div>
                     <div class="affiliate-desc">Online stores</div>
                 </a>
 
                 <!-- Vista Social -->
-                <a href="https://vistasocial.sjv.io/BnNR1B" target="_blank" rel="noopener" class="affiliate-card">
+                <a href="https://vistasocial.sjv.io/BnNR1B" target="_blank" rel="sponsored noopener" class="affiliate-card">
                     <div class="affiliate-category">Marketing</div>
                     <div class="affiliate-name">Vista Social</div>
                     <div class="affiliate-desc">Social media</div>
                 </a>
 
                 <!-- Wine Express -->
-                <a href="https://wineexpress.vneoga.net/WyZ20J" target="_blank" rel="noopener" class="affiliate-card">
+                <a href="https://wineexpress.vneoga.net/WyZ20J" target="_blank" rel="sponsored noopener" class="affiliate-card">
                     <div class="affiliate-category">Hospitality</div>
                     <div class="affiliate-name">Wine Express</div>
                     <div class="affiliate-desc">Wine supplier</div>
@@ -1206,7 +1289,7 @@
             </div>
         </div>
         <div class="footer-copyright">
-            © 2025 SoulstormAI — Apps that work.
+            © 2026 SoulstormAI — Apps that work.
         </div>
     </footer>
 
@@ -1253,7 +1336,7 @@
 
         // Intersection Observer for sections
         const sections = document.querySelectorAll('.app-section');
-        const navDots = document.querySelectorAll('nav a');
+        const navDots = document.querySelectorAll('nav.section-nav a');
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {

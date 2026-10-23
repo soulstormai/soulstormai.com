@@ -155,6 +155,9 @@
             font-size: 0.85rem;
             color: var(--muted);
             text-decoration: none;
+            background: transparent;
+            font-family: inherit;
+            cursor: pointer;
             transition: all 0.3s;
         }
 
@@ -347,11 +350,13 @@
     <header>
         <a href="index.html" class="logo">SoulstormAI</a>
         <div class="nav-links">
-            <a href="index.html">Home</a>
+            <a href="/">Home</a>
             <a href="/tools/">Tools</a>
-            <a href="blog.html" style="color: var(--fg);">Blog</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
+            <a href="/musiclab/">Music Lab</a>
+            <a href="/blog.html" style="color: var(--fg);">Blog</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/privacy.html">Privacy</a>
         </div>
         <button class="theme-toggle" id="themeToggle">☀</button>
     </header>
@@ -361,23 +366,23 @@
         <p>Real talk on tech, spirituality, side hustles, and building apps that actually work.</p>
     </section>
 
-    <div class="categories">
-        <a href="#" class="category-tag active">All</a>
-        <a href="#" class="category-tag">Tech & AI</a>
-        <a href="#" class="category-tag">Spirituality</a>
-        <a href="#" class="category-tag">Side Hustles</a>
-        <a href="#" class="category-tag">Pet Travel</a>
-        <a href="#" class="category-tag">Productivity</a>
+    <div class="categories" id="categoryFilters">
+        <button type="button" class="category-tag active" data-filter="all">All</button>
+        <button type="button" class="category-tag" data-filter="tech">Tech & AI</button>
+        <button type="button" class="category-tag" data-filter="spirituality">Spirituality</button>
+        <button type="button" class="category-tag" data-filter="hustle">Side Hustles</button>
+        <button type="button" class="category-tag" data-filter="pets">Pet Travel</button>
+        <button type="button" class="category-tag" data-filter="productivity">Productivity</button>
     </div>
 
     <div class="blog-grid">
         <!-- Featured Article -->
-        <a href="blog/why-most-apps-fail.html" class="article-card featured-article">
+        <a href="blog/why-most-apps-fail.html" class="article-card featured-article" data-cat="tech">
             <div class="featured-content">
                 <div class="featured-label">Featured</div>
                 <div class="article-category">Tech & AI</div>
                 <h2 class="article-title">Why Most Apps Fail (And What We Do Different)</h2>
-                <p class="article-excerpt">90% of apps get abandoned within a month. We looked at why - turns out, most developers build what they think is cool, not what actually solves problems. Here's our approach to building apps that people actually use.</p>
+                <p class="article-excerpt">A lot of software gets installed and ignored because it started from a feature instead of a job. How the calculators on this site are scoped, without a fake retention number.</p>
                 <div class="article-meta">
                     <span>January 9, 2026</span>
                     <span>8 min read</span>
@@ -387,7 +392,7 @@
         </a>
 
         <!-- Article 1 -->
-        <a href="blog/tarot-for-skeptics.html" class="article-card">
+        <a href="blog/tarot-for-skeptics.html" class="article-card" data-cat="spirituality">
             <div class="article-category">Spirituality</div>
             <h3 class="article-title">Tarot for Skeptics: A No-Nonsense Beginner's Guide</h3>
             <p class="article-excerpt">You don't have to believe in magic to use tarot. Think of it as a tool for structured self-reflection. Here's how to start without the woo-woo.</p>
@@ -398,7 +403,7 @@
         </a>
 
         <!-- Article 2 -->
-        <a href="blog/side-hustle-math.html" class="article-card">
+        <a href="blog/side-hustle-math.html" class="article-card" data-cat="hustle">
             <div class="article-category">Side Hustles</div>
             <h3 class="article-title">The Side Hustle Math Nobody Talks About</h3>
             <p class="article-excerpt">$25/hour sounds great until you factor in gas, taxes, and wear on your car. Here's how to calculate what you're really making - and if it's worth it.</p>
@@ -409,7 +414,7 @@
         </a>
 
         <!-- Article 3 -->
-        <a href="blog/pet-friendly-hotels.html" class="article-card">
+        <a href="blog/pet-friendly-hotels.html" class="article-card" data-cat="pets">
             <div class="article-category">Pet Travel</div>
             <h3 class="article-title">Pet-Friendly Hotels: What "Pet-Friendly" Actually Means</h3>
             <p class="article-excerpt">Some hotels charge $50/night pet fees. Others welcome your dog with treats. We break down what to look for and how to avoid surprise charges.</p>
@@ -419,21 +424,10 @@
             </div>
         </a>
 
-        <!-- Ad Slot -->
-        <div class="ad-slot">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-3424397100313583"
-                 data-ad-slot="auto"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-        </div>
-
-        <!-- Article 4 -->
-        <a href="blog/moon-phases-productivity.html" class="article-card">
+        <a href="blog/moon-phases-productivity.html" class="article-card" data-cat="productivity">
             <div class="article-category">Productivity</div>
             <h3 class="article-title">Moon Phases & Productivity: Pseudoscience or Life Hack?</h3>
-            <p class="article-excerpt">Some people swear by planning work around moon cycles. We looked at the research and tried it ourselves. Here's what happened.</p>
+            <p class="article-excerpt">A moon calendar is a four-part month in a costume. Here is the schedule without a pretend experiment, and a four-week version that does not need the moon.</p>
             <div class="article-meta">
                 <span>January 5, 2026</span>
                 <span>7 min read</span>
@@ -441,10 +435,10 @@
         </a>
 
         <!-- Article 5 -->
-        <a href="blog/ai-tools-actually-useful.html" class="article-card">
+        <a href="blog/ai-tools-actually-useful.html" class="article-card" data-cat="tech">
             <div class="article-category">Tech & AI</div>
             <h3 class="article-title">AI Tools That Are Actually Useful (Not Just Hype)</h3>
-            <p class="article-excerpt">Not every AI tool is worth your time. We tested 50+ and found the ones that genuinely save time vs. the ones that just sound cool.</p>
+            <p class="article-excerpt">A filter for AI tools: does it finish a job you already do this week, or does it add a chore? A few tools that pass, and the pattern behind the ones that do not.</p>
             <div class="article-meta">
                 <span>January 4, 2026</span>
                 <span>10 min read</span>
@@ -452,10 +446,10 @@
         </a>
 
         <!-- Article 6 -->
-        <a href="blog/bill-splitting-rules.html" class="article-card">
+        <a href="blog/bill-splitting-rules.html" class="article-card" data-cat="productivity">
             <div class="article-category">Productivity</div>
             <h3 class="article-title">The Unspoken Rules of Bill Splitting</h3>
-            <p class="article-excerpt">Who pays for what? When do you split evenly vs. itemize? We surveyed 500 people to find the social norms around shared expenses.</p>
+            <p class="article-excerpt">When to split a check evenly, when to separate drinks, and how to say so before the table gets quiet. No survey — the situations and the arithmetic.</p>
             <div class="article-meta">
                 <span>January 3, 2026</span>
                 <span>5 min read</span>
@@ -465,12 +459,13 @@
 
     <footer>
         <div class="footer-links">
-            <a href="index.html">Home</a>
+            <a href="/">Home</a>
             <a href="/tools/">Tools</a>
-            <a href="blog.html">Blog</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-            <a href="privacy.html">Privacy</a>
+            <a href="/musiclab/">Music Lab</a>
+            <a href="/blog.html">Blog</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/privacy.html">Privacy</a>
         </div>
         <div class="footer-copyright">
             © 2025 SoulstormAI — Apps that work.
@@ -494,8 +489,18 @@
         html.setAttribute('data-theme', savedTheme);
         themeToggle.textContent = savedTheme === 'light' ? '☾' : '☀';
 
-        // AdSense
-        (adsbygoogle = window.adsbygoogle || []).push({});
+        document.querySelectorAll('#categoryFilters button').forEach((button) => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+                document.querySelectorAll('#categoryFilters button').forEach((item) => {
+                    item.classList.toggle('active', item === button);
+                });
+                document.querySelectorAll('.article-card').forEach((card) => {
+                    const show = filter === 'all' || card.getAttribute('data-cat') === filter;
+                    card.style.display = show ? '' : 'none';
+                });
+            });
+        });
     </script>
 </body>
 </html>
