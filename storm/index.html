@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Soulstorm - SoulstormAI</title>
+<meta name="google-adsense-account" content="ca-pub-3424397100313583">
+<meta name="description" content="Soulstorm: an interactive storm you can steer. Adjust the rain, call lightning, and breathe with a guided 4-4-6 rhythm.">
+<link rel="canonical" href="https://soulstormai.com/storm/">
+<meta property="og:title" content="Soulstorm">
+<meta property="og:description" content="An interactive storm you can steer, with a guided breathing orb.">
+<meta property="og:url" content="https://soulstormai.com/storm/">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;700&display=swap">
+<style>
+/* Layout: full-bleed live storm canvas behind a single column; hero, then a breathing panel. Committed dark look. */
+:root {
+  color-scheme: dark;
+  --bg: #060810;
+  --ink: #e8ebf4;
+  --mute: #8d96ad;
+  --line: rgba(190, 205, 255, 0.18);
+  --glow: #9db8ff;
+  --bolt: #ffe3b8;
+  --panel: rgba(9, 12, 24, 0.58);
+  --display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+html { background: #060810; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+a.mark { text-decoration: none; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 28px;
+  overflow-x: hidden;
+}
+#storm { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
+.wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px; }
+
+header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; }
+.mark { font-family: var(--mono); font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink); }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--panel); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+button { font: inherit; color: inherit; cursor: pointer; }
+.seg button { background: none; border: 0; padding: 7px 14px; border-radius: 999px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--mute); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.snd { border: 1px solid var(--line); background: var(--panel); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 999px; padding: 9px 16px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--ink); }
+.snd[aria-pressed="true"] { border-color: var(--glow); color: var(--glow); }
+button:focus-visible { outline: 2px solid var(--glow); outline-offset: 2px; }
+
+.hero { padding-top: clamp(24px, 8vw, 90px); display: flex; flex-direction: column; gap: 26px; }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(2rem, 6.5vw, 4.25rem); line-height: 0.98; letter-spacing: -0.02em; margin: 0; text-wrap: balance; max-width: 18ch; }
+h1 em { color: var(--glow); font-style: italic; text-shadow: 0 0 40px rgba(157, 184, 255, 0.45); }
+.sub { max-width: 52ch; color: #c3c9db; font-size: clamp(1rem, 2.4vw, 1.2rem); margin: 0; }
+.hint { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute); margin: 0; }
+.readout { display: flex; flex-wrap: wrap; gap: 8px 28px; font-family: var(--mono); font-size: 12px; color: var(--mute); font-variant-numeric: tabular-nums; border-top: 1px solid var(--line); padding-top: 14px; max-width: 640px; }
+.readout b { color: var(--ink); font-weight: 400; }
+
+.tune { display: flex; flex-wrap: wrap; gap: 16px 32px; max-width: 640px; }
+.tune label { flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 8px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute); }
+.tune b { color: var(--ink); font-weight: 400; font-variant-numeric: tabular-nums; margin-left: 6px; }
+.tune input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 24px; background: transparent; cursor: pointer; margin: 0; }
+.tune input[type=range]::-webkit-slider-runnable-track { height: 2px; background: var(--line); border-radius: 2px; }
+.tune input[type=range]::-moz-range-track { height: 2px; background: var(--line); border-radius: 2px; }
+.tune input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--ink); border: 0; margin-top: -8px; box-shadow: 0 0 18px rgba(157, 184, 255, 0.55); }
+.tune input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--ink); border: 0; box-shadow: 0 0 18px rgba(157, 184, 255, 0.55); }
+.tune input[type=range]:focus-visible { outline: 2px solid var(--glow); outline-offset: 2px; }
+.panel { border: 1px solid var(--line); border-radius: 16px; background: rgba(9, 12, 24, 0.04); padding: clamp(12px, 2.5vw, 18px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(12px, 2.5vw, 20px); align-items: center; max-width: 500px; }
+.stage { position: relative; width: min(136px, 42vw); aspect-ratio: 1; margin: 0 auto; display: grid; place-items: center; }
+.ring { position: absolute; inset: 0; border-radius: 50%; border: 1px dashed var(--line); }
+.orb { position: absolute; inset: 10%; border-radius: 50%; background: radial-gradient(circle at 50% 38%, rgba(190, 210, 255, 0.95), rgba(86, 112, 200, 0.62) 52%, rgba(14, 19, 44, 0.85) 100%); box-shadow: 0 0 90px rgba(157, 184, 255, 0.35), inset 0 0 40px rgba(255, 255, 255, 0.12); transform: scale(var(--s, 0.78)); will-change: transform; }
+.say { position: relative; text-align: center; text-shadow: 0 1px 14px rgba(6, 8, 16, 0.8); }
+.say .lbl { font-family: var(--display); font-size: clamp(0.85rem, 2.6vw, 1rem); line-height: 1.1; display: block; }
+.say .cnt { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; color: #dbe5ff; display: block; margin-top: 6px; font-variant-numeric: tabular-nums; }
+h2 { font-family: var(--display); font-weight: 400; font-size: clamp(1.1rem, 3vw, 1.4rem); line-height: 1; margin: 0 0 6px; letter-spacing: -0.01em; }
+.panel p { margin: 0 0 10px; color: #c3c9db; max-width: 44ch; font-size: 12px; line-height: 1.45; text-shadow: 0 1px 10px rgba(6, 8, 16, 0.95); }
+.panel h2 { text-shadow: 0 1px 12px rgba(6, 8, 16, 0.95); }
+.go { background: var(--ink); color: var(--bg); border: 0; border-radius: 999px; padding: 7px 16px; font-weight: 700; font-size: 12px; }
+.go:hover { background: #fff; }
+
+footer { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--mute); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; border-top: 1px solid var(--line); padding-top: 18px; }
+
+@media (max-width: 760px) {
+  .panel { grid-template-columns: minmax(0, 1fr); }
+  .wrap { gap: 40px; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="storm" aria-hidden="true"></canvas>
+
+<div class="wrap">
+  <header>
+    <a class="mark" href="/">Soulstorm</a>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Sky">
+        <button type="button" data-mode="drizzle" aria-pressed="false">Drizzle</button>
+        <button type="button" data-mode="squall" aria-pressed="true">Squall</button>
+        <button type="button" data-mode="tempest" aria-pressed="false">Tempest</button>
+      </div>
+      <button type="button" class="snd" id="snd" aria-pressed="false">Sound off</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Sit inside the <em>weather.</em></h1>
+    <p class="sub">A storm you can steer. Move to bend the wind, tap for lightning, and breathe with it when you want a quiet minute.</p>
+    <p class="hint">Tap anywhere for lightning · Move to steer the wind</p>
+    <div class="readout" aria-live="off">
+      <span>Drops <b id="rDrops">0</b></span>
+      <span>Wind <b id="rWind">0.0</b></span>
+      <span>Strikes <b id="rStrikes">0</b></span>
+    </div>
+    <div class="tune">
+      <label for="spd"><span>Rain speed <b id="vSpd">1.0×</b></span><input type="range" id="spd" min="0.2" max="2.5" step="0.05" value="1"></label>
+      <label for="den"><span>Rain density <b id="vDen">1.0×</b></span><input type="range" id="den" min="0.1" max="2.5" step="0.05" value="1"></label>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="bt">
+    <div class="stage">
+      <div class="ring"></div>
+      <div class="orb" id="orb"></div>
+      <div class="say"><span class="lbl" id="lbl">Ready</span><span class="cnt" id="cnt">4 · 4 · 6</span></div>
+    </div>
+    <div>
+      <h2 id="bt">Breathe with the storm</h2>
+      <p>Four seconds in, four held, six out. A slow rhythm for relaxation and focus. Nothing to install and nothing tracked.</p>
+      <button type="button" class="go" id="go">Begin</button>
+    </div>
+  </section>
+
+  <footer>
+    <span>SoulstormAI</span>
+    <span>Simulated weather. Rain and thunder are generated live in your browser.</span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cv = document.getElementById('storm'), ctx = cv.getContext('2d');
+  var W = 0, H = 0, dpr = 1, bgGrad = null, groundGrad = null, hazeGrad = null;
+  var MODES = {
+    drizzle: { d: 1.4, v: [9, 14], strike: 0, wind: 0.6, cloud: 0.5, rain: 0.05 },
+    squall: { d: 3.2, v: [15, 23], strike: 11, wind: 1, cloud: 0.75, rain: 0.1 },
+    tempest: { d: 6, v: [21, 33], strike: 5, wind: 1.6, cloud: 1, rain: 0.16 }
+  };
+  var mode = 'squall', M = MODES[mode];
+  var drops = [], ripples = [], sparks = [], puddles = [], bolts = [], clouds = [], ridge1 = [], ridge2 = [];
+  var HZ = 0, sprite = null;
+  var flash = 0, strikes = 0, px = 0.5, wind = 1, frame = 0, speedMul = 1, densMul = 1;
+
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+  function gyOf(p) { return HZ + (H - HZ) * p; }
+  /* p is depth on the ground plane: near 0 is the horizon, 1 is the viewer. Size, speed and ripple shape all follow p. */
+  function setDrop(d, initial) {
+    var p = 0.05 + 0.95 * Math.pow(Math.random(), 1.25);
+    d.p = p; d.s = 0.3 + 0.7 * p; d.gy = gyOf(p); d.u = Math.random();
+    d.l = (7 + Math.random() * 15) * (0.45 + 0.9 * p);
+    d.band = p < 0.33 ? 0 : (p < 0.66 ? 1 : 2);
+    d.x = rnd(-100, W + 100);
+    d.y = initial ? rnd(-20, d.gy) : rnd(-H * 0.35, -10);
+    return d;
+  }
+  function mkDrop(initial) { return setDrop({}, initial); }
+  function fillDrops() {
+    var target = Math.min(2400, Math.round(W * H / 10000 * M.d * densMul));
+    while (drops.length < target) drops.push(mkDrop(true));
+    if (drops.length > target) drops.length = target;
+  }
+  function mkRidge(amp, f, seed) {
+    var a = [], n = Math.ceil(W / 4) + 3;
+    for (var j = 0; j < n; j++) {
+      var x = j * 4;
+      var h = 0.5 + 0.28 * Math.sin(x * f + seed) + 0.17 * Math.sin(x * f * 2.7 + seed * 1.9) + 0.08 * Math.sin(x * f * 6.1 + seed * 0.7);
+      a.push(H * amp * h + Math.random() * H * 0.004);
+    }
+    return a;
+  }
+  function drawRidge(arr, color) {
+    ctx.fillStyle = color;
+    ctx.beginPath(); ctx.moveTo(0, HZ + 1);
+    for (var j = 0; j < arr.length; j++) ctx.lineTo(j * 4, HZ - arr[j]);
+    ctx.lineTo(W + 12, HZ + 1); ctx.closePath(); ctx.fill();
+  }
+  for (var i = 0; i < 9; i++) clouds.push({ x: Math.random(), y: rnd(0, 0.32), r: rnd(0.25, 0.5), sp: rnd(0.004, 0.012), ph: Math.random() * 6.28 });
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+    bgGrad.addColorStop(0, '#0d1226'); bgGrad.addColorStop(0.6, '#0a0e1f'); bgGrad.addColorStop(1, '#070a16');
+    HZ = Math.round(H * 0.7);
+    groundGrad = ctx.createLinearGradient(0, HZ, 0, H);
+    groundGrad.addColorStop(0, '#111a33'); groundGrad.addColorStop(0.35, '#080c1b'); groundGrad.addColorStop(1, '#030409');
+    hazeGrad = ctx.createLinearGradient(0, HZ - H * 0.09, 0, HZ + H * 0.04);
+    hazeGrad.addColorStop(0, 'rgba(110,140,220,0)'); hazeGrad.addColorStop(0.7, 'rgba(110,140,220,0.16)'); hazeGrad.addColorStop(1, 'rgba(110,140,220,0)');
+    ridge1 = mkRidge(0.05, 0.004, 2.1); ridge2 = mkRidge(0.03, 0.007, 5.3);
+    puddles = [];
+    for (var pi = 0; pi < 46; pi++) {
+      var pp = 0.06 + 0.94 * Math.pow(Math.random(), 1.4);
+      puddles.push({ x: rnd(0, W), p: pp, w: rnd(60, 240) * (0.25 + 0.75 * pp), a: rnd(0.05, 0.14) });
+    }
+    drops.length = 0; ripples.length = 0; sparks.length = 0;
+    fillDrops();
+  }
+
+  function bolt(x0, y0, x1, y1, w, out, depth) {
+    var d = Math.hypot(x1 - x0, y1 - y0);
+    if (d < 14) { out.push([x0, y0, x1, y1, w]); return; }
+    var mx = (x0 + x1) / 2 + (Math.random() - 0.5) * d * 0.38;
+    var my = (y0 + y1) / 2 + (Math.random() - 0.5) * d * 0.12;
+    bolt(x0, y0, mx, my, w, out, depth);
+    bolt(mx, my, x1, y1, w, out, depth);
+    if (depth < 2 && d > 40 && Math.random() < 0.06) {
+      var bx = mx + (Math.random() - 0.5) * d * 1.6, by = my + d * rnd(0.6, 1.2);
+      bolt(mx, my, bx, by, w * 0.5, out, depth + 1);
+    }
+  }
+  function strike(x, auto) {
+    var segs = [], sp = rnd(0.06, 0.75), gy = gyOf(sp), ex = x + rnd(-80, 80);
+    bolt(x, -10, ex, gy, 1.2 + 1.8 * sp, segs, 0);
+    bolts.push({ segs: segs, life: 1, x: ex, gy: gy, p: sp });
+    for (var rr = 0; rr < 3; rr++) ripples.push({ x: ex + rnd(-18, 18) * sp, y: gy + rnd(-3, 3), p: sp, r: -rr * 7, life: 1, mx: 40 + 70 * sp });
+    flash = Math.max(flash, (RM ? 0.18 : 0.55) + Math.random() * (RM ? 0.05 : 0.35));
+    strikes++;
+    thunder(1 - sp);
+    if (!auto && Math.random() < 0.35) setTimeout(function () { strike(x + rnd(-120, 120), true); }, 120);
+  }
+
+  var last = performance.now(), statT = 0;
+  function loop(now) {
+    var dt = Math.min(now - last, 100); last = now;
+    var k = dt * 0.06; frame++;
+    var wt = (px - 0.5) * 2 * M.wind * 6 + M.wind * 1.5;
+    wind += (wt - wind) * Math.min(1, 0.04 * k);
+    var speedK = (RM ? 0.4 : 1) * speedMul;
+
+    ctx.fillStyle = bgGrad; ctx.fillRect(0, 0, W, H);
+
+    ctx.globalCompositeOperation = 'lighter';
+    for (var c = 0; c < clouds.length; c++) {
+      var cl = clouds[c];
+      cl.ph += cl.sp * k * 0.02;
+      var cx = ((cl.x + Math.sin(cl.ph) * 0.12 + wind * 0.004 * frame * 0.02) % 1.4 + 1.4) % 1.4 - 0.2;
+      var X = cx * W, Y = cl.y * H, R = cl.r * Math.max(W, 520);
+      var g = ctx.createRadialGradient(X, Y, 0, X, Y, R);
+      var a = 0.2 * M.cloud + flash * 0.3;
+      g.addColorStop(0, 'rgba(' + Math.round(62 + flash * 170) + ',' + Math.round(84 + flash * 130) + ',' + Math.round(150 + flash * 80) + ',' + a.toFixed(3) + ')');
+      g.addColorStop(1, 'rgba(40,60,120,0)');
+      ctx.fillStyle = g; ctx.fillRect(X - R, Y - R, R * 2, R * 2);
+    }
+    ctx.globalCompositeOperation = 'source-over';
+
+    /* distant ridges, wet ground plane, horizon haze */
+    drawRidge(ridge2, '#0a0f21');
+    drawRidge(ridge1, '#05070f');
+    ctx.fillStyle = groundGrad; ctx.fillRect(0, HZ, W, H - HZ);
+    ctx.fillStyle = hazeGrad; ctx.fillRect(0, HZ - H * 0.09, W, H * 0.13);
+
+    /* puddle sheen, ground glow under each strike, and the bolt mirrored in the wet ground */
+    ctx.globalCompositeOperation = 'lighter';
+    for (var u = 0; u < puddles.length; u++) {
+      var pd = puddles[u], py = gyOf(pd.p), ph = pd.w * (0.1 + 0.28 * pd.p);
+      ctx.globalAlpha = Math.min(1, pd.a + flash * 0.5);
+      ctx.drawImage(sprite, pd.x - pd.w, py - ph, pd.w * 2, ph * 2);
+    }
+    for (var b0 = 0; b0 < bolts.length; b0++) {
+      var bb = bolts[b0], gw = 160 + 260 * bb.p, gh = gw * (0.1 + 0.28 * bb.p);
+      ctx.globalAlpha = Math.min(1, bb.life * 0.9);
+      ctx.drawImage(sprite, bb.x - gw, bb.gy - gh, gw * 2, gh * 2);
+      ctx.globalAlpha = 1;
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(170,195,255,' + (bb.life * 0.24).toFixed(3) + ')';
+      ctx.lineWidth = 1.2 + 2 * bb.p;
+      for (var rs = 0; rs < bb.segs.length; rs++) {
+        var rg = bb.segs[rs];
+        var ry0 = bb.gy + (bb.gy - rg[1]) * 0.42, ry1 = bb.gy + (bb.gy - rg[3]) * 0.42;
+        if (ry0 > H + 40 && ry1 > H + 40) continue;
+        ctx.moveTo(rg[0] + Math.sin(ry0 * 0.15 + frame * 0.3) * 2, ry0);
+        ctx.lineTo(rg[2] + Math.sin(ry1 * 0.15 + frame * 0.3) * 2, ry1);
+      }
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-over';
+
+    /* ripples: wider and rounder near the viewer, flatter toward the horizon */
+    ctx.lineCap = 'round';
+    for (var rp = ripples.length - 1; rp >= 0; rp--) {
+      var r0 = ripples[rp];
+      r0.r += (0.3 + 0.8 * r0.p) * k;
+      if (r0.r >= r0.mx) { ripples.splice(rp, 1); continue; }
+      var rlife = r0.r < 0 ? 1 : 1 - r0.r / r0.mx, ratio = 0.1 + 0.28 * r0.p;
+      ctx.lineWidth = 0.6 + 1.1 * r0.p;
+      for (var ring = 0; ring < 3; ring++) {
+        var rad = r0.r - ring * r0.mx * 0.2;
+        if (rad <= 0.5) continue;
+        ctx.strokeStyle = 'rgba(190,212,255,' + (rlife * (0.55 - ring * 0.15)).toFixed(3) + ')';
+        ctx.beginPath(); ctx.ellipse(r0.x, r0.y, rad, rad * ratio, 0, 0, 6.283); ctx.stroke();
+      }
+    }
+
+    /* rain, three depth bands: far drops are short, slow and faint */
+    var bandW = [0.7, 1.05, 1.6], bandA = ['rgba(150,175,235,0.2)', 'rgba(175,198,250,0.34)', 'rgba(205,220,255,0.52)'];
+    for (var band = 0; band < 3; band++) {
+      ctx.beginPath(); ctx.strokeStyle = bandA[band]; ctx.lineWidth = bandW[band];
+      for (var i = 0; i < drops.length; i++) {
+        var d = drops[i];
+        if (d.band !== band) continue;
+        var v = (M.v[0] + (M.v[1] - M.v[0]) * d.u) * (0.5 + 0.5 * d.s);
+        var vx = wind * v / 14;
+        d.x += vx * k * speedK; d.y += v * k * speedK;
+        if (d.y >= d.gy) {
+          if (ripples.length < 170 && Math.random() < 0.6) ripples.push({ x: d.x, y: d.gy, p: d.p, r: 0, life: 1, mx: (8 + 30 * d.p) * rnd(0.7, 1.3) });
+          if (d.p > 0.3 && sparks.length < 260 && Math.random() < 0.45) {
+            for (var q2 = 0; q2 < 3; q2++) sparks.push({ x: d.x, y: d.gy, gy: d.gy, vx: rnd(-1.2, 1.2) * d.s + vx * 0.3, vy: -rnd(1.5, 3.2) * d.s, life: 1 });
+          }
+          setDrop(d, false);
+        }
+        if (d.x > W + 120) d.x = -100; else if (d.x < -120) d.x = W + 100;
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x - vx / v * d.l, d.y - d.l);
+      }
+      ctx.stroke();
+    }
+
+    /* tiny splash droplets thrown up on impact */
+    for (var sk = sparks.length - 1; sk >= 0; sk--) {
+      var sc = sparks[sk];
+      sc.vy += 0.22 * k; sc.x += sc.vx * k; sc.y += sc.vy * k; sc.life -= 0.05 * k;
+      if (sc.life <= 0 || sc.y > sc.gy) { sparks.splice(sk, 1); continue; }
+      ctx.fillStyle = 'rgba(205,222,255,' + (sc.life * 0.7).toFixed(3) + ')';
+      ctx.fillRect(sc.x, sc.y, 1.4, 1.4);
+    }
+
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    for (var b = bolts.length - 1; b >= 0; b--) {
+      var bl = bolts[b];
+      bl.life -= 0.045 * k;
+      if (bl.life <= 0) { bolts.splice(b, 1); continue; }
+      var al = bl.life * ((frame % 4 < 2) ? 1 : 0.65);
+      ctx.globalCompositeOperation = 'lighter';
+      for (var gp = 0; gp < 2; gp++) {
+        ctx.beginPath();
+        ctx.strokeStyle = gp ? 'rgba(255,232,200,' + al.toFixed(3) + ')' : 'rgba(130,160,255,' + (al * 0.28).toFixed(3) + ')';
+        for (var q = 0; q < bl.segs.length; q++) {
+          var sg = bl.segs[q];
+          ctx.lineWidth = gp ? sg[4] : sg[4] * 7;
+          ctx.moveTo(sg[0], sg[1]); ctx.lineTo(sg[2], sg[3]);
+          if (q % 12 === 11) { ctx.stroke(); ctx.beginPath(); }
+        }
+        ctx.stroke();
+      }
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
+    if (flash > 0.005) {
+      ctx.fillStyle = 'rgba(205,218,255,' + (flash * 0.26).toFixed(3) + ')';
+      ctx.fillRect(0, 0, W, H);
+      flash *= Math.pow(0.88, k);
+    }
+
+    if (M.strike && !RM && Math.random() < dt / 1000 / M.strike) strike(rnd(W * 0.1, W * 0.9), true);
+
+    statT += dt;
+    if (statT > 250) {
+      statT = 0;
+      rDrops.textContent = drops.length.toLocaleString();
+      rWind.textContent = (wind >= 0 ? '+' : '') + wind.toFixed(1);
+      rStrikes.textContent = strikes;
+    }
+    requestAnimationFrame(loop);
+  }
+
+  var rDrops = document.getElementById('rDrops'), rWind = document.getElementById('rWind'), rStrikes = document.getElementById('rStrikes');
+
+  window.addEventListener('pointermove', function (e) { px = Math.min(1, Math.max(0, e.clientX / Math.max(W, 1))); });
+  window.addEventListener('pointerdown', function (e) {
+    if (e.target.closest && e.target.closest('button, a, .panel, .tune')) return;
+    px = e.clientX / Math.max(W, 1);
+    strike(e.clientX, false);
+  });
+  window.addEventListener('resize', resize);
+
+  /* Rain tuning */
+  var spd = document.getElementById('spd'), den = document.getElementById('den');
+  var vSpd = document.getElementById('vSpd'), vDen = document.getElementById('vDen');
+  spd.addEventListener('input', function () {
+    speedMul = parseFloat(spd.value) || 1;
+    vSpd.textContent = speedMul.toFixed(1) + '×';
+  });
+  den.addEventListener('input', function () {
+    densMul = parseFloat(den.value) || 1;
+    vDen.textContent = densMul.toFixed(1) + '×';
+    fillDrops();
+  });
+
+  /* Sky selector */
+  var segBtns = document.querySelectorAll('.seg button');
+  segBtns.forEach(function (bt) {
+    bt.addEventListener('click', function () {
+      mode = bt.getAttribute('data-mode'); M = MODES[mode];
+      segBtns.forEach(function (o) { o.setAttribute('aria-pressed', o === bt ? 'true' : 'false'); });
+      fillDrops(); setRain();
+    });
+  });
+
+  /* Sound: generated rain and thunder, started only by the viewer */
+  var ac = null, buf = null, rainGain = null, master = null, soundOn = false;
+  var sndBtn = document.getElementById('snd');
+  function initAudio() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return false;
+    ac = new AC();
+    var len = 96000;
+    buf = ac.createBuffer(1, len, 48000);
+    var data = buf.getChannelData(0);
+    for (var i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+    master = ac.createGain(); master.gain.value = 0.9; master.connect(ac.destination);
+    var src = ac.createBufferSource(); src.buffer = buf; src.loop = true;
+    var bp = ac.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 3200; bp.Q.value = 0.35;
+    rainGain = ac.createGain(); rainGain.gain.value = 0;
+    src.connect(bp); bp.connect(rainGain); rainGain.connect(master); src.start();
+    return true;
+  }
+  function setRain() {
+    if (!ac || !rainGain) return;
+    rainGain.gain.setTargetAtTime(soundOn ? M.rain : 0, ac.currentTime, 0.4);
+  }
+  function thunder(dist) {
+    if (!soundOn || !ac) return;
+    try {
+      var t0 = ac.currentTime + 0.2 + dist * 1.4;
+      var src = ac.createBufferSource(); src.buffer = buf;
+      var lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 150;
+      var g = ac.createGain();
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.linearRampToValueAtTime(0.9 - dist * 0.4, t0 + 0.18);
+      g.gain.exponentialRampToValueAtTime(0.0005, t0 + 3);
+      src.connect(lp); lp.connect(g); g.connect(master);
+      src.start(t0); src.stop(t0 + 3.1);
+    } catch (e) {}
+  }
+  function audioFail(why) {
+    ac = null; rainGain = null; master = null; buf = null; soundOn = false;
+    sndBtn.setAttribute('aria-pressed', 'false');
+    sndBtn.textContent = 'No audio: ' + why;
+    try { console.warn('Soulstorm audio:', why); } catch (e2) {}
+  }
+  var sndStep = '';
+  sndBtn.addEventListener('click', function () {
+    try {
+      if (!ac) {
+        sndStep = 'create';
+        if (!initAudio()) { audioFail('not supported in this browser'); return; }
+      }
+      sndStep = 'resume';
+      var p = ac.resume ? ac.resume() : null;
+      soundOn = !soundOn;
+      sndBtn.setAttribute('aria-pressed', soundOn ? 'true' : 'false');
+      sndBtn.textContent = soundOn ? 'Sound on' : 'Sound off';
+      setRain();
+      if (p && p.then) {
+        p.then(function () {
+          if (soundOn && ac && ac.state !== 'running') audioFail('blocked by browser');
+        }, function () { audioFail('blocked by browser'); });
+      }
+    } catch (e) {
+      audioFail(sndStep + ' ' + ((e && e.name) ? e.name : 'error'));
+    }
+  });
+
+  /* Breathing: 4 in, 4 hold, 6 out */
+  var orb = document.getElementById('orb'), lbl = document.getElementById('lbl'), cnt = document.getElementById('cnt'), go = document.getElementById('go');
+  var PH = [{ n: 'Breathe in', s: 4, a: 0.58, b: 1 }, { n: 'Hold', s: 4, a: 1, b: 1 }, { n: 'Breathe out', s: 6, a: 1, b: 0.58 }];
+  var running = false, t0b = 0;
+  function bTick(now) {
+    if (!running) return;
+    var e = ((now - t0b) / 1000) % 14, acc = 0;
+    for (var i = 0; i < PH.length; i++) {
+      var p = PH[i];
+      if (e < acc + p.s) {
+        var kk = (e - acc) / p.s, ease = 0.5 - 0.5 * Math.cos(Math.PI * kk);
+        orb.style.setProperty('--s', (p.a + (p.b - p.a) * ease).toFixed(3));
+        lbl.textContent = p.n;
+        cnt.textContent = String(Math.ceil(p.s - (e - acc)));
+        break;
+      }
+      acc += p.s;
+    }
+    requestAnimationFrame(bTick);
+  }
+  go.addEventListener('click', function () {
+    running = !running;
+    if (running) {
+      t0b = performance.now(); go.textContent = 'Pause';
+      requestAnimationFrame(bTick);
+    } else {
+      go.textContent = 'Begin'; lbl.textContent = 'Paused'; cnt.textContent = '4 · 4 · 6';
+      orb.style.setProperty('--s', '0.78');
+    }
+  });
+
+  sprite = document.createElement('canvas'); sprite.width = sprite.height = 128;
+  (function () {
+    var sc2 = sprite.getContext('2d'), g2 = sc2.createRadialGradient(64, 64, 0, 64, 64, 64);
+    g2.addColorStop(0, 'rgba(175,200,255,0.9)'); g2.addColorStop(0.5, 'rgba(120,150,230,0.35)'); g2.addColorStop(1, 'rgba(90,120,210,0)');
+    sc2.fillStyle = g2; sc2.fillRect(0, 0, 128, 128);
+  })();
+  resize();
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
